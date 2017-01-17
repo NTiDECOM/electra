@@ -1,4 +1,4 @@
-package br.org.fepb.dij.models;
+package br.org.fepb.electra.models;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,7 +18,7 @@ import javax.validation.constraints.Past;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import br.org.fepb.dij.util.enums.TipoEmpresa;
+import br.org.fepb.electra.util.enums.TipoEmpresa;
 
 @Entity
 public class Empresa implements Serializable {

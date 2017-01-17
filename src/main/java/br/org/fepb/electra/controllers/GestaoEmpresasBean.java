@@ -1,4 +1,4 @@
-package br.org.fepb.dij.controllers;
+package br.org.fepb.electra.controllers;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -10,11 +10,11 @@ import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
 
-import br.org.fepb.dij.daos.EmpresaRepositorio;
-import br.org.fepb.dij.models.Empresa;
-import br.org.fepb.dij.services.CadastroEmpresaService;
-import br.org.fepb.dij.util.FacesMessages;
-import br.org.fepb.dij.util.enums.TipoEmpresa;
+import br.org.fepb.electra.daos.EmpresaRepositorio;
+import br.org.fepb.electra.models.Empresa;
+import br.org.fepb.electra.services.CadastroEmpresaService;
+import br.org.fepb.electra.util.FacesMessages;
+import br.org.fepb.electra.util.enums.TipoEmpresa;
 
 @Named
 @ViewScoped

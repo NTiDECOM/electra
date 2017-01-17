@@ -1,4 +1,4 @@
-package br.org.fepb.dij.util;
+package br.org.fepb.electra.util;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;

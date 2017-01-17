@@ -1,4 +1,4 @@
-package br.org.fepb.dij.util.enums;
+package br.org.fepb.electra.util.enums;
 
 public enum TipoEmpresa {
 

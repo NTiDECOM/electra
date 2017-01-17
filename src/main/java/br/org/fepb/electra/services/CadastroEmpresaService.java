@@ -1,12 +1,12 @@
-package br.org.fepb.dij.services;
+package br.org.fepb.electra.services;
 
 import java.io.Serializable;
 
 import javax.inject.Inject;
 
-import br.org.fepb.dij.daos.EmpresaRepositorio;
-import br.org.fepb.dij.models.Empresa;
-import br.org.fepb.dij.util.Transacional;
+import br.org.fepb.electra.daos.EmpresaRepositorio;
+import br.org.fepb.electra.models.Empresa;
+import br.org.fepb.electra.util.Transacional;
 
 public class CadastroEmpresaService implements Serializable {
 

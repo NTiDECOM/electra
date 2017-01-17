@@ -1,4 +1,4 @@
-package br.org.fepb.dij.daos;
+package br.org.fepb.electra.daos;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import br.org.fepb.dij.models.Empresa;
+import br.org.fepb.electra.models.Empresa;
 
 public class EmpresaRepositorio implements Serializable {
 

@@ -1,4 +1,4 @@
-package br.org.fepb.dij.util;
+package br.org.fepb.electra.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
