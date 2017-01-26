@@ -17,7 +17,7 @@ public class CadastroEmpresaService implements Serializable {
 	
 	@Transacional
 	public void salvar(Empresa empresa) {
-		empresas.guardar(empresa);
+		empresas.salvar(empresa);
 	}
 	
 	@Transacional

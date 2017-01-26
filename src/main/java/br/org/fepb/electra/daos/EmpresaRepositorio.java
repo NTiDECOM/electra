@@ -23,7 +23,7 @@ public class EmpresaRepositorio implements Serializable {
 		return manager.createQuery("from Empresa", Empresa.class).getResultList();
 	}
 	
-	public Empresa guardar(Empresa empresa) {
+	public Empresa salvar(Empresa empresa) {
 		return manager.merge(empresa);
 	}
 	
