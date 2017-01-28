@@ -37,7 +37,7 @@
             			<p:resetInput target="empresa-dialog" />
             			
             			<f:setPropertyActionListener value="#{evangelizandoBean.evangelizando}" 
-            				target="#{evangelizandoBean.empresaEdicao}" />
+            				target="#{evangelizandoBean.evangelizando}" />
             		</p:commandButton>
             		
             		<p:commandButton icon="ui-icon-trash" title="Excluir"
@@ -46,15 +46,21 @@
             			disabled="#{evangelizandoBean.evangelizando == null}">
             			
             			<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
-            				message="Tem certeza que deseja excluir a empresa?" />
+            				message="Tem certeza que deseja excluir o(a) evangelizando(a)?" />
             			
             		</p:commandButton>
             		
             		<p:commandButton icon="ui-icon-arrowthick-1-s" title="Exportar para XLS"
             				ajax="false" immediate="true">
-            			<p:dataExporter type="xls" target="empresas-table" fileName="empresas" />
+            			<p:dataExporter type="xls" target="empresas-table" fileName="Evangelizandos-Relatorio" />
             		</p:commandButton>
 				</f:facet>
+				
+				<f:facet name="right">
+		            <p:inputText style="margin-right:10px" placeholder="Procurar"/>
+		            <p:commandButton type="button" icon="ui-icon-extlink" />
+		        </f:facet>
+	        
 			</p:toolbar>
 	
 			<p:dataTable value="#{evangelizandoBean.evangelizandos}" var="empresa"
@@ -89,15 +95,15 @@
 				
 				<h:panelGrid columns="2" id="painel-dialog">
 					<p:outputLabel value="Nome" for="nome-fantasia" />
-					<p:inputText id="nome-fantasia" size="60" maxlength="80" 
+					<p:inputText id="nome-fantasia" size="60" maxlength="60" 
 						value="#{evangelizandoBean.evangelizando.nome}" />
 					
 					<p:outputLabel value="Apelido" for="razao-social" />
-					<p:inputText id="razao-social" size="60" maxlength="120"
+					<p:inputText id="razao-social" size="40" maxlength="40"
 						value="#{evangelizandoBean.evangelizando.comoSerChamado}" />
 					
 					<p:outputLabel value="Email" for="email" />
-					<p:inputText id="email" size="60" maxlength="120"
+					<p:inputText id="email" size="60" maxlength="60"
 						value="#{evangelizandoBean.evangelizando.email}" />
 					
 					<p:outputLabel value="CPF" for="cpf" />

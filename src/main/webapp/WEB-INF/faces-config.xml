@@ -5,7 +5,7 @@
 	version="2.2">
 
 	<application>
-		<message-bundle>com.fepb.Messages</message-bundle>
+		<message-bundle>br.org.fepb.Messages</message-bundle>
 
 		<locale-config>
 			<default-locale>pt_BR</default-locale>

@@ -72,7 +72,7 @@ public class EvangelizandoBean extends GenericBean implements Serializable {
 	public void excluir() {
 		evangelizandoService.excluir(evangelizando);
 		evangelizando = null;
-		messages.info("Empresa excluída com sucesso!");
+		messages.info("Evangelizando(a) excluído(a) com sucesso!");
 		listar();
 	}
 

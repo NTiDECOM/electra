@@ -14,22 +14,35 @@
 	<header>
 		<h:graphicImage library="fepb/images" name="fepb-dij-logo.png" />
 	</header>
+
+	<div id="menu">
+		<h:form>
+		<p:toolbar id="toolbar_menu">
+			<f:facet name="left">
+				<p:commandButton value="Evangelizandos" icon="ui-icon-document"
+					action="#{evangelizandoBean.iniciar}" />
+				
+				<span class="ui-separator">
+					<span class="ui-icon ui-icon-grip-dotted-vertical" />
+           		</span>
+			</f:facet>
+		</p:toolbar>
+		</h:form>
+	</div>
 	
 	<div id="conteudo">
+		<p:spacer height="10px"/>
 		<ui:insert name="corpo" />
 	</div>
 	
-	<footer>
-		Federação Espírita Paraibana - Todos os direitos reservados - 2017
+	<footer style="text-align: center">
+			Federação Espírita Paraibana - Todos os direitos reservados - 2017
 	</footer>
 	
 	<h:form>
 		<p:confirmDialog global="true">
-			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"
-				icon="ui-icon-close" />
-				
-			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
-				icon="ui-icon-check" />
+			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 		</p:confirmDialog>
 	</h:form>
 
