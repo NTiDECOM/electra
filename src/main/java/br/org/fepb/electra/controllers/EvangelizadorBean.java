@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
 
@@ -14,6 +16,8 @@ import br.org.fepb.electra.models.Evangelizador;
 import br.org.fepb.electra.services.EvangelizadorService;
 import br.org.fepb.electra.util.FacesMessages;
 
+@Named
+@ViewScoped
 public class EvangelizadorBean extends GenericBean implements Serializable {
 
 	private static final long serialVersionUID = -1745521686277227026L;
@@ -48,9 +52,17 @@ public class EvangelizadorBean extends GenericBean implements Serializable {
 		setState(ESTADO_DE_LISTAGEM);
 	}
 	
+	public void cancelar() {
+		limparVariaveis();
+	}
+	
 	private void limparVariaveis() {
-		this.evangelizador = new Evangelizador();
-		this.evangelizadores = new ArrayList<Evangelizador>();
+		setState(ESTADO_DE_LISTAGEM);
+		this.evangelizador = null;
+		if ( evangelizadores == null)
+			evangelizadores = new ArrayList<Evangelizador>();
+		else
+			evangelizadores.clear();
 	}
 	
 	public void prepararNovoCadastro() {

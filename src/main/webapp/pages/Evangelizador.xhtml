@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="corpo">
+		<f:metadata>
+			<f:viewAction action="#{evangelizadorBean.listar}" />
+		</f:metadata>
+	
+		<h:form id="frm">
+		
+			<t:saveState value="#{evangelizadorBean.state}"/>
+			<t:saveState value="#{evangelizadorBean.evangelizador}"/>
+			<t:saveState value="#{evangelizadorBean.evangelizadores}" />
+			
+			<p:messages id="msgs" />
+			
+			<!-- TELA DE LISTAGEM -->
+			<t:div id="blocoDePesquisa" rendered="#{evangelizadorBean.listando}">
+			
+				<h1>Evangelizadores</h1>
+				
+				<p:toolbar id="toolbar">
+					<f:facet name="left">
+						<p:commandButton value="Adicionar" icon="ui-icon-document"
+							action="#{evangelizadorBean.prepararNovoCadastro}" update="@form"/>
+						
+						<span class="ui-separator">
+							<span class="ui-icon ui-icon-grip-dotted-vertical" />
+	            		</span>
+	            		
+	            		<p:commandButton icon="ui-icon-pencil" title="Editar" disabled="#{evangelizadorBean.evangelizador == null}">
+	            			<f:setPropertyActionListener value="#{evangelizadorBean.evangelizador}" target="#{evangelizadorBean.evangelizador}" />
+	            		</p:commandButton>
+	            		
+	            		<p:commandButton icon="ui-icon-trash" title="Excluir"
+	            			process="@this" update="empresas-table msgs toolbar"
+	            			action="#{evangelizadorBean.excluir}"
+	            			disabled="#{evangelizadorBean.evangelizador == null}">
+	            			
+	            			<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+	            				message="Tem certeza que deseja excluir o(a) evangelizador(a)?" />
+	            			
+	            		</p:commandButton>
+	            		
+	            		<p:commandButton icon="ui-icon-arrowthick-1-s" title="Exportar para XLS"
+	            				ajax="false" immediate="true">
+	            			<p:dataExporter type="xls" target="empresas-table" fileName="Evangelizadores-Relatorio" />
+	            		</p:commandButton>
+					</f:facet>
+					
+					<f:facet name="right">
+			            <p:inputText style="margin-right:10px" placeholder="Procurar"/>
+			            <p:commandButton type="button" icon="ui-icon-extlink" />
+			        </f:facet>
+		        
+				</p:toolbar>
+		
+				<p:dataTable value="#{evangelizadorBean.evangelizadores}" var="evangelizador"
+						emptyMessage="Nenhum(a) evangelizador(a) cadastrado(a)." rows="10" 
+						paginator="true" paginatorPosition="bottom"
+						style="margin-top: 10px" id="empresas-table"
+						selection="#{evangelizadorBean.evangelizador}"
+						selectionMode="single" rowKey="#{evangelizador.id}">
+					
+					<p:ajax event="rowSelect" update=":frm:toolbar" />
+					<p:ajax event="rowUnselect" update=":frm:toolbar" />
+					
+					<p:column headerText="Nome" sortBy="#{evangelizador.nome}">
+						<h:outputText value="#{evangelizador.nome}" />
+					</p:column>
+					<p:column headerText="Data Nascimento" width="250">
+						<h:outputText value="#{evangelizador.dataNascimento}" />
+					</p:column>
+					<p:column headerText="CPF" width="120">
+						<h:outputText value="#{evangelizador.cpf}" />
+					</p:column>
+					<p:column headerText="Escolaridade" width="120">
+						<h:outputText value="#{evangelizador.escolaridade}" />
+					</p:column>
+					<p:column headerText="telefone" width="120">
+						<h:outputText value="#{evangelizador.telefone1}" />
+					</p:column>
+				</p:dataTable>
+				
+			</t:div>
+			
+			<!-- TELA DE FORMULARIO DE CADASTRO -->
+			<t:div id="blocoDeEdicao" rendered="#{not evangelizadorBean.listando}">
+				
+				<h1>Cadastro de Evangelizadores</h1>
+				
+				<p:defaultCommand target="salvar-button" scope="painel-dialog" />
+				
+				<h:panelGrid columns="2" id="painel-dialog">
+					<p:outputLabel value="Nome" for="nome-fantasia" />
+					<p:inputText id="nome-fantasia" size="60" maxlength="60" 
+						value="#{evangelizadorBean.evangelizador.nome}" />
+					
+					<p:outputLabel value="Apelido" for="razao-social" />
+					<p:inputText id="razao-social" size="40" maxlength="40"
+						value="#{evangelizadorBean.evangelizador.comoSerChamado}" />
+					
+					<p:outputLabel value="Email" for="email" />
+					<p:inputText id="email" size="60" maxlength="60"
+						value="#{evangelizadorBean.evangelizador.email}" />
+					
+					<p:outputLabel value="CPF" for="cpf" />
+					<p:inputMask id="cpf" size="14" maxlength="14"
+						value="#{evangelizadorBean.evangelizador.cpf}"
+						mask="999.999.999-99" />
+					
+					<p:outputLabel value="Telefone" for="telefone" />
+					<p:inputMask id="telefone" size="14" maxlength="14"
+						value="#{evangelizadorBean.evangelizador.telefone1}"
+						mask="(99)99999-9999" />
+					
+					<p:outputLabel value="Data de Nascimento" for="data-fundacao" />
+					<p:calendar id="data-fundacao" size="10"
+						value="#{evangelizadorBean.evangelizador.dataNascimento}" 
+						pattern="dd/MM/yyyy" mask="99/99/9999" />
+					
+				</h:panelGrid>
+				
+				<p:spacer height="10"/>
+				<p:toolbar id="toolbar-cadastro">
+					<f:facet name="left">
+						<p:commandButton value="Cancelar" icon="ui-icon-cancel" id="cancelar-button"
+							action="#{evangelizadorBean.cancelar}" update="@form" />
+						<p:commandButton value="Salvar" icon="ui-icon-disk" id="salvar-button"
+							action="#{evangelizadorBean.salvar}" update="@form"/>
+					</f:facet>
+				</p:toolbar>
+				
+			</t:div>
+		
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
