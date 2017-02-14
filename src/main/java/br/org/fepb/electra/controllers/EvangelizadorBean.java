@@ -43,13 +43,8 @@ public class EvangelizadorBean extends GenericBean implements Serializable {
 	}
 	
 	public void listar() {
-		if ( evangelizadores == null)
-			evangelizadores = new ArrayList<Evangelizador>();
-		else
-			evangelizadores.clear();
-		
+		limparVariaveis();
 		evangelizadores = evangelizadorRepositorio.listarTodos();
-		setState(ESTADO_DE_LISTAGEM);
 	}
 	
 	public void cancelar() {
@@ -74,7 +69,11 @@ public class EvangelizadorBean extends GenericBean implements Serializable {
 		evangelizadorService.salvar(evangelizador);
 		messages.info("Evangelizador salvo com sucesso!");
 		listar();
-		RequestContext.getCurrentInstance().update(Arrays.asList("frm:msgs", "frm:empresas-table"));
+		RequestContext.getCurrentInstance().update(Arrays.asList("frm:msgs", "frm:evangelizadores-table"));
+	}
+	
+	public void prepararEdicao() {
+		setState(ESTADO_DE_EDICAO);
 	}
 	
 	public void excluir() {
