@@ -1,7 +1,15 @@
 package br.org.fepb.electra.controllers;
 
+import java.io.Serializable;
 
-public class GenericBean {
+/**
+ * Classe responsável por representar o estado da página.
+ * 
+ * @author Sávio Canuto.
+ */
+public class GenericBean implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	static final String ESTADO_DE_LISTAGEM 		= "_listagem";
 	static final String ESTADO_DE_NOVO 			= "_novo";

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="corpo">
+		<f:metadata>
+			<f:viewAction action="#{instituicaoEspiritaBean.listar}" />
+		</f:metadata>
+	
+		<h:form id="frm">
+		
+			<t:saveState value="#{instituicaoEspiritaBean.state}"/>
+			<t:saveState value="#{instituicaoEspiritaBean.instituicao}"/>
+			<t:saveState value="#{instituicaoEspiritaBean.instituicaoes}" />
+			
+			<p:messages id="msgs" />
+			
+			<!-- TELA DE LISTAGEM -->
+			<t:div id="blocoDePesquisa" rendered="#{instituicaoEspiritaBean.listando}">
+			
+				<h1>Evangelizadores</h1>
+				
+				<p:toolbar id="toolbar">
+					<f:facet name="left">
+						<p:commandButton value="Adicionar" icon="ui-icon-document"
+							action="#{instituicaoEspiritaBean.prepararNovoCadastro}" update=":frm">
+							<p:resetInput target="painel-formulario" />
+						</p:commandButton>
+						
+						<span class="ui-separator">
+							<span class="ui-icon ui-icon-grip-dotted-vertical" />
+	            		</span>
+	            		
+	            		<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{instituicaoEspiritaBean.prepararEdicao}" 
+	            			disabled="#{instituicaoEspiritaBean.instituicao == null}" update=":frm">
+	            			<f:setPropertyActionListener value="#{instituicaoEspiritaBean.instituicao}" target="#{instituicaoEspiritaBean.instituicao}" />
+	            		</p:commandButton>
+	            		
+	            		<p:commandButton icon="ui-icon-trash" title="Excluir"
+	            			process="@this" update="instituicoes-table msgs toolbar"
+	            			action="#{instituicaoEspiritaBean.excluir}"
+	            			disabled="#{instituicaoEspiritaBean.instituicao == null}">
+	            			
+	            			<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+	            				message="Tem certeza que deseja excluir a instituição?" />
+	            			
+	            		</p:commandButton>
+	            		
+	            		<p:commandButton icon="ui-icon-arrowthick-1-s" title="Exportar para XLS"
+	            				ajax="false" immediate="true">
+	            			<p:dataExporter type="xls" target="instituicoes-table" fileName="Instituicoes-Relatorio" />
+	            		</p:commandButton>
+					</f:facet>
+					
+					<f:facet name="right">
+			            <p:inputText style="margin-right:10px" placeholder="Procurar"/>
+			            <p:commandButton type="button" icon="ui-icon-extlink" />
+			        </f:facet>
+		        
+				</p:toolbar>
+		
+				<p:dataTable value="#{instituicaoEspiritaBean.instituicoes}" var="instituicao"
+						emptyMessage="Nenhuma instituição cadastrada." rows="10" 
+						paginator="true" paginatorPosition="bottom"
+						style="margin-top: 10px" id="instituicoes-table"
+						selection="#{instituicaoEspiritaBean.instituicao}"
+						selectionMode="single" rowKey="#{instituicao.id}">
+					
+					<p:ajax event="rowSelect" update=":frm:toolbar" />
+					<p:ajax event="rowUnselect" update=":frm:toolbar" />
+					
+					<p:column headerText="Nome" sortBy="#{instituicao.nome}">
+						<h:outputText value="#{instituicao.nome}" />
+					</p:column>
+					<p:column headerText="Data Nascimento" width="250">
+						<h:outputText value="#{instituicao.presidente}" />
+					</p:column>
+					<p:column headerText="CPF" width="120">
+						<h:outputText value="#{instituicao.evangeliza}" />
+					</p:column>
+					<p:column headerText="Escolaridade" width="120">
+						<h:outputText value="#{instituicao.tipo}" />
+					</p:column>
+					<p:column headerText="telefone" width="120">
+						<h:outputText value="#{instituicao.telefone}" />
+					</p:column>
+				</p:dataTable>
+				
+			</t:div>
+			
+			<!-- TELA DE FORMULARIO DE CADASTRO -->
+			<t:div id="blocoDeEdicao" rendered="#{not instituicaoEspiritaBean.listando}">
+				
+				<h1>Cadastro de Instituições Espíritas</h1>
+				
+				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
+				
+				<h:panelGrid columns="2" id="painel-formulario">
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome" size="60" maxlength="60" 
+						value="#{instituicaoEspiritaBean.instituicao.nome}" />
+					
+					<p:outputLabel value="Presidente" for="presidente" />
+					<p:inputText id="presidente" size="60" maxlength="60"
+						value="#{instituicaoEspiritaBean.instituicao.presidente}" />
+					
+					<p:outputLabel value="Evangeliza" for="evangeliza" />
+					<p:inputText id="evangeliza" size="60" maxlength="60" 
+						value="#{instituicaoEspiritaBean.instituicao.evangeliza}" />
+					
+					<p:outputLabel value="Tipo" for="tipo" />
+					<p:inputText id="tipo" size="60" maxlength="60"
+						value="#{instituicaoEspiritaBean.instituicao.tipo}" />
+					
+					<p:outputLabel value="Telefone" for="telefone" />
+					<p:inputMask id="telefone" size="14" maxlength="14"
+						value="#{instituicaoEspiritaBean.instituicao.telefone}"
+						mask="(99)99999-9999" />
+					
+				</h:panelGrid>
+				
+				<p:spacer height="10"/>
+				<p:toolbar id="toolbar-cadastro">
+					<f:facet name="left">
+						<p:commandButton value="Cancelar" icon="ui-icon-cancel" id="cancelar-button"
+							action="#{instituicaoEspiritaBean.cancelar}" update=":frm" process="@this"/>
+						<p:commandButton value="Salvar" icon="ui-icon-disk" id="salvar-button"
+							action="#{instituicaoEspiritaBean.salvar}" update=":frm"/>
+					</f:facet>
+				</p:toolbar>
+				
+			</t:div>
+		
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

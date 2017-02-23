@@ -12,6 +12,9 @@ public class GenericModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	public static final String SIM = "S";
+	public static final String NAO = "N";
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

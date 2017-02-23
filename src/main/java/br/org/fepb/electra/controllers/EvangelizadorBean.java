@@ -1,6 +1,5 @@
 package br.org.fepb.electra.controllers;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +17,7 @@ import br.org.fepb.electra.util.FacesMessages;
 
 @Named
 @ViewScoped
-public class EvangelizadorBean extends GenericBean implements Serializable {
+public class EvangelizadorBean extends GenericBean {
 
 	private static final long serialVersionUID = -1745521686277227026L;
 
