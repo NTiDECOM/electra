@@ -2,10 +2,20 @@ package br.org.fepb.electra.models;
 
 import javax.persistence.Entity;
 
+import br.org.fepb.electra.util.FormatadorBean;
+import br.org.fepb.electra.util.StringUtil;
+
 @Entity
 public class InstituicaoEspirita extends GenericModel {
 
 	private static final long serialVersionUID = 8405387162636809655L;
+	
+	public static final String EVANGELIZA_SIM = "S";
+	public static final String EVANGELIZA_NAO = "N";
+	public static final String TIPO_CASA = "C";
+	public static final String TIPO_FEDERATIVA = "F";
+	public static final String CASA_ESPIRITA = "Casa Espírita";
+	public static final String FEDERATIVA = "Federativa";
 	
 	private String nome;
 	
@@ -27,7 +37,7 @@ public class InstituicaoEspirita extends GenericModel {
 	}
 
 	public String getEvangeliza() {
-		return evangeliza;
+		return FormatadorBean.formatarEvangeliza(evangeliza);
 	}
 
 	public void setEvangeliza(String evangeliza) {
@@ -43,7 +53,7 @@ public class InstituicaoEspirita extends GenericModel {
 	}
 
 	public String getTipo() {
-		return tipo;
+		return FormatadorBean.formatarTipoInstituicao(tipo);
 	}
 
 	public void setTipo(String tipo) {
@@ -51,11 +61,11 @@ public class InstituicaoEspirita extends GenericModel {
 	}
 
 	public String getTelefone() {
-		return telefone;
+		return FormatadorBean.formatarTelefone(telefone);
 	}
 
 	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+		this.telefone = StringUtil.retiraMascaraTelefone(telefone);
 	}
 	
 }

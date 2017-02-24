@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<ui:composition template="/WEB-INF/templates/Layout.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/WEB-INF/templates/Layout.xhtml"
 	xmlns:p="http://primefaces.org/ui">
 	
 	<ui:define name="corpo">
@@ -14,16 +14,16 @@
 	
 		<h:form id="frm">
 		
-			<t:saveState value="#{instituicaoEspiritaBean.state}"/>
-			<t:saveState value="#{instituicaoEspiritaBean.instituicao}"/>
-			<t:saveState value="#{instituicaoEspiritaBean.instituicaoes}" />
+			<t:saveState value="#{instituicaoEspiritaBean.state}" />
+			<t:saveState value="#{instituicaoEspiritaBean.instituicao}" />
+			<t:saveState value="#{instituicaoEspiritaBean.instituicoes}" />
 			
 			<p:messages id="msgs" />
 			
 			<!-- TELA DE LISTAGEM -->
 			<t:div id="blocoDePesquisa" rendered="#{instituicaoEspiritaBean.listando}">
 			
-				<h1>Evangelizadores</h1>
+				<h1>Instituições Espíritas</h1>
 				
 				<p:toolbar id="toolbar">
 					<f:facet name="left">
@@ -64,30 +64,30 @@
 		        
 				</p:toolbar>
 		
-				<p:dataTable value="#{instituicaoEspiritaBean.instituicoes}" var="instituicao"
+				<p:dataTable value="#{instituicaoEspiritaBean.instituicoes}" var="row"
 						emptyMessage="Nenhuma instituição cadastrada." rows="10" 
 						paginator="true" paginatorPosition="bottom"
 						style="margin-top: 10px" id="instituicoes-table"
 						selection="#{instituicaoEspiritaBean.instituicao}"
-						selectionMode="single" rowKey="#{instituicao.id}">
+						selectionMode="single" rowKey="#{row.id}">
 					
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
-					<p:column headerText="Nome" sortBy="#{instituicao.nome}">
-						<h:outputText value="#{instituicao.nome}" />
+					<p:column headerText="Nome" sortBy="#{row.nome}">
+						<h:outputText value="#{row.nome}" />
 					</p:column>
-					<p:column headerText="Data Nascimento" width="250">
-						<h:outputText value="#{instituicao.presidente}" />
+					<p:column headerText="Presidente" width="250">
+						<h:outputText value="#{row.presidente}" />
 					</p:column>
-					<p:column headerText="CPF" width="120">
-						<h:outputText value="#{instituicao.evangeliza}" />
+					<p:column headerText="Evangeliza" width="120" style="text-align:center;">
+						<h:outputText value="#{row.evangeliza}" />
 					</p:column>
-					<p:column headerText="Escolaridade" width="120">
-						<h:outputText value="#{instituicao.tipo}" />
+					<p:column headerText="Tipo de Instituição" width="120" style="text-align:center;">
+						<h:outputText value="#{row.tipo}" />
 					</p:column>
-					<p:column headerText="telefone" width="120">
-						<h:outputText value="#{instituicao.telefone}" />
+					<p:column headerText="Telefone" width="120" style="text-align:center;">
+						<h:outputText value="#{row.telefone}" />
 					</p:column>
 				</p:dataTable>
 				
@@ -110,12 +110,16 @@
 						value="#{instituicaoEspiritaBean.instituicao.presidente}" />
 					
 					<p:outputLabel value="Evangeliza" for="evangeliza" />
-					<p:inputText id="evangeliza" size="60" maxlength="60" 
-						value="#{instituicaoEspiritaBean.instituicao.evangeliza}" />
+					<p:selectOneRadio id="evangeliza" value="#{instituicaoEspiritaBean.instituicao.evangeliza}">
+			            <f:selectItem itemLabel="Sim" itemValue="S" />
+			            <f:selectItem itemLabel="Não" itemValue="N" />
+			        </p:selectOneRadio>
 					
 					<p:outputLabel value="Tipo" for="tipo" />
-					<p:inputText id="tipo" size="60" maxlength="60"
-						value="#{instituicaoEspiritaBean.instituicao.tipo}" />
+					<p:selectOneRadio id="tipo" value="#{instituicaoEspiritaBean.instituicao.tipo}">
+			            <f:selectItem itemLabel="Casa Espírita" itemValue="C" />
+			            <f:selectItem itemLabel="Federativa" itemValue="F" />
+			        </p:selectOneRadio>
 					
 					<p:outputLabel value="Telefone" for="telefone" />
 					<p:inputMask id="telefone" size="14" maxlength="14"
@@ -127,10 +131,8 @@
 				<p:spacer height="10"/>
 				<p:toolbar id="toolbar-cadastro">
 					<f:facet name="left">
-						<p:commandButton value="Cancelar" icon="ui-icon-cancel" id="cancelar-button"
-							action="#{instituicaoEspiritaBean.cancelar}" update=":frm" process="@this"/>
-						<p:commandButton value="Salvar" icon="ui-icon-disk" id="salvar-button"
-							action="#{instituicaoEspiritaBean.salvar}" update=":frm"/>
+						<p:commandButton value="Cancelar" icon="ui-icon-cancel" id="cancelar-button" action="#{instituicaoEspiritaBean.cancelar}" update=":frm" process="@this"/>
+						<p:commandButton value="Salvar" icon="ui-icon-disk" id="salvar-button" action="#{instituicaoEspiritaBean.salvar}" update=":frm"/>
 					</f:facet>
 				</p:toolbar>
 				

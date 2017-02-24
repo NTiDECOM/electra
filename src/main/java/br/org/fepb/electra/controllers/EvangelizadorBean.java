@@ -68,7 +68,7 @@ public class EvangelizadorBean extends GenericBean {
 		evangelizadorService.salvar(evangelizador);
 		messages.info("Evangelizador salvo com sucesso!");
 		listar();
-		RequestContext.getCurrentInstance().update(Arrays.asList("frm:msgs", "frm:evangelizadores-table"));
+		atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm:evangelizadores-table"));
 	}
 	
 	public void prepararEdicao() {

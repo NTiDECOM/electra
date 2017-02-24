@@ -1,6 +1,9 @@
 package br.org.fepb.electra.controllers;
 
 import java.io.Serializable;
+import java.util.List;
+
+import org.primefaces.context.RequestContext;
 
 /**
  * Classe responsável por representar o estado da página.
@@ -10,7 +13,7 @@ import java.io.Serializable;
 public class GenericBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
+//	
 	static final String ESTADO_DE_LISTAGEM 		= "_listagem";
 	static final String ESTADO_DE_NOVO 			= "_novo";
 	static final String ESTADO_DE_EDICAO 		= "_edicao";
@@ -45,6 +48,10 @@ public class GenericBean implements Serializable {
 	 */
 	public boolean isVisualizando() {
 		return ESTADO_DE_VISUALIZACAO.equals(state);
+	}
+	
+	public void atualizarCamposDaTela(List<String> campos) {
+		RequestContext.getCurrentInstance().update(campos);
 	}
 
 }

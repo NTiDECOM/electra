@@ -8,13 +8,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.context.RequestContext;
-
 import br.org.fepb.electra.models.InstituicaoEspirita;
 import br.org.fepb.electra.services.InstituicaoEspiritaService;
 import br.org.fepb.electra.util.FacesMessages;
 
-@Named
+@Named("instituicaoEspiritaBean")
 @ViewScoped
 public class InstituicaoEspiritaBean extends GenericBean {
 
@@ -33,7 +31,6 @@ public class InstituicaoEspiritaBean extends GenericBean {
 
 	/** Método para iniciar a tela de cadastro de instituição */
 	public String iniciar() {
-		this.limparVariaveis();
 		return "/pages/InstituicaoEspirita";
 	}
 	
@@ -48,7 +45,7 @@ public class InstituicaoEspiritaBean extends GenericBean {
 			instituicoes = new ArrayList<InstituicaoEspirita>();
 		else
 			instituicoes.clear();
-		instituicao = new InstituicaoEspirita();
+		instituicao = null;
 	}
 	
 	public void prepararNovoCadastro() {
@@ -56,11 +53,15 @@ public class InstituicaoEspiritaBean extends GenericBean {
 		setState(ESTADO_DE_NOVO);
 	}
 	
+	public void prepararEdicao() {
+		setState(ESTADO_DE_EDICAO);
+	}
+	
 	public void salvar() {
 		instituicaoService.salvar(instituicao);
 		messages.info("Instituição salva com sucesso!");
 		listar();
-		RequestContext.getCurrentInstance().update(Arrays.asList("frm:msgs", "frm:empresas-table"));
+		atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm:instituicoes-table"));
 	}
 	
 	public void excluir() {
@@ -69,4 +70,27 @@ public class InstituicaoEspiritaBean extends GenericBean {
 		messages.info("Instituição excluída com sucesso!");
 		listar();
 	}
+
+	public void cancelar() {
+		listar();
+	}
+	
+	
+	// **** GETs e SETs ****//
+	public List<InstituicaoEspirita> getInstituicoes() {
+		return instituicoes;
+	}
+	
+	public void setInstituicoes(List<InstituicaoEspirita> instituicoes) {
+		this.instituicoes = instituicoes;
+	}
+	
+	public InstituicaoEspirita getInstituicao() {
+		return instituicao;
+	}
+	
+	public void setInstituicao(InstituicaoEspirita instituicao) {
+		this.instituicao = instituicao;
+	}
+	
 }
