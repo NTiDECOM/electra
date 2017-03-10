@@ -81,7 +81,7 @@
 						<h:outputText value="#{row.presidente}" />
 					</p:column>
 					<p:column headerText="Evangeliza" width="120" style="text-align:center;">
-						<h:outputText value="#{row.evangeliza}" />
+						<h:outputText value="#{row.evangeliza ? 'Sim' : 'Não'}" />
 					</p:column>
 					<p:column headerText="Tipo de Instituição" width="120" style="text-align:center;">
 						<h:outputText value="#{row.tipo}" />
@@ -101,27 +101,23 @@
 				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
 				
 				<h:panelGrid columns="2" id="painel-formulario">
-					<p:outputLabel value="Nome" for="nome" />
+					<p:outputLabel value="Nome:" for="nome" />
 					<p:inputText id="nome" size="60" maxlength="60" 
 						value="#{instituicaoEspiritaBean.instituicao.nome}" />
 					
-					<p:outputLabel value="Presidente" for="presidente" />
-					<p:inputText id="presidente" size="60" maxlength="60"
-						value="#{instituicaoEspiritaBean.instituicao.presidente}" />
+					<p:outputLabel value="Presidente:" for="presidente" />
+					<p:inputText id="presidente" size="60" maxlength="60" value="#{instituicaoEspiritaBean.instituicao.presidente}" />
 					
-					<p:outputLabel value="Evangeliza" for="evangeliza" />
-					<p:selectOneRadio id="evangeliza" value="#{instituicaoEspiritaBean.instituicao.evangeliza}">
-			            <f:selectItem itemLabel="Sim" itemValue="S" />
-			            <f:selectItem itemLabel="Não" itemValue="N" />
-			        </p:selectOneRadio>
+					<p:outputLabel value="Evangeliza:" for="evangeliza" />
+					<p:selectBooleanButton id="evangeliza" value="#{instituicaoEspiritaBean.instituicao.evangeliza}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
 					
-					<p:outputLabel value="Tipo" for="tipo" />
-					<p:selectOneRadio id="tipo" value="#{instituicaoEspiritaBean.instituicao.tipo}">
+					<p:outputLabel value="Tipo:" for="tipo" />
+					<p:selectOneRadio id="tipo" value="#{instituicaoEspiritaBean.campoTipo}">
 			            <f:selectItem itemLabel="Casa Espírita" itemValue="C" />
 			            <f:selectItem itemLabel="Federativa" itemValue="F" />
 			        </p:selectOneRadio>
 					
-					<p:outputLabel value="Telefone" for="telefone" />
+					<p:outputLabel value="Telefone:" for="telefone" />
 					<p:inputMask id="telefone" size="14" maxlength="14"
 						value="#{instituicaoEspiritaBean.instituicao.telefone}"
 						mask="(99)99999-9999" />

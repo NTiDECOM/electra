@@ -28,9 +28,12 @@ public class InstituicaoEspiritaBean extends GenericBean {
 	
 	private InstituicaoEspirita instituicao;
 	
+	private String campoTipo;
+	
 
 	/** Método para iniciar a tela de cadastro de instituição */
 	public String iniciar() {
+		listar();
 		return "/pages/InstituicaoEspirita";
 	}
 	
@@ -46,6 +49,7 @@ public class InstituicaoEspiritaBean extends GenericBean {
 		else
 			instituicoes.clear();
 		instituicao = null;
+		campoTipo = null;
 	}
 	
 	public void prepararNovoCadastro() {
@@ -54,10 +58,12 @@ public class InstituicaoEspiritaBean extends GenericBean {
 	}
 	
 	public void prepararEdicao() {
+		campoTipo = instituicao.getTipo();
 		setState(ESTADO_DE_EDICAO);
 	}
 	
 	public void salvar() {
+		instituicao.setTipo(campoTipo);
 		instituicaoService.salvar(instituicao);
 		messages.info("Instituição salva com sucesso!");
 		listar();
@@ -66,7 +72,6 @@ public class InstituicaoEspiritaBean extends GenericBean {
 	
 	public void excluir() {
 		instituicaoService.excluir(instituicao);
-		instituicao = null;
 		messages.info("Instituição excluída com sucesso!");
 		listar();
 	}
@@ -92,5 +97,13 @@ public class InstituicaoEspiritaBean extends GenericBean {
 	public void setInstituicao(InstituicaoEspirita instituicao) {
 		this.instituicao = instituicao;
 	}
-	
+
+	public String getCampoTipo() {
+		return campoTipo;
+	}
+
+	public void setCampoTipo(String campoTipo) {
+		this.campoTipo = campoTipo;
+	}
+
 }

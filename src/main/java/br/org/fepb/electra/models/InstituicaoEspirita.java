@@ -19,7 +19,7 @@ public class InstituicaoEspirita extends GenericModel {
 	
 	private String nome;
 	
-	private String evangeliza;
+	private boolean evangeliza;
 
 	private String presidente;
 	
@@ -36,16 +36,16 @@ public class InstituicaoEspirita extends GenericModel {
 		this.nome = nome;
 	}
 
-	public String getEvangeliza() {
-		return FormatadorBean.formatarEvangeliza(evangeliza);
-	}
-
-	public void setEvangeliza(String evangeliza) {
-		this.evangeliza = evangeliza;
-	}
-
 	public String getPresidente() {
 		return presidente;
+	}
+
+	public boolean isEvangeliza() {
+		return evangeliza;
+	}
+
+	public void setEvangeliza(boolean evangeliza) {
+		this.evangeliza = evangeliza;
 	}
 
 	public void setPresidente(String presidente) {
