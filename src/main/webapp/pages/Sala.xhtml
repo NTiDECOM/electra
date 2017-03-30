@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/WEB-INF/templates/Layout.xhtml"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="corpo">
+		<f:metadata>
+			<f:viewAction action="#{salaBean.listar}" />
+		</f:metadata>
+	
+		<h:form id="frm">
+		
+			<t:saveState value="#{salaBean.state}" />
+			<t:saveState value="#{salaBean.sala}" />
+			<t:saveState value="#{salaBean.salas}" />
+			
+			<p:messages id="msgs" />
+			
+			<!-- TELA DE LISTAGEM -->
+			<t:div id="blocoDePesquisa" rendered="#{salaBean.listando}">
+			
+				<h1>Salas de Aula</h1>
+				
+				<p:toolbar id="toolbar">
+					<f:facet name="left">
+						<p:commandButton value="Adicionar" icon="ui-icon-document"
+							action="#{salaBean.prepararNovoCadastro}" update=":frm">
+							<p:resetInput target="painel-formulario" />
+						</p:commandButton>
+						
+						<span class="ui-separator">
+							<span class="ui-icon ui-icon-grip-dotted-vertical" />
+	            		</span>
+	            		
+	            		<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{salaBean.prepararEdicao}" 
+	            			disabled="#{salaBean.sala == null}" update=":frm">
+	            			<f:setPropertyActionListener value="#{salaBean.sala}" target="#{salaBean.sala}" />
+	            		</p:commandButton>
+	            		
+	            		<p:commandButton icon="ui-icon-trash" title="Excluir"
+	            			process="@this" update="salas-table msgs toolbar"
+	            			action="#{salaBean.excluir}"
+	            			disabled="#{salaBean.sala == null}">
+	            			
+	            			<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
+	            				message="Tem certeza que deseja excluir a instituição?" />
+	            			
+	            		</p:commandButton>
+	            		
+	            		<p:commandButton icon="ui-icon-arrowthick-1-s" title="Exportar para XLS"
+	            				ajax="false" immediate="true">
+	            			<p:dataExporter type="xls" target="salas-table" fileName="Salas-Relatorio" />
+	            		</p:commandButton>
+					</f:facet>
+					
+					<f:facet name="right">
+			            <p:inputText style="margin-right:10px" placeholder="Procurar"/>
+			            <p:commandButton type="button" icon="ui-icon-extlink" />
+			        </f:facet>
+		        
+				</p:toolbar>
+		
+				<p:dataTable value="#{salaBean.salas}" var="row"
+						emptyMessage="Nenhum registro encontrado." rows="10" 
+						paginator="true" paginatorPosition="bottom"
+						style="margin-top: 10px" id="salas-table"
+						selection="#{salaBean.sala}"
+						selectionMode="single" rowKey="#{row.id}">
+					
+					<p:ajax event="rowSelect" update=":frm:toolbar" />
+					<p:ajax event="rowUnselect" update=":frm:toolbar" />
+					
+					<p:column headerText="#" width="30" style="text-align:center;">
+				        #{rowIndex + 1}
+				    </p:column>
+					<p:column headerText="Descrição" sortBy="#{row.descricao}">
+						<h:outputText value="#{row.descricao}" />
+					</p:column>
+					<p:column headerText="Faixa Etária" width="250">
+						<h:outputText value="#{salaBean.formatarFaixaEtaria(row)}" />
+					</p:column>
+					<p:column headerText="Horário" width="120" style="text-align:center;">
+						<h:outputText value="#{salaBean.formatarHorario(row)}" />
+					</p:column>
+				</p:dataTable>
+				
+			</t:div>
+			
+			<!-- TELA DE FORMULARIO DE CADASTRO -->
+			<t:div id="blocoDeEdicao" rendered="#{not salaBean.listando}">
+				
+				<h1>Cadastro de Salas</h1>
+				
+				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
+				
+				<h:panelGrid columns="2" id="painel-formulario">
+					<p:outputLabel value="Descrição:" for="descricao" />
+					<p:inputText id="descricao" size="60" maxlength="60" 
+						value="#{salaBean.sala.descricao}" />
+					
+					<p:outputLabel value="Faixa Etária:" for="faixa-inicial" />
+					<p:panelGrid columns="3">
+						<p:inputText id="faixa-inicial" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaInicial}" />
+						<p:outputLabel value=" a " />
+						<p:inputText id="faixa-final" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaFinal}" />
+					</p:panelGrid>
+
+					<p:outputLabel value="Instituição:" for="instituicao" />
+			        <p:selectOneMenu id="instituicao" value="#{salaBean.instituicao}">
+			            <f:selectItem itemLabel="--Selecione um item--" itemValue="" />
+			            <f:selectItems value="#{salaBean.instituicoes}" />
+			        </p:selectOneMenu>
+					
+					<p:outputLabel for="time-inicio" value="Hora de Início:" />
+        			<p:calendar id="time-inicio" value="#{salaBean.sala.horaInicio}" pattern="HH:mm" timeOnly="true"  />
+					
+					<p:outputLabel for="time-termino" value="Hora de Término:" />
+        			<p:calendar id="time-termino" value="#{salaBean.sala.horaTermino}" pattern="HH:mm" timeOnly="true"  />
+    
+				</h:panelGrid>
+				
+				<p:spacer height="10"/>
+				<p:toolbar id="toolbar-cadastro">
+					<f:facet name="left">
+						<p:commandButton value="Cancelar" icon="ui-icon-cancel" id="cancelar-button" action="#{salaBean.cancelar}" update=":frm" process="@this"/>
+						<p:commandButton value="Salvar" icon="ui-icon-disk" id="salvar-button" action="#{salaBean.salvar}" update=":frm"/>
+					</f:facet>
+				</p:toolbar>
+				
+			</t:div>
+		
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
