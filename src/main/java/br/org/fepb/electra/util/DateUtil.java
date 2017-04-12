@@ -375,5 +375,16 @@ public class DateUtil {
 
 		return age;
 	}
+	
+	public static String formatarHora(Date data) {
+		String retorno = "-";
+		
+		if (data != null) {
+			SimpleDateFormat dt = new SimpleDateFormat("HH:mm");  
+			retorno = dt.format(data);
+		}
+	
+		return retorno;
+	}
 
 }

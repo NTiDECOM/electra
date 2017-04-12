@@ -81,10 +81,10 @@
 						<h:outputText value="#{row.descricao}" />
 					</p:column>
 					<p:column headerText="Faixa Etária" width="250">
-						<h:outputText value="#{salaBean.formatarFaixaEtaria(row)}" />
+						<h:outputText value="#{row.faixasEtarias}" />
 					</p:column>
 					<p:column headerText="Horário" width="120" style="text-align:center;">
-						<h:outputText value="#{salaBean.formatarHorario(row)}" />
+						<h:outputText value="#{row.horasFormatadas}" />
 					</p:column>
 				</p:dataTable>
 				
@@ -110,9 +110,9 @@
 					</p:panelGrid>
 
 					<p:outputLabel value="Instituição:" for="instituicao" />
-			        <p:selectOneMenu id="instituicao" value="#{salaBean.instituicao}">
+			        <p:selectOneMenu id="instituicao" value="#{salaBean.idInstituicao}">
 			            <f:selectItem itemLabel="--Selecione um item--" itemValue="" />
-			            <f:selectItems value="#{salaBean.instituicoes}" />
+			            <f:selectItems value="#{salaBean.instituicoes}" var="i" itemLabel="#{i.nome}" itemValue="#{i}" />
 			        </p:selectOneMenu>
 					
 					<p:outputLabel for="time-inicio" value="Hora de Início:" />

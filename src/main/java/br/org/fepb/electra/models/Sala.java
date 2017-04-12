@@ -1,8 +1,10 @@
 package br.org.fepb.electra.models;
 
-import java.time.LocalTime;
+import java.util.Date;
 
 import javax.persistence.Entity;
+
+import br.org.fepb.electra.util.DateUtil;
 
 @Entity
 public class Sala extends GenericModel {
@@ -15,11 +17,11 @@ public class Sala extends GenericModel {
 	
 	private Integer faixaEtariaFinal;
 	
-	private InstituicaoEspirita instituicao;
+	private Long idInstituicao;
 	
-	private LocalTime horaInicio;
+	private Date horaInicio;
 	
-	private LocalTime horaTermino;
+	private Date horaTermino;
 
 	
 	// ****** GETs e SETs ********//
@@ -47,28 +49,37 @@ public class Sala extends GenericModel {
 		this.faixaEtariaFinal = faixaEtariaFinal;
 	}
 
-	public InstituicaoEspirita getInstituicao() {
-		return instituicao;
+	public Long getIdInstituicao() {
+		return idInstituicao;
 	}
 
-	public void setInstituicao(InstituicaoEspirita instituicao) {
-		this.instituicao = instituicao;
+	public void setIdInstituicao(Long idInstituicao) {
+		this.idInstituicao = idInstituicao;
 	}
 
-	public LocalTime getHoraInicio() {
+	public Date getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraInicio(LocalTime horaInicio) {
+	public void setHoraInicio(Date horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
-	public LocalTime getHoraTermino() {
+	public Date getHoraTermino() {
 		return horaTermino;
 	}
 
-	public void setHoraTermino(LocalTime horaTermino) {
+	public void setHoraTermino(Date horaTermino) {
 		this.horaTermino = horaTermino;
 	}
 	
+	
+	// metodos formatadores para tela
+	public String getFaixasEtarias() {
+		return this.getFaixaEtariaInicial() +" a "+ this.getFaixaEtariaFinal() + " anos";
+	}
+	
+	public String getHorasFormatadas() {
+		return DateUtil.formatarHora(this.getHoraInicio()) + " a " + DateUtil.formatarHora(this.getHoraTermino());
+	}
 }

@@ -16,6 +16,10 @@ public class InstituicaoEspiritaService implements Serializable {
 	@Inject
 	private InstituicaoEspiritaRepositorio instituicaoRepositorio;
 	
+	public InstituicaoEspirita pesquisarPorId(Long id) {
+		return instituicaoRepositorio.pesquisarPorId(id);
+	}
+	
 	public List<InstituicaoEspirita> listarTodos() {
 		return instituicaoRepositorio.listarTodos();
 	}

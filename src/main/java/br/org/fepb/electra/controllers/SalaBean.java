@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import br.org.fepb.electra.models.InstituicaoEspirita;
 import br.org.fepb.electra.models.Sala;
+import br.org.fepb.electra.services.InstituicaoEspiritaService;
 import br.org.fepb.electra.services.SalaService;
 import br.org.fepb.electra.util.FacesMessages;
 
@@ -27,9 +28,10 @@ public class SalaBean extends GenericBean {
 	@Inject
 	private SalaService salaService;
 	
-	private List<SelectItem> instituicoes;
+	@Inject
+	private InstituicaoEspiritaService instituicaoService;
 	
-	private InstituicaoEspirita instituicao;
+	private Long idInstituicao;
 	
 	private Sala sala;
 	
@@ -53,18 +55,13 @@ public class SalaBean extends GenericBean {
 		else
 			salas.clear();
 		
-		if ( instituicoes == null )
-			instituicoes = new ArrayList<SelectItem>();
-		else
-			instituicoes.clear();
-		
-		instituicao = null;
+		idInstituicao = null;
 		sala = null;
 	}
 	
 	public void prepararNovoCadastro() {
 		sala = new Sala();
-		instituicao = new InstituicaoEspirita();
+		idInstituicao = null;
 		//TODO realizar consulta de instituicoes para preencher combo
 		setState(ESTADO_DE_NOVO);
 	}
@@ -75,7 +72,7 @@ public class SalaBean extends GenericBean {
 	}
 	
 	public void salvar() {
-		sala.setInstituicao(instituicao);
+		sala.setIdInstituicao(idInstituicao);
 		salaService.salvar(sala);
 		messages.info("Sala salva com sucesso!");
 		listar();
@@ -91,35 +88,29 @@ public class SalaBean extends GenericBean {
 	public void cancelar() {
 		listar();
 	}
-	
-	public String formatarFaixaEtaria(Sala sala) {
-		return sala.getFaixaEtariaInicial() +" a "+ sala.getFaixaEtariaFinal() + " anos";
-	}
-	
-	public String formatarHorario(Sala sala) {
-		return sala.getHoraInicio() + " a " + sala.getHoraTermino();
+
+	public List<SelectItem> getInstituicoes() {
+		List<SelectItem> retorno = new ArrayList<SelectItem>();
+		
+		for (InstituicaoEspirita in : instituicaoService.listarTodos()) {
+			retorno.add(new SelectItem(in.getId(), in.getNome()));
+		}
+		return retorno;
 	}
 
 	
 	// **** GETs e SETs ****//
-	public List<SelectItem> getInstituicoes() {
-		return instituicoes;
-	}
-
-	public void setInstituicoes(List<SelectItem> instituicoes) {
-		this.instituicoes = instituicoes;
-	}
-
-	public InstituicaoEspirita getInstituicao() {
-		return instituicao;
-	}
-
-	public void setInstituicao(InstituicaoEspirita instituicao) {
-		this.instituicao = instituicao;
-	}
 
 	public Sala getSala() {
 		return sala;
+	}
+
+	public Long getIdInstituicao() {
+		return idInstituicao;
+	}
+
+	public void setIdInstituicao(Long idInstituicao) {
+		this.idInstituicao = idInstituicao;
 	}
 
 	public void setSala(Sala sala) {
