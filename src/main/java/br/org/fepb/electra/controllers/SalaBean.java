@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.faces.component.UIForm;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -31,6 +32,8 @@ public class SalaBean extends GenericBean {
 	@Inject
 	private InstituicaoEspiritaService instituicaoService;
 	
+//	private UIForm form;
+	
 	private Long idInstituicao;
 	
 	private Sala sala;
@@ -39,7 +42,10 @@ public class SalaBean extends GenericBean {
 	
 	/** Método para iniciar a tela de cadastro de instituição */
 	public String iniciar() {
-		this.listar();
+//		listar();
+//		limparVariaveis();
+		salas = salaService.listarTodos();
+		setState(ESTADO_DE_LISTAGEM);
 		return "/pages/Sala";
 	}
 	
@@ -62,26 +68,26 @@ public class SalaBean extends GenericBean {
 	public void prepararNovoCadastro() {
 		sala = new Sala();
 		idInstituicao = null;
-		//TODO realizar consulta de instituicoes para preencher combo
 		setState(ESTADO_DE_NOVO);
+//		FacesMessages.cleanSubmittedValues(form); // limpa arvore
 	}
 	
 	public void prepararEdicao() {
-		//TODO formatar exibição da selecao da instituicao no combo 
+		idInstituicao = sala.getIdInstituicao();
 		setState(ESTADO_DE_EDICAO);
 	}
 	
 	public void salvar() {
 		sala.setIdInstituicao(idInstituicao);
 		salaService.salvar(sala);
-		messages.info("Sala salva com sucesso!");
+		messages.info("Registro gravado com sucesso!");
 		listar();
 		atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm:salas-table"));
 	}
 	
 	public void excluir() {
 		salaService.excluir(sala);
-		messages.info("Sala excluída com sucesso!");
+		messages.info("Registro excluído com sucesso!");
 		listar();
 	}
 
@@ -95,6 +101,16 @@ public class SalaBean extends GenericBean {
 		for (InstituicaoEspirita in : instituicaoService.listarTodos()) {
 			retorno.add(new SelectItem(in.getId(), in.getNome()));
 		}
+		return retorno;
+	}
+	
+	public String recuperarInstituicao(Long idInstituicao) {
+		String retorno = "-";
+		
+		InstituicaoEspirita instituicao = instituicaoService.pesquisarPorId(idInstituicao);
+		if ( instituicao != null )
+			retorno = instituicao.getNome() + " - " + instituicao.getPresidente();
+	
 		return retorno;
 	}
 
@@ -124,6 +140,13 @@ public class SalaBean extends GenericBean {
 	public void setSalas(List<Sala> salas) {
 		this.salas = salas;
 	}
-	
+
+//	public UIForm getForm() {
+//		return form;
+//	}
+//
+//	public void setForm(UIForm form) {
+//		this.form = form;
+//	}
 	
 }

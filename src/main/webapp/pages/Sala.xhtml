@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	template="/WEB-INF/templates/Layout.xhtml"
 	xmlns:p="http://primefaces.org/ui">
 	
 	<ui:define name="corpo">
-		<f:metadata>
-			<f:viewAction action="#{salaBean.listar}" />
-		</f:metadata>
 	
-		<h:form id="frm">
+		<h:form id="frm" >
 		
 			<t:saveState value="#{salaBean.state}" />
 			<t:saveState value="#{salaBean.sala}" />
@@ -77,6 +75,9 @@
 					<p:column headerText="#" width="30" style="text-align:center;">
 				        #{rowIndex + 1}
 				    </p:column>
+					<p:column headerText="Instituição" sortBy="#{row.idInstituicao}">
+						<h:outputText value="#{salaBean.recuperarInstituicao(row.idInstituicao)}" />
+					</p:column>
 					<p:column headerText="Descrição" sortBy="#{row.descricao}">
 						<h:outputText value="#{row.descricao}" />
 					</p:column>
