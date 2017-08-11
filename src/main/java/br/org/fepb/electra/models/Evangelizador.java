@@ -11,7 +11,7 @@ public class Evangelizador extends Pessoa {
 	private static final long serialVersionUID = -2485532690960892476L;
 
 	@NotEmpty
-	@Column(name = "escolaridade", nullable = false, length = 60)
+	@Column(name = "escolaridade", length = 60)
 	private String escolaridade;
 
 	public String getEscolaridade() {

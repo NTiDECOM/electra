@@ -23,6 +23,11 @@ public class SalaRepositorio implements Serializable {
 		return manager.createQuery("from Sala", Sala.class).getResultList();
 	}
 	
+	public List<Sala> listarByInstituicao(Long idInstituicao) {
+		return manager.createQuery("from Sala where idInstituicao = :idInstituicao", Sala.class)
+				.setParameter("idInstituicao", idInstituicao).getResultList();
+	}
+	
 	public Sala salvar(Sala sala) {
 		return manager.merge(sala);
 	}

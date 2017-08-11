@@ -1,6 +1,9 @@
 package br.org.fepb.electra.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import br.org.fepb.electra.util.FormatadorBean;
 import br.org.fepb.electra.util.StringUtil;
@@ -17,14 +20,22 @@ public class InstituicaoEspirita extends GenericModel {
 	public static final String CASA_ESPIRITA = "Casa Espírita";
 	public static final String FEDERATIVA = "Federativa";
 	
+	@NotEmpty
+	@Column(nullable = false, length = 60)
 	private String nome;
 	
 	private boolean evangeliza;
 
+	@NotEmpty
+	@Column(nullable = false, length = 60)
 	private String presidente;
 	
+	@NotEmpty
+	@Column(nullable = false, length = 1)
 	private String tipo;
 	
+	@NotEmpty
+	@Column(nullable = false, length = 14)
 	private String telefone;
 
 	// ****** GETs e SETs ********//

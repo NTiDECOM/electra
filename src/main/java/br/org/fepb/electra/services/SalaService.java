@@ -19,6 +19,14 @@ public class SalaService implements Serializable {
 	public List<Sala> listarTodos() {
 		return salaRepositorio.listarTodos();
 	}
+	
+	public Sala listarById(Long id) {
+		return salaRepositorio.pesquisarPorId(id);
+	}
+	
+	public List<Sala> listarByInstituicao(Long idInstituicao) {
+		return salaRepositorio.listarByInstituicao(idInstituicao);
+	}
 
 	@Transacional
 	public void salvar(Sala sala) {

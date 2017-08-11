@@ -2,7 +2,10 @@ package br.org.fepb.electra.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.org.fepb.electra.util.DateUtil;
 
@@ -11,6 +14,7 @@ public class Sala extends GenericModel {
 
 	private static final long serialVersionUID = -2260190071791535731L;
 
+	@Column(length = 255)
 	private String descricao;
 	
 	private Integer faixaEtariaInicial;
@@ -19,8 +23,10 @@ public class Sala extends GenericModel {
 	
 	private Long idInstituicao;
 	
+	@Temporal(TemporalType.TIME)
 	private Date horaInicio;
 	
+	@Temporal(TemporalType.TIME)
 	private Date horaTermino;
 
 	
