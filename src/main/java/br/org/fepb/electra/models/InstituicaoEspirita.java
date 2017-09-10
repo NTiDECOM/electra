@@ -2,6 +2,8 @@ package br.org.fepb.electra.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -9,6 +11,7 @@ import br.org.fepb.electra.util.FormatadorBean;
 import br.org.fepb.electra.util.StringUtil;
 
 @Entity
+@Table(name="tb_instituicao_espirita")
 public class InstituicaoEspirita extends GenericModel {
 
 	private static final long serialVersionUID = 8405387162636809655L;
@@ -24,6 +27,8 @@ public class InstituicaoEspirita extends GenericModel {
 	@Column(nullable = false, length = 60)
 	private String nome;
 	
+	@NotNull
+	@Column(nullable = false)
 	private boolean evangeliza;
 
 	@NotEmpty

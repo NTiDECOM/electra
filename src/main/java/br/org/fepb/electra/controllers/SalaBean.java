@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.component.UIForm;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
 
 import br.org.fepb.electra.models.InstituicaoEspirita;
 import br.org.fepb.electra.models.Sala;
@@ -32,8 +32,7 @@ public class SalaBean extends GenericBean {
 	@Inject
 	private InstituicaoEspiritaService instituicaoService;
 	
-//	private UIForm form;
-	
+	@NotNull
 	private Long idInstituicao;
 	
 	private Sala sala;
@@ -42,9 +41,7 @@ public class SalaBean extends GenericBean {
 	
 	/** Método para iniciar a tela de cadastro de instituição */
 	public String iniciar() {
-//		listar();
-//		limparVariaveis();
-		salas = salaService.listarTodos();
+		this.salas = salaService.listarTodos();
 		setState(ESTADO_DE_LISTAGEM);
 		return "/pages/Sala";
 	}
@@ -78,11 +75,15 @@ public class SalaBean extends GenericBean {
 	}
 	
 	public void salvar() {
+		try {
 		sala.setIdInstituicao(idInstituicao);
 		salaService.salvar(sala);
 		messages.info("Registro gravado com sucesso!");
 		listar();
 		atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm:salas-table"));
+		} catch (Exception e) {
+			messages.error("Ocorreu uma falha no processamento");
+		}
 	}
 	
 	public void excluir() {
@@ -134,19 +135,14 @@ public class SalaBean extends GenericBean {
 	}
 
 	public List<Sala> getSalas() {
+		if(salas == null){
+			return salaService.listarTodos();
+		}
 		return salas;
 	}
 
 	public void setSalas(List<Sala> salas) {
 		this.salas = salas;
 	}
-
-//	public UIForm getForm() {
-//		return form;
-//	}
-//
-//	public void setForm(UIForm form) {
-//		this.form = form;
-//	}
 	
 }

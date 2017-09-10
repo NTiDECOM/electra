@@ -11,7 +11,15 @@
 		<f:metadata>
 			<f:viewAction action="#{evangelizadorBean.listar}" />
 		</f:metadata>
-	
+
+		<script type="text/javascript">
+			function handleDrop(event, ui) {
+				var droppedinstituicao = ui.draggable;
+
+				droppedinstituicao.fadeOut('fast');
+			}
+		</script>
+
 		<h:form id="frm">
 		
 			<t:saveState value="#{evangelizadorBean.state}"/>
@@ -80,8 +88,8 @@
 					<p:column headerText="Data Nascimento" width="250">
 						<h:outputText value="#{evangelizador.dataNascimento}" />
 					</p:column>
-					<p:column headerText="CPF" width="120">
-						<h:outputText value="#{evangelizador.cpf}" />
+					<p:column headerText="Ocupação" width="120">
+						<h:outputText value="#{evangelizador.ocupacao}" />
 					</p:column>
 					<p:column headerText="Escolaridade" width="120">
 						<h:outputText value="#{evangelizador.escolaridade}" />
@@ -110,11 +118,24 @@
 						value="#{evangelizadorBean.evangelizador.comoSerChamado}" />
 					
 					<p:outputLabel value="Escolaridade" for="escolaridade" />
-					<p:inputText id="escolaridade" size="60" maxlength="60" 
-						value="#{evangelizadorBean.evangelizador.escolaridade}" />
+					<p:selectOneMenu value="#{evangelizadorBean.evangelizador.escolaridade}" id="escolaridade">
+					 	<f:selectItem itemLabel="--Selecione um item--" itemValue="" />
+						<f:selectItem itemValue="Fundamental - Incompleto" itemLabel="Fundamental - Incompleto"/>
+						<f:selectItem itemValue="Fundamental - Completo" itemLabel="Fundamental - Completo"/>
+						<f:selectItem itemValue="Medio - Incompleto" itemLabel="Médio - Incompleto"/>
+						<f:selectItem itemValue="Medio - Completo" itemLabel="Médio - Completo"/>
+						<f:selectItem itemValue="Superior - Incompleto" itemLabel="Superior - Incompleto"/>
+						<f:selectItem itemValue="Superior - Completo" itemLabel="Superior - Completo"/>
+						<f:selectItem itemValue="Pos-graduacao - Incompleto" itemLabel="Pós-graduação - Incompleto"/>
+						<f:selectItem itemValue="Pos-graduacao - Completo" itemLabel="Pós-graduação - Completo"/>
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Ocupação" for="ocupacao" />
+					<p:inputText id="ocupacao" size="40" maxlength="60"
+						value="#{evangelizadorBean.evangelizador.ocupacao}" />
 					
 					<p:outputLabel value="Email" for="email" />
-					<p:inputText id="email" size="60" maxlength="60"
+					<p:inputText id="email" size="40" maxlength="60"
 						value="#{evangelizadorBean.evangelizador.email}" />
 					
 					<p:outputLabel value="CPF" for="cpf" />
@@ -131,12 +152,96 @@
 					<p:calendar id="data-fundacao" size="10"
 						value="#{evangelizadorBean.evangelizador.dataNascimento}" 
 						pattern="dd/MM/yyyy" mask="99/99/9999" />
-					
+
 				</h:panelGrid>
+				
+				<br clear="all"/>
+
+				<h:panelGroup id="instituicaoSubForm">
+					<p:fieldset id="availableInstituicaoField"
+						legend="Instituições Espíritas">
+						<p:dataTable id="availableInstituicao" var="instituicao"
+							value="#{evangelizadorBean.instituicoes}">
+							<p:column style="width:20px">
+								<h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
+								<p:draggable for="dragIcon" revert="true" helper="clone" />
+							</p:column>
+
+							<p:column headerText="Nome">
+								<h:outputText value="#{instituicao.nome}" />
+							</p:column>
+
+						</p:dataTable>
+					</p:fieldset>
+
+					<p:fieldset id="selectedinstituicaos"
+						legend="Instituição(oes) onde trabalha (Selecionadas)" style="margin-top:20px">
+						<p:outputPanel id="dropArea">
+							<h:outputText value="!!! Arraste até aqui !!!"
+								rendered="#{empty evangelizadorBean.droppedInstituicoes}"
+								style="font-size:24px;" />
+							<p:dataTable id="selectedinstituicaosTable" var="instituicao"
+								value="#{evangelizadorBean.droppedInstituicoes}"
+								rendered="#{not empty evangelizadorBean.droppedInstituicoes}">
+								
+								<p:column headerText="Nome">
+									<h:outputText value="#{instituicao.nome}" />
+								</p:column>
+
+								<p:column style="width:32px">
+									<p:commandButton update=":frm" process="@this"
+										oncomplete="PF('instituicaoDialog').show()"
+										icon="ui-icon-search">
+										<f:setPropertyActionListener value="#{instituicao}"
+											target="#{evangelizadorBean.selectedInstituicao}" />
+									</p:commandButton>
+								</p:column>
+								
+							</p:dataTable>
+						</p:outputPanel>
+					</p:fieldset>
+
+					<p:droppable for="selectedinstituicaos" tolerance="touch"
+						activeStyleClass="ui-state-highlight"
+						datasource="availableInstituicao" onDrop="handleDrop">
+						<p:ajax listener="#{evangelizadorBean.onInstituicaoDrop}"
+							update="dropArea availableInstituicao" />
+					</p:droppable>
+
+					<p:dialog header="Detalhamento da Instituição Espírita" widgetVar="instituicaoDialog"
+						resizable="false" draggable="false" showEffect="fade"
+						hideEffect="fade" modal="true">
+
+						<p:outputPanel id="display">
+							<h:panelGrid columns="2" cellpadding="4"
+								rendered="#{not empty evangelizadorBean.selectedInstituicao}">
+								
+								<h:outputText value="Nome:" />
+								<h:outputText value="#{evangelizadorBean.selectedInstituicao.nome}" style="font-weight:bold" />
+
+								<h:outputText value="Presidente:" />
+								<h:outputText value="#{evangelizadorBean.selectedInstituicao.presidente}" style="font-weight:bold" />
+								
+								<h:outputText value="Evangeliza?" />
+								<h:outputText value="#{evangelizadorBean.selectedInstituicao.evangeliza ? 'SIM' : 'NÃO'}" style="font-weight:bold" />
+								
+								<h:outputText value="Tipo de Instituição:" />
+								<h:outputText value="#{evangelizadorBean.selectedInstituicao.tipo}" style="font-weight:bold" />
+								
+								<h:outputText value="Telefone:" />
+								<h:outputText value="#{evangelizadorBean.selectedInstituicao.telefone}" style="font-weight:bold" />
+								
+							</h:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
+					
+				</h:panelGroup>
 				
 				<p:spacer height="10"/>
 				<p:toolbar id="toolbar-cadastro">
 					<f:facet name="left">
+						<p:commandButton icon="ui-icon-cancel" value="Limpar Instituições" 
+							action="#{evangelizadorBean.cancelInstituicaoDrop}" update=":frm" process="@this"/>
 						<p:commandButton value="Cancelar" icon="ui-icon-cancel" id="cancelar-button"
 							action="#{evangelizadorBean.cancelar}" update=":frm" process="@this"/>
 						<p:commandButton value="Salvar" icon="ui-icon-disk" id="salvar-button"

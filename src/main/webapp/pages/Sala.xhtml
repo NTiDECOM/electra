@@ -10,11 +10,12 @@
 	
 	<ui:define name="corpo">
 	
+	
 		<h:form id="frm" >
 		
-			<t:saveState value="#{salaBean.state}" />
+			<t:saveState value="#{salaBean.state}"/>
 			<t:saveState value="#{salaBean.sala}" />
-			<t:saveState value="#{salaBean.salas}" />
+			<t:saveState value="#{salaBean.salas}"/>
 			
 			<p:messages id="msgs" />
 			
@@ -84,6 +85,9 @@
 					<p:column headerText="Faixa Etária" width="250">
 						<h:outputText value="#{row.faixasEtarias}" />
 					</p:column>
+					<p:column headerText="Dia da Aula" width="100">
+						<h:outputText value="#{row.diaAula}" />
+					</p:column>
 					<p:column headerText="Horário" width="120" style="text-align:center;">
 						<h:outputText value="#{row.horasFormatadas}" />
 					</p:column>
@@ -103,11 +107,11 @@
 					<p:inputText id="descricao" size="60" maxlength="60" 
 						value="#{salaBean.sala.descricao}" />
 					
-					<p:outputLabel value="Faixa Etária:" for="faixa-inicial" />
+					<p:outputLabel value="Faixa Etária:" />
 					<p:panelGrid columns="3">
-						<p:inputText id="faixa-inicial" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaInicial}" />
+						<p:inputText id="faixa-inicial" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaInicial}" label="Faixa Etária Inicial"/>
 						<p:outputLabel value=" a " />
-						<p:inputText id="faixa-final" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaFinal}" />
+						<p:inputText id="faixa-final" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaFinal}" label="Faixa Etária Final"/>
 					</p:panelGrid>
 
 					<p:outputLabel value="Instituição:" for="instituicao" />
@@ -115,12 +119,23 @@
 			            <f:selectItem itemLabel="--Selecione um item--" itemValue="" />
 			            <f:selectItems value="#{salaBean.instituicoes}" var="i" itemLabel="#{i.nome}" itemValue="#{i}" />
 			        </p:selectOneMenu>
-					
+			        
+			        <p:outputLabel for="gridDiasAulas" value="Dia da Aula:"/>
+    				<p:selectOneRadio id="gridDiasAulas" value="#{salaBean.sala.diaAula}" layout="grid" columns="3">
+    				<f:selectItem itemValue="Domingo" itemLabel="Domingo"/>
+    				<f:selectItem itemValue="Segunda" itemLabel="Segunda"/>
+    				<f:selectItem itemValue="Terca" itemLabel="Terça"/>
+    				<f:selectItem itemValue="Quarta" itemLabel="Quarta"/>
+    				<f:selectItem itemValue="Quinta" itemLabel="Quinta"/>
+    				<f:selectItem itemValue="Sexta" itemLabel="Sexta"/>
+    				<f:selectItem itemValue="Sabado" itemLabel="Sábado"/>
+    				</p:selectOneRadio>
+    	
 					<p:outputLabel for="time-inicio" value="Hora de Início:" />
-        			<p:calendar id="time-inicio" value="#{salaBean.sala.horaInicio}" pattern="HH:mm" timeOnly="true"  />
+        			<p:calendar id="time-inicio" value="#{salaBean.sala.horaInicio}" pattern="HH:mm" timeOnly="true" locale="pt_BR" />
 					
 					<p:outputLabel for="time-termino" value="Hora de Término:" />
-        			<p:calendar id="time-termino" value="#{salaBean.sala.horaTermino}" pattern="HH:mm" timeOnly="true"  />
+        			<p:calendar id="time-termino" value="#{salaBean.sala.horaTermino}" pattern="HH:mm" timeOnly="true" locale="pt_BR"/>
     
 				</h:panelGrid>
 				

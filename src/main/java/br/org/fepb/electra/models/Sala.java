@@ -4,28 +4,42 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import br.org.fepb.electra.util.DateUtil;
 
 @Entity
+@Table(name="tb_sala")
 public class Sala extends GenericModel {
 
 	private static final long serialVersionUID = -2260190071791535731L;
 
-	@Column(length = 255)
+	@NotEmpty
+	@Column(length = 255, nullable=true)
 	private String descricao;
 	
+	@NotNull
 	private Integer faixaEtariaInicial;
 	
+	@NotNull
 	private Integer faixaEtariaFinal;
 	
+	@Column(nullable=true)
 	private Long idInstituicao;
 	
+	@NotEmpty
+	private String diaAula;
+	
+	@NotNull
 	@Temporal(TemporalType.TIME)
 	private Date horaInicio;
 	
+	@NotNull
 	@Temporal(TemporalType.TIME)
 	private Date horaTermino;
 
@@ -78,8 +92,15 @@ public class Sala extends GenericModel {
 	public void setHoraTermino(Date horaTermino) {
 		this.horaTermino = horaTermino;
 	}
-	
-	
+
+	public String getDiaAula() {
+		return diaAula;
+	}
+
+	public void setDiaAula(String diaAula) {
+		this.diaAula = diaAula;
+	}
+
 	// metodos formatadores para tela
 	public String getFaixasEtarias() {
 		return this.getFaixaEtariaInicial() +" a "+ this.getFaixaEtariaFinal() + " anos";

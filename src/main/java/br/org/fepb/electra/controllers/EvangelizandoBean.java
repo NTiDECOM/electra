@@ -80,13 +80,13 @@ public class EvangelizandoBean extends GenericBean {
 	}
 	
 	public void prepararEdicao() {
-		Sala sala = salaServico.listarById(evangelizando.getIdSala());
-		idInstituicao = sala.getIdInstituicao();
-		idSala = sala.getId();
+		//Sala sala = salaServico.listarById(evangelizando.getIdSala());
+		//idInstituicao = sala.getIdInstituicao();
+		//idSala = sala.getId();
 	}
 	
 	public void salvar() {
-		evangelizando.setIdSala(idSala);
+		//evangelizando.setIdSala(idSala);
 		evangelizandoServico.salvar(evangelizando);
 		messages.info("Evangelizando salvo com sucesso!");
 		listar();
@@ -102,7 +102,8 @@ public class EvangelizandoBean extends GenericBean {
 	
 	public List<SelectItem> getInstituicoes() {
 		List<SelectItem> retorno = new ArrayList<SelectItem>();
-		for (InstituicaoEspirita in : instituicaoServico.listarTodos()) {
+		List<InstituicaoEspirita> lista = instituicaoServico.listarTodos();
+		for (InstituicaoEspirita in : lista) {
 			retorno.add(new SelectItem(in.getId(), in.getNome()));
 		}
 		return retorno;
@@ -119,6 +120,9 @@ public class EvangelizandoBean extends GenericBean {
 	}
 
 	public List<Evangelizando> getEvangelizandos() {
+		if(evangelizandos == null){
+			return evangelizandoRepositorio.listarTodos();
+		}
 		return evangelizandos;
 	}
 

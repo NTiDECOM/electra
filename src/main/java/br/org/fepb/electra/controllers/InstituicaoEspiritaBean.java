@@ -8,6 +8,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import br.org.fepb.electra.models.InstituicaoEspirita;
 import br.org.fepb.electra.services.InstituicaoEspiritaService;
 import br.org.fepb.electra.util.FacesMessages;
@@ -28,6 +30,7 @@ public class InstituicaoEspiritaBean extends GenericBean {
 	
 	private InstituicaoEspirita instituicao;
 	
+	@NotEmpty
 	private String campoTipo;
 	
 
@@ -83,6 +86,9 @@ public class InstituicaoEspiritaBean extends GenericBean {
 	
 	// **** GETs e SETs ****//
 	public List<InstituicaoEspirita> getInstituicoes() {
+		if(instituicoes == null){
+			return instituicaoService.listarTodos();
+		}
 		return instituicoes;
 	}
 	

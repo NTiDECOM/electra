@@ -84,7 +84,7 @@
 				<p:column headerText="CPF" width="120">
 					<h:outputText value="#{empresa.cpf}" />
 				</p:column>
-				<p:column headerText="telefone" width="120">
+				<p:column headerText="Telefone" width="120">
 					<h:outputText value="#{empresa.telefone1}" />
 				</p:column>
 			</p:dataTable>
@@ -123,19 +123,6 @@
 						value="#{evangelizandoBean.evangelizando.dataNascimento}" 
 						pattern="dd/MM/yyyy" mask="99/99/9999" />
 						
-					<p:outputLabel value="Instituição:" for="instituicao" />
-			        <p:selectOneMenu id="instituicao" value="#{evangelizandoBean.idInstituicao}">
-			            <f:selectItem itemLabel="--- Selecione um item ---" itemValue="" />
-			            <f:selectItems value="#{evangelizandoBean.instituicoes}" var="i" itemLabel="#{i.nome}" itemValue="#{i}" />
-			            <p:ajax event="change" update="salas" />
-			        </p:selectOneMenu>
-
-					<p:outputLabel value="Salas:" for="salas" />
-			        <p:selectOneMenu id="salas" value="#{evangelizandoBean.idSala}">
-			            <f:selectItem itemLabel="--- Selecione um item ---" itemValue="" />
-			            <f:selectItems value="#{evangelizandoBean.salasPorInstituicao}" var="s" itemLabel="#{s.descricao}" itemValue="#{s}" />
-			        </p:selectOneMenu>
-					
 					<p:outputLabel/>
 					<p:commandButton value="Salvar" id="salvar-button"
 						action="#{evangelizandoBean.salvar}"
