@@ -53,11 +53,7 @@ public class SalaBean extends GenericBean {
 	}
 	
 	private void limparVariaveis() {
-		if ( salas == null)
-			salas = new ArrayList<Sala>();
-		else
-			salas.clear();
-		
+		salas = salaService.listarTodos();
 		idInstituicao = null;
 		sala = null;
 	}

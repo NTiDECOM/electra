@@ -1,15 +1,12 @@
 package br.org.fepb.electra.controllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.primefaces.context.RequestContext;
 
 import br.org.fepb.electra.daos.EvangelizandoRepositorio;
 import br.org.fepb.electra.models.Evangelizando;
@@ -25,6 +22,9 @@ import br.org.fepb.electra.util.FacesMessages;
 public class EvangelizandoBean extends GenericBean {
 
 	private static final long serialVersionUID = 8390437989517939381L;
+	
+	@Inject
+	private MatriculaBean matriculaBean;
 	
 	@Inject
 	private FacesMessages messages;
@@ -52,6 +52,12 @@ public class EvangelizandoBean extends GenericBean {
 	/** Método para iniciar a tela de cadastro de evangelizandos */
 	public String iniciar() {
 		this.limparVariaveis();
+		setState(ESTADO_DE_LISTAGEM);
+		return "/pages/Evangelizando";
+	}
+	
+	public String cancelar() {
+		limparVariaveis();
 		return "/pages/Evangelizando";
 	}
 	
@@ -75,7 +81,7 @@ public class EvangelizandoBean extends GenericBean {
 	public void prepararNovoCadastro() {
 		this.idInstituicao = null;
 		this.idSala = null;
-		evangelizando = new Evangelizando();
+		this.evangelizando = new Evangelizando();
 		setState(ESTADO_DE_NOVO);
 	}
 	
@@ -85,12 +91,14 @@ public class EvangelizandoBean extends GenericBean {
 		//idSala = sala.getId();
 	}
 	
-	public void salvar() {
+	public String salvar() {
 		//evangelizando.setIdSala(idSala);
-		evangelizandoServico.salvar(evangelizando);
+		evangelizando = evangelizandoServico.salvar(evangelizando);
 		messages.info("Evangelizando salvo com sucesso!");
 		listar();
-		RequestContext.getCurrentInstance().update(Arrays.asList("frm:msgs", "frm:empresas-table"));
+		//RequestContext.getCurrentInstance().update(Arrays.asList("frm:msgs", "frm:evangelizandos-table"));
+		matriculaBean.setEvangelizando(evangelizando);
+ 		return "/pages/Matricula";
 	}
 	
 	public void excluir() {

@@ -1,6 +1,5 @@
 package br.org.fepb.electra.controllers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,10 +46,7 @@ public class InstituicaoEspiritaBean extends GenericBean {
 	}
 	
 	private void limparVariaveis() {
-		if ( instituicoes == null)
-			instituicoes = new ArrayList<InstituicaoEspirita>();
-		else
-			instituicoes.clear();
+		instituicoes = instituicaoService.listarTodos();
 		instituicao = null;
 		campoTipo = null;
 	}

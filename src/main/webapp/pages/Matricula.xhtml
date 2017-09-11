@@ -9,26 +9,26 @@
 	
 	<ui:define name="corpo">
 		<f:metadata>
-			<f:viewAction action="#{evangelizandoBean.listar}" />
+			<f:viewAction action="#{matriculaBean.listar}" />
 		</f:metadata>
 
 		<h:form id="frm">
 		
-			<t:saveState value="#{evangelizandoBean.state}"/>
-			<t:saveState value="#{evangelizandoBean.evangelizando}"/>
-			<t:saveState value="#{evangelizandoBean.evangelizandos}" />
+			<t:saveState value="#{matriculaBean.state}"/>
+			<t:saveState value="#{matriculaBean.matricula}"/>
+			<t:saveState value="#{matriculaBean.matriculas}" />
 			
 			<p:messages id="msgs" />
 			
 			<!-- TELA DE LISTAGEM -->
-			<t:div id="blocoDePesquisa" rendered="#{evangelizandoBean.listando}">
+			<t:div id="blocoDePesquisa" rendered="#{matriculaBean.listando}">
 			
-				<h1>Evangelizandos</h1>
+				<h1>Matrículas</h1>
 				
 				<p:toolbar id="toolbar">
 					<f:facet name="left">
 						<p:commandButton value="Adicionar" icon="ui-icon-document"
-							action="#{evangelizandoBean.prepararNovoCadastro}" update=":frm">
+							action="#{matriculaBean.prepararNovoCadastro}" update=":frm">
 							<p:resetInput target="painel-formulario" />
 						</p:commandButton>
 						
@@ -36,24 +36,24 @@
 							<span class="ui-icon ui-icon-grip-dotted-vertical" />
 	            		</span>
 	            		
-	            		<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{evangelizandoBean.prepararEdicao}" 
-	            			disabled="#{evangelizandoBean.evangelizando == null}" update=":frm">
-	            			<f:setPropertyActionListener value="#{evangelizandoBean.evangelizando}" target="#{evangelizandoBean.evangelizando}" />
+	            		<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{matriculaBean.prepararEdicao}" 
+	            			disabled="#{matriculaBean.matricula == null}" update=":frm">
+	            			<f:setPropertyActionListener value="#{matriculaBean.matricula}" target="#{matriculaBean.matricula}" />
 	            		</p:commandButton>
 	            		
 	            		<p:commandButton icon="ui-icon-trash" title="Excluir"
-	            			process="@this" update="evangelizandos-table msgs toolbar"
-	            			action="#{evangelizandoBean.excluir}"
-	            			disabled="#{evangelizandoBean.evangelizando == null}">
+	            			process="@this" update="matriculas-table msgs toolbar"
+	            			action="#{matriculaBean.excluir}"
+	            			disabled="#{matriculaBean.matricula == null}">
 	            			
 	            			<p:confirm icon="ui-icon-alert" header="Confirmação de exclusão"
-	            				message="Tem certeza que deseja excluir o(a) evangelizando(a)?" />
+	            				message="Tem certeza que deseja excluir o(a) matricula(a)?" />
 	            			
 	            		</p:commandButton>
 	            		
 	            		<p:commandButton icon="ui-icon-arrowthick-1-s" title="Exportar para XLS"
 	            				ajax="false" immediate="true">
-	            			<p:dataExporter type="xls" target="evangelizandos-table" fileName="Evangelizandos-Relatorio" />
+	            			<p:dataExporter type="xls" target="matriculas-table" fileName="Matriculas-Relatorio" />
 	            		</p:commandButton>
 					</f:facet>
 					
@@ -64,27 +64,27 @@
 		        
 				</p:toolbar>
 		
-				<p:dataTable value="#{evangelizandoBean.evangelizandos}" var="evangelizando"
-						emptyMessage="Nenhum(a) evangelizando(a) cadastrado(a)." rows="10" 
+				<p:dataTable value="#{matriculaBean.matriculas}" var="matricula"
+						emptyMessage="Nenhum(a) matricula(a) cadastrado(a)." rows="10" 
 						paginator="true" paginatorPosition="bottom"
-						style="margin-top: 10px" id="evangelizandos-table"
-						selection="#{evangelizandoBean.evangelizando}"
-						selectionMode="single" rowKey="#{evangelizando.id}">
+						style="margin-top: 10px" id="matriculas-table"
+						selection="#{matriculaBean.matricula}"
+						selectionMode="single" rowKey="#{matricula.id}">
 					
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
-					<p:column headerText="Nome" sortBy="#{evangelizando.nome}">
-						<h:outputText value="#{evangelizando.nome}" />
+					<p:column headerText="Nome" sortBy="#{matricula.nome}">
+						<h:outputText value="#{matricula.evangelizando.nome}" />
 					</p:column>
-					<p:column headerText="Apelido" sortBy="#{evangelizando.comoSerChamado}">
-						<h:outputText value="#{evangelizando.comoSerChamado}" />
+					<p:column headerText="Apelido" sortBy="#{matricula.comoSerChamado}">
+						<h:outputText value="#{matricula.evangelizando.comoSerChamado}" />
 					</p:column>
 					<p:column headerText="Data Nascimento" width="250">
-						<h:outputText value="#{evangelizando.dataNascimento}" />
+						<h:outputText value="#{matricula.evangelizando.dataNascimento}" />
 					</p:column>
 					<p:column headerText="telefone" width="120">
-						<h:outputText value="#{evangelizando.telefone1}" />
+						<h:outputText value="#{matricula.evangelizando.telefone1}" />
 					</p:column>
 			
 				</p:dataTable>
@@ -92,39 +92,39 @@
 			</t:div>
 			
 			<!-- TELA DE FORMULARIO DE CADASTRO -->
-			<t:div id="blocoDeEdicao" rendered="#{not evangelizandoBean.listando}">
+			<t:div id="blocoDeEdicao" rendered="#{not matriculaBean.listando}">
 				
-				<h1>Cadastro de Evangelizandos (Etapa 1/2)</h1>
+				<h1>Matricular Evangelizando (Etapa 2/2)</h1>
 				
 				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
 				
 				<h:panelGrid columns="2" id="painel-formulario">
 					<p:outputLabel value="Nome: " for="nome-fantasia" />
 					<p:inputText id="nome-fantasia" size="60" maxlength="60" 
-						value="#{evangelizandoBean.evangelizando.nome}" />
+						value="#{matriculaBean.evangelizando.nome}" disabled="true"/>
 					
 					<p:outputLabel value="Apelido: " for="razao-social" />
 					<p:inputText id="razao-social" size="40" maxlength="40"
-						value="#{evangelizandoBean.evangelizando.comoSerChamado}" />
+						value="#{matriculaBean.evangelizando.comoSerChamado}" disabled="true"/>
 						
 					<p:outputLabel value="Email" for="email" />
 					<p:inputText id="email" size="40" maxlength="60"
-						value="#{evangelizandoBean.evangelizando.email}" />
+						value="#{matriculaBean.evangelizando.email}" disabled="true"/>
 					
 					<p:outputLabel value="CPF" for="cpf" />
 					<p:inputMask id="cpf" size="14" maxlength="14"
-						value="#{evangelizandoBean.evangelizando.cpf}"
-						mask="999.999.999-99" />
+						value="#{matriculaBean.evangelizando.cpf}"
+						mask="999.999.999-99" disabled="true"/>
 					
 					<p:outputLabel value="Telefone" for="telefone" />
 					<p:inputMask id="telefone" size="14" maxlength="14"
-						value="#{evangelizandoBean.evangelizando.telefone1}"
-						mask="(99)99999-9999" />
+						value="#{matriculaBean.evangelizando.telefone1}"
+						mask="(99)99999-9999" disabled="true"/>
 					
 					<p:outputLabel value="Data de Nascimento" for="data-fundacao" />
 					<p:calendar id="data-fundacao" size="10"
-						value="#{evangelizandoBean.evangelizando.dataNascimento}" 
-						pattern="dd/MM/yyyy" mask="99/99/9999" />
+						value="#{matriculaBean.evangelizando.dataNascimento}" 
+						pattern="dd/MM/yyyy" mask="99/99/9999" disabled="true"/>
 					
 				</h:panelGrid>
 				
@@ -132,9 +132,9 @@
 				<p:toolbar id="toolbar-cadastro">
 					<f:facet name="left">
 						<p:commandButton value="Cancelar" icon="ui-icon-cancel" id="cancelar-button"
-							action="#{evangelizandoBean.cancelar}" update=":frm" process="@this"/>
+							action="#{matriculaBean.cancelar}" update=":frm" process="@this"/>
 						<p:commandButton value="Salvar" icon="ui-icon-disk" id="salvar-button"
-							action="#{evangelizandoBean.salvar}" update=":frm"/>
+							action="#{matriculaBean.salvar}" update=":frm"/>
 					</f:facet>
 				</p:toolbar>
 				

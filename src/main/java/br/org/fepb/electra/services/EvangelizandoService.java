@@ -17,9 +17,9 @@ public class EvangelizandoService implements Serializable {
 	private EvangelizandoRepositorio evangelizandoRepositorio;
 
 	@Transacional
-	public void salvar(Evangelizando evangelizando) {
+	public Evangelizando salvar(Evangelizando evangelizando) {
 		evangelizando.setDataCadastro(new Date());
-		evangelizandoRepositorio.salvar(evangelizando);
+		return evangelizandoRepositorio.salvar(evangelizando);
 	}
 
 	@Transacional

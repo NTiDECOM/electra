@@ -69,10 +69,7 @@ public class EvangelizadorBean extends GenericBean {
 		this.instituicoes = null;
 		this.droppedInstituicoes = null;
 		this.selectedInstituicao = null;
-		if ( evangelizadores == null)
-			evangelizadores = new ArrayList<Evangelizador>();
-		else
-			evangelizadores.clear();
+		this.evangelizadores = evangelizadorRepositorio.listarTodos();
 	}
 	
 	public void prepararNovoCadastro() {
