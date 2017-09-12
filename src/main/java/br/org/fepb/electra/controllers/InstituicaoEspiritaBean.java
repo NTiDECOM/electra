@@ -70,9 +70,15 @@ public class InstituicaoEspiritaBean extends GenericBean {
 	}
 	
 	public void excluir() {
+		try {
 		instituicaoService.excluir(instituicao);
 		messages.info("Instituição excluída com sucesso!");
 		listar();
+		} catch (Exception e) {
+			e.printStackTrace();
+			messages.error("Existe uma sala vinculada. Para remoção completa, primeiramente precisa remover a sala dependente");
+			
+		}
 	}
 
 	public void cancelar() {

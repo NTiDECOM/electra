@@ -73,11 +73,8 @@
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
-					<p:column headerText="#" width="30" style="text-align:center;">
-				        #{rowIndex + 1}
-				    </p:column>
-					<p:column headerText="Instituição" sortBy="#{row.idInstituicao}">
-						<h:outputText value="#{salaBean.recuperarInstituicao(row.idInstituicao)}" />
+					<p:column headerText="Instituição" sortBy="#{row.instituicao.nome}">
+						<h:outputText value="#{row.instituicao.nome}" />
 					</p:column>
 					<p:column headerText="Descrição" sortBy="#{row.descricao}">
 						<h:outputText value="#{row.descricao}" />

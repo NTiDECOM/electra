@@ -1,17 +1,16 @@
 package br.org.fepb.electra.controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 
 import br.org.fepb.electra.daos.EvangelizandoRepositorio;
 import br.org.fepb.electra.models.Evangelizando;
-import br.org.fepb.electra.models.InstituicaoEspirita;
-import br.org.fepb.electra.models.Sala;
 import br.org.fepb.electra.services.EvangelizandoService;
 import br.org.fepb.electra.services.InstituicaoEspiritaService;
 import br.org.fepb.electra.services.SalaService;
@@ -45,9 +44,8 @@ public class EvangelizandoBean extends GenericBean {
 	
 	private Evangelizando evangelizando;
 	
-	private Long idInstituicao;
-
-	private Long idSala;
+	@Inject
+	private ServletContext servletContext;
 	
 	/** Método para iniciar a tela de cadastro de evangelizandos */
 	public String iniciar() {
@@ -74,59 +72,37 @@ public class EvangelizandoBean extends GenericBean {
 	private void limparVariaveis() {
 		this.evangelizando = new Evangelizando();
 		this.evangelizandos = new ArrayList<Evangelizando>();
-		this.idInstituicao = null;
-		this.idSala = null;
 	}
 	
 	public void prepararNovoCadastro() {
-		this.idInstituicao = null;
-		this.idSala = null;
 		this.evangelizando = new Evangelizando();
 		setState(ESTADO_DE_NOVO);
 	}
 	
 	public void prepararEdicao() {
-		//Sala sala = salaServico.listarById(evangelizando.getIdSala());
-		//idInstituicao = sala.getIdInstituicao();
-		//idSala = sala.getId();
 	}
 	
 	public String salvar() {
-		//evangelizando.setIdSala(idSala);
 		evangelizando = evangelizandoServico.salvar(evangelizando);
-		messages.info("Evangelizando salvo com sucesso!");
+		messages.info("Evangelizando salvo com sucesso! Realize agora a matrícula...");
 		listar();
-		//RequestContext.getCurrentInstance().update(Arrays.asList("frm:msgs", "frm:evangelizandos-table"));
-		matriculaBean.setEvangelizando(evangelizando);
+		servletContext.setAttribute("evangelizando", evangelizando);
  		return "/pages/Matricula";
 	}
 	
 	public void excluir() {
+		try {
 		evangelizandoServico.excluir(evangelizando);
 		evangelizando = null;
 		messages.info("Evangelizando(a) excluído(a) com sucesso!");
 		listar();
+		} catch (Exception e) {
+			e.printStackTrace();
+			messages.error("Existe uma matrícula vinculada. Para remoção completa, primeiramente precisa remover a matrícula dependente");
+			
+		}
 	}
 	
-	public List<SelectItem> getInstituicoes() {
-		List<SelectItem> retorno = new ArrayList<SelectItem>();
-		List<InstituicaoEspirita> lista = instituicaoServico.listarTodos();
-		for (InstituicaoEspirita in : lista) {
-			retorno.add(new SelectItem(in.getId(), in.getNome()));
-		}
-		return retorno;
-	}
-	
-	public List<SelectItem> getSalasPorInstituicao() {
-		List<SelectItem> retorno = new ArrayList<SelectItem>();
-		if ( idInstituicao != null ) {
-			for (Sala in : salaServico.listarByInstituicao(idInstituicao)) {
-				retorno.add(new SelectItem(in.getId(), in.getDescricao()));
-			}
-		}
-		return retorno;
-	}
-
 	public List<Evangelizando> getEvangelizandos() {
 		if(evangelizandos == null){
 			return evangelizandoRepositorio.listarTodos();
@@ -146,20 +122,4 @@ public class EvangelizandoBean extends GenericBean {
 		this.evangelizando = evangelizando;
 	}
 
-	public Long getIdInstituicao() {
-		return idInstituicao;
-	}
-
-	public void setIdInstituicao(Long idInstituicao) {
-		this.idInstituicao = idInstituicao;
-	}
-
-	public Long getIdSala() {
-		return idSala;
-	}
-
-	public void setIdSala(Long idSala) {
-		this.idSala = idSala;
-	}
-	
 }

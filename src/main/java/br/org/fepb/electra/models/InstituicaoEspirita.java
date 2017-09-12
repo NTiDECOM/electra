@@ -43,6 +43,14 @@ public class InstituicaoEspirita extends GenericModel {
 	@Column(nullable = false, length = 14)
 	private String telefone;
 
+	public InstituicaoEspirita(Long idInstituicao) {
+		setId(idInstituicao);
+	}
+	
+	public InstituicaoEspirita(){
+		//vazio
+	}
+
 	// ****** GETs e SETs ********//
 	public String getNome() {
 		return nome;

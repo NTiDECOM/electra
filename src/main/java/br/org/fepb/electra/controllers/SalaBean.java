@@ -62,17 +62,16 @@ public class SalaBean extends GenericBean {
 		sala = new Sala();
 		idInstituicao = null;
 		setState(ESTADO_DE_NOVO);
-//		FacesMessages.cleanSubmittedValues(form); // limpa arvore
 	}
 	
 	public void prepararEdicao() {
-		idInstituicao = sala.getIdInstituicao();
+		idInstituicao = sala.getInstituicao().getId();
 		setState(ESTADO_DE_EDICAO);
 	}
 	
 	public void salvar() {
 		try {
-		sala.setIdInstituicao(idInstituicao);
+		sala.setInstituicao(new InstituicaoEspirita(idInstituicao));
 		salaService.salvar(sala);
 		messages.info("Registro gravado com sucesso!");
 		listar();

@@ -30,7 +30,7 @@ public abstract class Pessoa extends GenericModel {
 	@Column(name = "email", length = 60)
 	private String email;
 	
-	//@NotNull
+	@NotNull
 	@Past
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_nascimento", nullable = false)
@@ -41,7 +41,7 @@ public abstract class Pessoa extends GenericModel {
 	@Column(name = "data_cadastro", nullable = false)
 	private Date dataCadastro;
 	
-	//@NotEmpty
+	@NotEmpty
 	@Column(name = "telefone1", nullable = false, length = 14)
 	private String telefone1;
 	

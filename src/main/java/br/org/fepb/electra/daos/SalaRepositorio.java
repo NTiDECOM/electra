@@ -24,7 +24,7 @@ public class SalaRepositorio implements Serializable {
 	}
 	
 	public List<Sala> listarByInstituicao(Long idInstituicao) {
-		return manager.createQuery("from Sala where idInstituicao = :idInstituicao", Sala.class)
+		return manager.createQuery("from Sala where fk_instituicao = :idInstituicao", Sala.class)
 				.setParameter("idInstituicao", idInstituicao).getResultList();
 	}
 	

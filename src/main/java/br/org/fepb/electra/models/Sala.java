@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,8 +31,9 @@ public class Sala extends GenericModel {
 	@NotNull
 	private Integer faixaEtariaFinal;
 	
-	@Column(nullable=true)
-	private Long idInstituicao;
+	@ManyToOne
+    @JoinColumn(name="fk_instituicao")
+	private InstituicaoEspirita instituicao;
 	
 	@NotEmpty
 	private String diaAula;
@@ -42,7 +45,14 @@ public class Sala extends GenericModel {
 	@NotNull
 	@Temporal(TemporalType.TIME)
 	private Date horaTermino;
+	
+	public Sala(Long id){
+		setId(id);
+	}
 
+	public Sala(){
+		//vazio
+	}
 	
 	// ****** GETs e SETs ********//
 	public String getDescricao() {
@@ -69,12 +79,12 @@ public class Sala extends GenericModel {
 		this.faixaEtariaFinal = faixaEtariaFinal;
 	}
 
-	public Long getIdInstituicao() {
-		return idInstituicao;
+	public InstituicaoEspirita getInstituicao() {
+		return instituicao;
 	}
 
-	public void setIdInstituicao(Long idInstituicao) {
-		this.idInstituicao = idInstituicao;
+	public void setInstituicao(InstituicaoEspirita instituicao) {
+		this.instituicao = instituicao;
 	}
 
 	public Date getHoraInicio() {

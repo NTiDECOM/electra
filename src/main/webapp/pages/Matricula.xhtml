@@ -23,11 +23,11 @@
 			<!-- TELA DE LISTAGEM -->
 			<t:div id="blocoDePesquisa" rendered="#{matriculaBean.listando}">
 			
-				<h1>Matrículas</h1>
+				<h1>Matrículas Realizadas</h1>
 				
 				<p:toolbar id="toolbar">
 					<f:facet name="left">
-						<p:commandButton value="Adicionar" icon="ui-icon-document"
+						<p:commandButton value="Adicionar" icon="ui-icon-document" disabled="true"
 							action="#{matriculaBean.prepararNovoCadastro}" update=":frm">
 							<p:resetInput target="painel-formulario" />
 						</p:commandButton>
@@ -74,17 +74,17 @@
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
-					<p:column headerText="Nome" sortBy="#{matricula.nome}">
+					<p:column headerText="Nome do Evangelizando" sortBy="#{matricula.nome}">
 						<h:outputText value="#{matricula.evangelizando.nome}" />
 					</p:column>
-					<p:column headerText="Apelido" sortBy="#{matricula.comoSerChamado}">
-						<h:outputText value="#{matricula.evangelizando.comoSerChamado}" />
+					<p:column headerText="Número da Matrícula" sortBy="#{matricula.numeroMatricula}">
+						<h:outputText value="#{matricula.numeroMatricula}" />
 					</p:column>
-					<p:column headerText="Data Nascimento" width="250">
-						<h:outputText value="#{matricula.evangelizando.dataNascimento}" />
+					<p:column headerText="Instituição" sortBy="#{matricula.sala.instituicao.nome}">
+						<h:outputText value="#{matricula.sala.instituicao.nome}" />
 					</p:column>
-					<p:column headerText="telefone" width="120">
-						<h:outputText value="#{matricula.evangelizando.telefone1}" />
+					<p:column headerText="Sala" sortBy="#{matricula.sala.descricao}">
+						<h:outputText value="#{matricula.sala.descricao}" />
 					</p:column>
 			
 				</p:dataTable>
@@ -94,37 +94,40 @@
 			<!-- TELA DE FORMULARIO DE CADASTRO -->
 			<t:div id="blocoDeEdicao" rendered="#{not matriculaBean.listando}">
 				
-				<h1>Matricular Evangelizando (Etapa 2/2)</h1>
+				<h1>Matricular Evangelizando</h1>
+
+				<p:steps activeIndex="1" styleClass="custom" readonly="false">
+					<p:menuitem value="Cadastro do Evangelizando" url="#" />
+					<p:menuitem value="Matrícula" url="#" />
+					<p:menuitem value="Confirmação" url="#" />
+				</p:steps>
 				
+				<br clear="all"/>
+
 				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
 				
 				<h:panelGrid columns="2" id="painel-formulario">
-					<p:outputLabel value="Nome: " for="nome-fantasia" />
+					<p:outputLabel value="Nome do Evangelizando: " for="nome-fantasia" />
 					<p:inputText id="nome-fantasia" size="60" maxlength="60" 
 						value="#{matriculaBean.evangelizando.nome}" disabled="true"/>
-					
-					<p:outputLabel value="Apelido: " for="razao-social" />
-					<p:inputText id="razao-social" size="40" maxlength="40"
-						value="#{matriculaBean.evangelizando.comoSerChamado}" disabled="true"/>
-						
-					<p:outputLabel value="Email" for="email" />
-					<p:inputText id="email" size="40" maxlength="60"
-						value="#{matriculaBean.evangelizando.email}" disabled="true"/>
-					
-					<p:outputLabel value="CPF" for="cpf" />
-					<p:inputMask id="cpf" size="14" maxlength="14"
-						value="#{matriculaBean.evangelizando.cpf}"
-						mask="999.999.999-99" disabled="true"/>
-					
-					<p:outputLabel value="Telefone" for="telefone" />
-					<p:inputMask id="telefone" size="14" maxlength="14"
-						value="#{matriculaBean.evangelizando.telefone1}"
-						mask="(99)99999-9999" disabled="true"/>
 					
 					<p:outputLabel value="Data de Nascimento" for="data-fundacao" />
 					<p:calendar id="data-fundacao" size="10"
 						value="#{matriculaBean.evangelizando.dataNascimento}" 
 						pattern="dd/MM/yyyy" mask="99/99/9999" disabled="true"/>
+						
+					<p:outputLabel value="Instituição:" for="instituicao" />
+			        <p:selectOneMenu id="instituicao" value="#{matriculaBean.idInstituicao}">
+			            <f:selectItem itemLabel="--- Selecione um item ---" itemValue="" />
+			            <f:selectItems value="#{matriculaBean.instituicoes}" var="i" itemLabel="#{i.nome}" itemValue="#{i}" />
+			            <p:ajax event="change" update="salas" />
+			        </p:selectOneMenu>
+
+					<p:outputLabel value="Sala de Evangelização:" for="salas" />
+			        <p:selectOneMenu id="salas" value="#{matriculaBean.idSala}">
+			            <f:selectItem itemLabel="--- Selecione um item ---" itemValue="" />
+			            <f:selectItems value="#{matriculaBean.salasPorInstituicao}" var="s" itemLabel="#{s.descricao}" itemValue="#{s}" />
+			        </p:selectOneMenu>
 					
 				</h:panelGrid>
 				

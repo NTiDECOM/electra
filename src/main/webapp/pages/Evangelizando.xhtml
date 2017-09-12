@@ -74,7 +74,7 @@
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
-					<p:column headerText="Nome" sortBy="#{evangelizando.nome}">
+					<p:column headerText="Nome do Evangelizando" sortBy="#{evangelizando.nome}">
 						<h:outputText value="#{evangelizando.nome}" />
 					</p:column>
 					<p:column headerText="Apelido" sortBy="#{evangelizando.comoSerChamado}">
@@ -94,12 +94,20 @@
 			<!-- TELA DE FORMULARIO DE CADASTRO -->
 			<t:div id="blocoDeEdicao" rendered="#{not evangelizandoBean.listando}">
 				
-				<h1>Cadastro de Evangelizandos (Etapa 1/2)</h1>
+				<h1>Cadastro de Evangelizandos</h1>
+
+				<p:steps activeIndex="0" styleClass="custom" readonly="false">
+					<p:menuitem value="Cadastro do Evangelizando" url="#" />
+					<p:menuitem value="Matrícula" url="#" />
+					<p:menuitem value="Confirmação" url="#" />
+				</p:steps>
+
+				<br clear="all"/>
 				
 				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
 				
 				<h:panelGrid columns="2" id="painel-formulario">
-					<p:outputLabel value="Nome: " for="nome-fantasia" />
+					<p:outputLabel value="Nome do Evangelizando: " for="nome-fantasia" />
 					<p:inputText id="nome-fantasia" size="60" maxlength="60" 
 						value="#{evangelizandoBean.evangelizando.nome}" />
 					
