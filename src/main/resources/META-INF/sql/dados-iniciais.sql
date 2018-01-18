@@ -1,1 +1,1 @@
-insert into instituicaoespirita (id, evangeliza, nome, presidente, telefone, tipo) values (1, 1, 'NELS', 'JOANA MENDES', '83987654321', 'C');
+insert into tb_instituicao_espirita (id, evangeliza, nome, presidente, telefone, tipo) values (1, 1, 'NELS', 'JOANA MENDES', '83987654321', 'C');

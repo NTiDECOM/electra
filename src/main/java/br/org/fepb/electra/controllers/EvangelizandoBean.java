@@ -1,6 +1,5 @@
 package br.org.fepb.electra.controllers;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

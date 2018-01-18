@@ -3,6 +3,7 @@ package br.org.fepb.electra.models;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,8 +22,14 @@ public abstract class Pessoa extends GenericModel {
 	private String nome;
 
 	@NotEmpty
-	@Column(name = "como_chamado", nullable = false, length = 40)
+	@Column(name = "como_ser_chamado", nullable = false, length = 40)
 	private String comoSerChamado;
+
+	@Column(name = "sexo", nullable=false)
+	private char sexo;
+	
+	@Column(name = "raca", nullable=false)
+	private String raca;
 	
 	@Column(name = "cpf", length = 14)
 	private String cpf;
@@ -48,6 +55,15 @@ public abstract class Pessoa extends GenericModel {
 	@Column(name = "telefone2", length = 14)
 	private String telefone2;
 
+	@JoinColumn(name="fk_endereco")
+	private Endereco endereco;
+	
+	@Column(name="tipo_sanguineo")
+	private String tipoSanguineo;
+	
+	@Column(name = "excluido")
+	private Boolean excluido;
+	
 	public String getNome() {
 		return nome;
 	}
@@ -111,5 +127,46 @@ public abstract class Pessoa extends GenericModel {
 	public void setTelefone2(String telefone2) {
 		this.telefone2 = telefone2;
 	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public Boolean getExcluido() {
+		return excluido;
+	}
+
+	public void setExcluido(Boolean excluido) {
+		this.excluido = excluido;
+	}
+
+	public char getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(char sexo) {
+		this.sexo = sexo;
+	}
+
+	public String getRaca() {
+		return raca;
+	}
+
+	public void setRaca(String raca) {
+		this.raca = raca;
+	}
+
+	public String getTipoSanguineo() {
+		return tipoSanguineo;
+	}
+
+	public void setTipoSanguineo(String tipoSanguineo) {
+		this.tipoSanguineo = tipoSanguineo;
+	}
+	
 
 }

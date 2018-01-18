@@ -26,9 +26,11 @@ public class Sala extends GenericModel {
 	private String descricao;
 	
 	@NotNull
+	@Column(name="faixa_etaria_inicial")
 	private Integer faixaEtariaInicial;
 	
 	@NotNull
+	@Column(name="faixa_etaria_final")
 	private Integer faixaEtariaFinal;
 	
 	@ManyToOne
@@ -36,14 +38,17 @@ public class Sala extends GenericModel {
 	private InstituicaoEspirita instituicao;
 	
 	@NotEmpty
+	@Column(name="dia_aula")
 	private String diaAula;
 	
 	@NotNull
 	@Temporal(TemporalType.TIME)
+	@Column(name="hora_inicio")
 	private Date horaInicio;
 	
 	@NotNull
 	@Temporal(TemporalType.TIME)
+	@Column(name="horario_termino")
 	private Date horaTermino;
 	
 	public Sala(Long id){

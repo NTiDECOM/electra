@@ -29,7 +29,7 @@ public class InstituicaoEspirita extends GenericModel {
 	
 	@NotNull
 	@Column(nullable = false)
-	private boolean evangeliza;
+	private Boolean evangeliza;
 
 	@NotEmpty
 	@Column(nullable = false, length = 60)
@@ -64,11 +64,11 @@ public class InstituicaoEspirita extends GenericModel {
 		return presidente;
 	}
 
-	public boolean isEvangeliza() {
+	public Boolean isEvangeliza() {
 		return evangeliza;
 	}
 
-	public void setEvangeliza(boolean evangeliza) {
+	public void setEvangeliza(Boolean evangeliza) {
 		this.evangeliza = evangeliza;
 	}
 
