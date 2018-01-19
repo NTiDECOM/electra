@@ -25,6 +25,7 @@ public abstract class Pessoa extends GenericModel {
 	@Column(name = "como_ser_chamado", nullable = false, length = 40)
 	private String comoSerChamado;
 
+	@NotNull
 	@Column(name = "sexo", nullable=false)
 	private char sexo;
 	

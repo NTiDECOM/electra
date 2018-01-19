@@ -74,6 +74,9 @@
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
+					<p:column headerText="id" sortBy="#{evangelizando.id}">
+						<h:outputText value="#{evangelizando.id}" />
+					</p:column>
 					<p:column headerText="Nome do Evangelizando" sortBy="#{evangelizando.nome}">
 						<h:outputText value="#{evangelizando.nome}" />
 					</p:column>
@@ -106,13 +109,19 @@
 				
 				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
 				
-				<h:panelGrid columns="2" id="painel-formulario">
-					<p:outputLabel value="Nome do Evangelizando: " for="nome-fantasia" />
-					<p:inputText id="nome-fantasia" size="60" maxlength="60" 
+				<h:panelGrid id="painel-formulario">
+				
+				<p:tabView>
+					<p:tab title="Dados gerais">
+					
+					<h:panelGrid columns="2" id="dados-gerais">
+					
+					<p:outputLabel value="Nome do Evangelizando: " for="nome" />
+					<p:inputText id="nome" size="60" maxlength="60" 
 						value="#{evangelizandoBean.evangelizando.nome}" />
 					
-					<p:outputLabel value="Apelido: " for="razao-social" />
-					<p:inputText id="razao-social" size="40" maxlength="40"
+					<p:outputLabel value="Apelido: " for="apelido" />
+					<p:inputText id="apelido" size="40" maxlength="40"
 						value="#{evangelizandoBean.evangelizando.comoSerChamado}" />
 						
 					<p:outputLabel value="Email" for="email" />
@@ -124,8 +133,8 @@
 						value="#{evangelizandoBean.evangelizando.cpf}"
 						mask="999.999.999-99" />
 					
-					<p:outputLabel value="Telefone" for="telefone" />
-					<p:inputMask id="telefone" size="14" maxlength="14"
+					<p:outputLabel value="Telefone" for="telefone1" />
+					<p:inputMask id="telefone1" size="14" maxlength="14"
 						value="#{evangelizandoBean.evangelizando.telefone1}"
 						mask="(99)99999-9999" />
 					
@@ -133,6 +142,201 @@
 					<p:calendar id="data-fundacao" size="10"
 						value="#{evangelizandoBean.evangelizando.dataNascimento}" 
 						pattern="dd/MM/yyyy" mask="99/99/9999" />
+		
+					<p:outputLabel value="Sexo" for="sexo"/>
+					<p:selectOneButton value="#{evangelizandoBean.evangelizando.sexo}" id="sexo">
+						<f:selectItem itemLabel="Masculino" itemValue="M"/>
+						<f:selectItem itemLabel="Feminino" itemValue="F"/>
+					</p:selectOneButton>	
+									
+					<p:outputLabel value="Raça" for="raca"/>
+					<p:selectOneButton value="#{evangelizandoBean.evangelizando.raca}" id="raca">
+						<f:selectItem itemLabel="Branco" itemValue="Branco"/>
+						<f:selectItem itemLabel="Negro" itemValue="Negro"/>
+						<f:selectItem itemLabel="Pardo" itemValue="Pardo"/>
+						<f:selectItem itemLabel="Amarela" itemValue="Amarela"/>
+						<f:selectItem itemLabel="Indígina" itemValue="Indígina"/>
+						<f:selectItem itemLabel="Outro" itemValue="Outro"/>
+					</p:selectOneButton>	
+					
+					<p:outputLabel value="Tipo sanguíneo" for="tipo_sanguineo"/>
+					<p:selectOneButton value="#{evangelizandoBean.evangelizando.tipoSanguineo}" id="tipo_sanguineo">
+						<f:selectItem itemLabel="A+" itemValue="A+"/>
+						<f:selectItem itemLabel="A-" itemValue="A-"/>
+						<f:selectItem itemLabel="B+" itemValue="B+"/>
+						<f:selectItem itemLabel="B-" itemValue="B-"/>
+						<f:selectItem itemLabel="AB+" itemValue="AB+"/>
+						<f:selectItem itemLabel="AB-" itemValue="AB-"/>
+						<f:selectItem itemLabel="O+" itemValue="O+"/>
+						<f:selectItem itemLabel="O-" itemValue="O-"/>
+					</p:selectOneButton>
+					
+					</h:panelGrid>
+					
+					</p:tab>
+					
+					<p:tab title="Saúde">
+						<h:panelGrid columns="2" id="dados-saude">
+							<p:outputLabel value="Possui alergia(s)? Descreva:"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Toma medicamento controlado?"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Possui doença que exige cuidados?"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Alguma necessidade especial?"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Fez tratamento espiritual? Descreva:"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Local do tratamento espiritual?"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Motivo do tratamento espiritual?"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Observações sobre a saúde:"/>
+							<p:inputTextarea value="-"/>
+							
+						</h:panelGrid>
+					</p:tab>
+					
+					<p:tab title="Família">
+						<h:panelGrid columns="2" id="dados-familia">
+							<p:outputLabel value="Nome do Pai:"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Nome da Mãe:"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Qual é a expectativa sobre as aulas?"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="O Evangelizando reside com quais parentes?"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Realiza o evangelho no lar? *"/>
+							<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+							
+							<p:outputLabel value="Telefone 1"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Telefone 2"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Observações sobre a família:"/>
+							<p:inputText value="-"/>
+							
+						</h:panelGrid>
+					</p:tab>
+					
+					<p:tab title="Acadêmico">
+						<h:panelGrid columns="2" id="dados-academico">
+							<p:outputLabel value="Alfabetizado?"/>
+							<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+							
+							<p:outputLabel value="Dificuldade com aprendizado na escola? Descreva"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Nível escolar?"/>
+							<p:inputText value="-"/>
+							
+							<p:outputLabel value="Observações sobre a vida acadêmica:"/>
+							<p:inputTextarea value="-"/>
+							
+						</h:panelGrid>
+					</p:tab>
+					
+					<p:tab title="Socioemocional">
+						<h:panelGrid columns="2" id="dados-socioemocional">
+						
+						<p:outputLabel value="Alegre?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Imaginação fértil?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Curioso?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Sente-se inferior?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Relaciona-se bem com o próximo?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Conversa bastante?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Revela-se líder?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Triste?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Irrita-se facilmente?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Propenso a brigas?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Dificuldade em partilhar coisas?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Impulsivo?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Inseguro emocionalmente?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Ofende-se facilmente?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Toma decisão sozinho?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Medos?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Observações socioemocionais:"/>
+						<p:inputTextarea value="-"/>
+						
+						</h:panelGrid>
+					</p:tab>
+					
+					<p:tab title="Sociabilidade">
+						<h:panelGrid columns="2" id="dados-sociabilidade">
+							<p:outputLabel value="Tem amigos?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Tem momentos de lazer?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Descreva os tipos de lazer:"/>
+						<p:inputText value="-"/>
+						
+						<p:outputLabel value="Gosta de brincar?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Bem aceito em grupos?"/>
+						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
+						
+						<p:outputLabel value="Quais as atividades favoritas?"/>
+						<p:inputText value="-"/>
+						
+						<p:outputLabel value="Reação em situação de conflitos?"/>
+						<p:inputText value="-"/>
+						
+						<p:outputLabel value="Observações sobre a sociabilidade:"/>
+						<p:inputTextarea value="-"/>
+						
+						</h:panelGrid>
+					</p:tab>
+					
+					</p:tabView>
 					
 				</h:panelGrid>
 				

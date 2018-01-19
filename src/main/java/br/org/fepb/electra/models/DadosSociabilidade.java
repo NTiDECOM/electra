@@ -42,6 +42,9 @@ public class DadosSociabilidade implements Serializable {
 
     @Column(name="reacao_situacao_conflito")
     private String reacaoSituacaoConflito;
+    
+    @Column(name="observacoes")
+    private String observacoes;
 
 	public Integer getId() {
 		return id;
@@ -113,6 +116,14 @@ public class DadosSociabilidade implements Serializable {
 
 	public void setReacaoSituacaoConflito(String reacaoSituacaoConflito) {
 		this.reacaoSituacaoConflito = reacaoSituacaoConflito;
+	}
+
+	public String getObservacoes() {
+		return observacoes;
+	}
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
 	}
     
     

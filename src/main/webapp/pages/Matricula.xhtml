@@ -74,6 +74,9 @@
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
+					<p:column headerText="Nº Matrícula" sortBy="#{matricula.numeroMatricula}">
+						<h:outputText value="#{matricula.numeroMatricula}" />
+					</p:column>
 					<p:column headerText="Nome do Evangelizando" sortBy="#{matricula.nome}">
 						<h:outputText value="#{matricula.evangelizando.nome}" />
 					</p:column>
@@ -128,7 +131,20 @@
 			            <f:selectItem itemLabel="--- Selecione um item ---" itemValue="" />
 			            <f:selectItems value="#{matriculaBean.salasPorInstituicao}" var="s" itemLabel="#{s.descricao}" itemValue="#{s}" />
 			        </p:selectOneMenu>
+			        
+			        <p:outputLabel value="Evangelizado anteriormente?" for="evangelizadoAnteriormente" />
+			        <p:selectBooleanButton id="evangelizadoAnteriormente" value="#{matriculaBean.evangelizadoAnteriormente}"
+			        onLabel="Sim" offLabel="Não"/>
+			        
+			        <p:outputLabel value="Local da última evangelização:" for="localUltEvang"/>
+			        <p:inputText value="#{matriculaBean.localUltimaEvangelizacao}" id="localUltEvang"/>
 					
+					<p:outputLabel value="Tempo da última evangelização:" for="tempoUltEvang"/>
+			        <p:inputText value="#{matriculaBean.tempoUltimaEvangelizacao}" id="tempoUltEvang"/>
+			        
+			        <p:outputLabel value="Observações:" for="observacoes"/>
+			        <p:inputTextarea value="#{matriculaBean.observacoes}" id="observacoes"/>
+			        
 				</h:panelGrid>
 				
 				<p:spacer height="10"/>

@@ -59,7 +59,14 @@ public class MatriculaBean extends GenericBean {
 	@NotNull
 	private Long idSala;
 	
+	@NotNull
+	private Boolean evangelizadoAnteriormente;
 	
+	private String localUltimaEvangelizacao;
+	
+	private String tempoUltimaEvangelizacao;
+	
+	private String observacoes;
 	
 	@Inject
 	private ServletContext servletContext;
@@ -96,6 +103,10 @@ public class MatriculaBean extends GenericBean {
 		this.matriculas = new ArrayList<Matricula>();
 		this.idInstituicao = null;
 		this.idSala = null;
+		this.evangelizadoAnteriormente = false;
+		this.localUltimaEvangelizacao = "";
+		this.tempoUltimaEvangelizacao = "";
+		this.observacoes = "";
 	}
 	
 	public void prepararNovoCadastro() {
@@ -115,6 +126,10 @@ public class MatriculaBean extends GenericBean {
 		try {
 		matricula.setEvangelizando(evangelizando);
 		matricula.setSala(new Sala(idSala));
+		matricula.setEvangelizadoAnteriormente(evangelizadoAnteriormente);
+		matricula.setLocalUltimaEvangelizacao(localUltimaEvangelizacao);
+		matricula.setTempoUltimaEvangelizacao(tempoUltimaEvangelizacao);
+		matricula.setObservacoes(observacoes);
 		//gerar numeracao
 		matricula.setNumeroMatricula(gerarNumeroMatricula(evangelizando));
 		matricula = matriculaServico.salvar(matricula);
@@ -129,10 +144,16 @@ public class MatriculaBean extends GenericBean {
 		return "/pages/ConfirmacaoMatricula";
 	}
 	
+	/**
+	 * 
+	 * Gera a numeração no formato:
+	 * YYYYMMDD + 
+	 * 
+	 */
 	public String gerarNumeroMatricula(Evangelizando evangelizando){
 		StringBuilder numeroMatricula = new StringBuilder(); 
 			numeroMatricula.append(new SimpleDateFormat("YYYYMMdd").format(evangelizando.getDataNascimento()));
-			numeroMatricula.append(evangelizando.getComoSerChamado().trim().toUpperCase().replaceAll(" ", ""));
+			//numeroMatricula.append(evangelizando.getComoSerChamado().trim().toUpperCase().replaceAll(" ", ""));
 			DecimalFormat df = new DecimalFormat(FORMATO_ID_ZEROS);
 			numeroMatricula.append(df.format(evangelizando.getId()));
 		return numeroMatricula.toString();
@@ -219,6 +240,38 @@ public class MatriculaBean extends GenericBean {
 
 	public void setConfirmacaoMatricula(Matricula confirmacaoMatricula) {
 		this.confirmacaoMatricula = confirmacaoMatricula;
+	}
+
+	public Boolean getEvangelizadoAnteriormente() {
+		return evangelizadoAnteriormente;
+	}
+
+	public void setEvangelizadoAnteriormente(Boolean evangelizadoAnteriormente) {
+		this.evangelizadoAnteriormente = evangelizadoAnteriormente;
+	}
+
+	public String getLocalUltimaEvangelizacao() {
+		return localUltimaEvangelizacao;
+	}
+
+	public void setLocalUltimaEvangelizacao(String localUltimaEvangelizacao) {
+		this.localUltimaEvangelizacao = localUltimaEvangelizacao;
+	}
+
+	public String getTempoUltimaEvangelizacao() {
+		return tempoUltimaEvangelizacao;
+	}
+
+	public void setTempoUltimaEvangelizacao(String tempoUltimaEvangelizacao) {
+		this.tempoUltimaEvangelizacao = tempoUltimaEvangelizacao;
+	}
+
+	public String getObservacoes() {
+		return observacoes;
+	}
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
 	}
 	
 	

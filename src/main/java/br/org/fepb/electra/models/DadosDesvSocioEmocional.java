@@ -69,6 +69,9 @@ public class DadosDesvSocioEmocional implements Serializable {
 
     @Column(name="medos")
     private String medos;
+    
+    @Column(name="observacoes")
+    private String observacoes;
 
 	public Integer getId() {
 		return id;
