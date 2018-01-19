@@ -152,6 +152,36 @@
 					<p:calendar id="data-fundacao" size="10"
 						value="#{evangelizadorBean.evangelizador.dataNascimento}" 
 						pattern="dd/MM/yyyy" mask="99/99/9999" />
+						
+						
+					<p:outputLabel value="Sexo" for="sexo"/>
+					<p:selectOneButton value="#{evangelizadorBean.evangelizador.sexo}" id="sexo">
+						<f:selectItem itemLabel="Masculino" itemValue="M"/>
+						<f:selectItem itemLabel="Feminino" itemValue="F"/>
+					</p:selectOneButton>	
+									
+					<p:outputLabel value="Raça" for="raca"/>
+					<p:selectOneButton value="#{evangelizadorBean.evangelizador.raca}" id="raca">
+						<f:selectItem itemLabel="Branco" itemValue="Branco"/>
+						<f:selectItem itemLabel="Negro" itemValue="Negro"/>
+						<f:selectItem itemLabel="Pardo" itemValue="Pardo"/>
+						<f:selectItem itemLabel="Amarela" itemValue="Amarela"/>
+						<f:selectItem itemLabel="Indígina" itemValue="Indígina"/>
+						<f:selectItem itemLabel="Outro" itemValue="Outro"/>
+					</p:selectOneButton>	
+					
+					<p:outputLabel value="Tipo sanguíneo" for="tipo_sanguineo"/>
+					<p:selectOneButton value="#{evangelizadorBean.evangelizador.tipoSanguineo}" id="tipo_sanguineo">
+						<f:selectItem itemLabel="A+" itemValue="A+"/>
+						<f:selectItem itemLabel="A-" itemValue="A-"/>
+						<f:selectItem itemLabel="B+" itemValue="B+"/>
+						<f:selectItem itemLabel="B-" itemValue="B-"/>
+						<f:selectItem itemLabel="AB+" itemValue="AB+"/>
+						<f:selectItem itemLabel="AB-" itemValue="AB-"/>
+						<f:selectItem itemLabel="O+" itemValue="O+"/>
+						<f:selectItem itemLabel="O-" itemValue="O-"/>
+					</p:selectOneButton>
+						
 
 				</h:panelGrid>
 				

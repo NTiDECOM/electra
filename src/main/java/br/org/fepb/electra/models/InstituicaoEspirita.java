@@ -64,7 +64,7 @@ public class InstituicaoEspirita extends GenericModel {
 		return presidente;
 	}
 
-	public Boolean isEvangeliza() {
+	public Boolean getEvangeliza() {
 		return evangeliza;
 	}
 
