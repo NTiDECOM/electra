@@ -1,0 +1,53 @@
+Checklist de tarefas:
+
+Evangelizando:
++ Modificar digitação para caixa alta. [OK]
++ Atualziar label 'Nome completo' e 'Nome como é chamado?' [OK]
++ Validar em dois campos o e-mail válido. [OK]
++ Contar idade e mostrar ao lado (ano e meses) [VERSÃO 0.2]
++ Incluir opção 'Não sabe' nas opções de tipos sanguíneos. [OK]
++ Modificar abas, incluir botão 'próximo', salvar no banco de dados. [FALTA]
++ Incluir endereço em Pessoa (evangelizando, evangelizador, etc) [EVANGELIZANDO OK... FALTA EVANGELIZADOR]
++ Em acadêmico montar combo com tabela no campo nível escolar
+Em família:
+	- Colocar legenda para explicar o conceito de responsável
+	- Remover telefone 1 e 2
+	- Incluir tipo contato (whatsapp, celular, residencial)
++ Criar dinamismo no cadastro de vinculo social (responsáveis/parentes com quem mora), 
+	- Ver modelo: Informar parente + grau parentesco + profissão
+(parente precisa apenas do nome e o responsável os demais campos) 
++ Remover campos pai e mãe
+	- Tipo parente: Mãe/Pai, Avó(ô), Tia(o), Irmã(o), Prima(o), Vizinha(o), outros
++ Analisar posteriormente: Incluir talentos aos responsáveis (Ver modelo da fepb)	
++ Sobre Saúde:  
+	- Checkbox 'SIM' para todas as perguntas, habilitar edição das descrições.
+	- Modificar label p/ 'Faz uso contínuo de alguma medicação?'
+	- Remover campo 'Possui doença..'
++ Implementar edição na listagem de evangelizando.
++ Definicação dos campos obrigatórios: Nome completo, como ser chamado, telefone, d. nascimento, sexo, tipo sanguíneo.	
++ Analisar posteriormente informações internas (sigilo), como vulnerabilidade. 
++ Criar listagem de evangelizandos por data de nascimento
++ Novo campo naturalidade
++ Criar mensagem de validação informativa: Unicidade: Primeiro nome, d. nascimento e naturalidade.
+	 
+Matrícula:
++ Novo formato de matrícula: YYYYMMDD999(1,2,3...) sequencial a apartir da mesma data 
++ Implementar edicação do evangelizando (etapa de matrícula) -> VOLTAR; 
+	- E na listagem de matrícula poder editar a matrícula, incluindo ainda, data (fixo) e status 
++ Mostrar mais informações sobre a 'turma matriculada'
++ Trocar botão/componente 'Evangelizando anteriormente?' (SIM/NAO)
+
+
+Instituição: 
++ Incluir endereço (tmp)
++ Ajustar máscara do telefone (tmp).
++ Incluir FK externo (entidade instituição do serviço cesp),  recuperar cnpj, endreço, etc
++ incluir campo 'Quantidade de espaços físicos para evangelização?' Quantidade: 0-99
+
+Sala:
++ Modificar nome para Turma
++ Vincular Evangelizador a Turma (OPCIONAL)
++ incluir campos periodicidade das aulas (Diariamente, Semanal, Mensal).
+
+Outros:
++ Mudar sessão
