@@ -51,3 +51,5 @@ Sala:
 
 Outros:
 + Mudar sessão
++ Incluir autenticação
++ Filtrar consultas por instituiçoes do usuário logado
