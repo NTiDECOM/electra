@@ -2,7 +2,7 @@ package br.org.fepb.electra.util;
 
 import java.time.LocalDate;
 
-import br.org.fepb.electra.models.InstituicaoEspirita;
+import br.org.fepb.electra.modelo.InstituicaoEspirita;
 
 public class FormatadorBean {
 

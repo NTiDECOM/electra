@@ -11,7 +11,7 @@
 		<f:metadata>
 			<f:viewAction action="#{evangelizandoBean.listar}" />
 		</f:metadata>
-
+		
 		<h:form id="frm">
 		
 			<t:saveState value="#{evangelizandoBean.state}"/>
@@ -111,55 +111,59 @@
 				
 				<h:panelGrid id="painel-formulario">
 				
-				<p:tabView>
+				<p:tabView onblur="value=value.toUpperCase()">
 					<p:tab title="Dados gerais">
 					
 					<h:panelGrid columns="2" id="dados-gerais">
 					
-					<p:outputLabel value="Nome do Evangelizando: " for="nome" />
-					<p:inputText id="nome" size="60" maxlength="60" 
+					<p:outputLabel value="Nome completo: (*)" for="nome" />
+					<p:inputText id="nome" size="60" maxlength="60" onblur="value=value.toUpperCase()"
 						value="#{evangelizandoBean.evangelizando.nome}" />
 					
-					<p:outputLabel value="Apelido: " for="apelido" />
-					<p:inputText id="apelido" size="40" maxlength="40"
+					<p:outputLabel value="Nome como é chamado?: (*)" for="comochamado" />
+					<p:inputText id="comochamado" size="40" maxlength="40" onblur="value=value.toUpperCase()"
 						value="#{evangelizandoBean.evangelizando.comoSerChamado}" />
 						
-					<p:outputLabel value="Email" for="email" />
-					<p:inputText id="email" size="40" maxlength="60"
-						value="#{evangelizandoBean.evangelizando.email}" />
+					<p:outputLabel value="Email:" for="email1" />
+					<p:inputText id="email1" size="40" maxlength="60" onblur="value=value.toLowerCase()"
+						value="#{evangelizandoBean.email1}" />
 					
-					<p:outputLabel value="CPF" for="cpf" />
+					<p:outputLabel value="Email (confirmação): " for="email2" />
+					<p:inputText id="email2" size="40" maxlength="60" onblur="value=value.toLowerCase()"
+						value="#{evangelizandoBean.email2}" />	
+					
+					<p:outputLabel value="CPF: " for="cpf" />
 					<p:inputMask id="cpf" size="14" maxlength="14"
 						value="#{evangelizandoBean.evangelizando.cpf}"
 						mask="999.999.999-99" />
 					
-					<p:outputLabel value="Telefone" for="telefone1" />
+					<p:outputLabel value="Telefone: (*)" for="telefone1" />
 					<p:inputMask id="telefone1" size="14" maxlength="14"
 						value="#{evangelizandoBean.evangelizando.telefone1}"
 						mask="(99)99999-9999" />
 					
-					<p:outputLabel value="Data de Nascimento" for="data-fundacao" />
+					<p:outputLabel value="Data de Nascimento: (*)" for="data-fundacao" />
 					<p:calendar id="data-fundacao" size="10"
 						value="#{evangelizandoBean.evangelizando.dataNascimento}" 
 						pattern="dd/MM/yyyy" mask="99/99/9999" />
 		
-					<p:outputLabel value="Sexo" for="sexo"/>
+					<p:outputLabel value="Sexo: (*)" for="sexo"/>
 					<p:selectOneButton value="#{evangelizandoBean.evangelizando.sexo}" id="sexo">
 						<f:selectItem itemLabel="Masculino" itemValue="M"/>
 						<f:selectItem itemLabel="Feminino" itemValue="F"/>
 					</p:selectOneButton>	
 									
-					<p:outputLabel value="Raça" for="raca"/>
+					<p:outputLabel value="Raça: " for="raca"/>
 					<p:selectOneButton value="#{evangelizandoBean.evangelizando.raca}" id="raca">
-						<f:selectItem itemLabel="Branco" itemValue="Branco"/>
-						<f:selectItem itemLabel="Negro" itemValue="Negro"/>
-						<f:selectItem itemLabel="Pardo" itemValue="Pardo"/>
-						<f:selectItem itemLabel="Amarela" itemValue="Amarela"/>
-						<f:selectItem itemLabel="Indígina" itemValue="Indígina"/>
-						<f:selectItem itemLabel="Outro" itemValue="Outro"/>
+						<f:selectItem itemLabel="Branco" itemValue="BRANCO"/>
+						<f:selectItem itemLabel="Negro" itemValue="NEGRO"/>
+						<f:selectItem itemLabel="Pardo" itemValue="PARDO"/>
+						<f:selectItem itemLabel="Amarela" itemValue="AMARELA"/>
+						<f:selectItem itemLabel="Indígina" itemValue="INDÍGENA"/>
+						<f:selectItem itemLabel="Outra" itemValue="OUTRA"/>
 					</p:selectOneButton>	
 					
-					<p:outputLabel value="Tipo sanguíneo" for="tipo_sanguineo"/>
+					<p:outputLabel value="Tipo sanguíneo: (*)" for="tipo_sanguineo"/>
 					<p:selectOneButton value="#{evangelizandoBean.evangelizando.tipoSanguineo}" id="tipo_sanguineo">
 						<f:selectItem itemLabel="A+" itemValue="A+"/>
 						<f:selectItem itemLabel="A-" itemValue="A-"/>
@@ -169,66 +173,79 @@
 						<f:selectItem itemLabel="AB-" itemValue="AB-"/>
 						<f:selectItem itemLabel="O+" itemValue="O+"/>
 						<f:selectItem itemLabel="O-" itemValue="O-"/>
+						<f:selectItem itemLabel="Não sabe" itemValue="NAO SABE"/>
 					</p:selectOneButton>
 					
 					</h:panelGrid>
 					
 					</p:tab>
 					
+					<p:tab title="Endereço">
+						<h:panelGrid columns="2" id="dados-endereco">
+							<p:outputLabel value="CEP:"/>
+							<p:inputMask value="#{evangelizandoBean.endereco.cep}" 
+							onblur="value=value.toUpperCase()" mask="99999-999"/>
+							
+							<p:outputLabel value="Rua/Logradouro:"/>
+							<p:inputText value="#{evangelizandoBean.endereco.logradouro}" onblur="value=value.toUpperCase()"/>
+							
+							<p:outputLabel value="Número:"/>
+							<p:inputText value="#{evangelizandoBean.endereco.numero}" onblur="value=value.toUpperCase()"/>
+							
+							<p:outputLabel value="Bairro:"/>
+							<p:selectOneMenu value="#{evangelizandoBean.bairroSelecionado}" converter="simpleEntityConverter">
+								<f:selectItems value="#{evangelizandoBean.bairros}"/>
+							</p:selectOneMenu>
+							
+							<p:outputLabel value="Complemento:"/>
+							<p:inputText value="#{evangelizandoBean.endereco.complemento}" onblur="value=value.toUpperCase()"/>
+							
+						</h:panelGrid>
+					</p:tab>	
+					
 					<p:tab title="Saúde">
 						<h:panelGrid columns="2" id="dados-saude">
 							<p:outputLabel value="Possui alergia(s)? Descreva:"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Toma medicamento controlado?"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Possui doença que exige cuidados?"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Alguma necessidade especial?"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Fez tratamento espiritual? Descreva:"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Local do tratamento espiritual?"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Motivo do tratamento espiritual?"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Observações sobre a saúde:"/>
-							<p:inputTextarea value="-"/>
+							<p:inputTextarea value="-" onblur="value=value.toUpperCase()"/>
 							
 						</h:panelGrid>
 					</p:tab>
 					
 					<p:tab title="Família">
 						<h:panelGrid columns="2" id="dados-familia">
-							<p:outputLabel value="Nome do Pai:"/>
-							<p:inputText value="-"/>
-							
-							<p:outputLabel value="Nome da Mãe:"/>
-							<p:inputText value="-"/>
-							
+													
 							<p:outputLabel value="Qual é a expectativa sobre as aulas?"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="O Evangelizando reside com quais parentes?"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Realiza o evangelho no lar? *"/>
 							<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
 							
-							<p:outputLabel value="Telefone 1"/>
-							<p:inputText value="-"/>
-							
-							<p:outputLabel value="Telefone 2"/>
-							<p:inputText value="-"/>
-							
 							<p:outputLabel value="Observações sobre a família:"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 						</h:panelGrid>
 					</p:tab>
@@ -239,13 +256,13 @@
 							<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
 							
 							<p:outputLabel value="Dificuldade com aprendizado na escola? Descreva"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Nível escolar?"/>
-							<p:inputText value="-"/>
+							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Observações sobre a vida acadêmica:"/>
-							<p:inputTextarea value="-"/>
+							<p:inputTextarea value="-" onblur="value=value.toUpperCase()"/>
 							
 						</h:panelGrid>
 					</p:tab>
@@ -302,7 +319,7 @@
 						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
 						
 						<p:outputLabel value="Observações socioemocionais:"/>
-						<p:inputTextarea value="-"/>
+						<p:inputTextarea value="-" onblur="value=value.toUpperCase()"/>
 						
 						</h:panelGrid>
 					</p:tab>
@@ -316,7 +333,7 @@
 						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
 						
 						<p:outputLabel value="Descreva os tipos de lazer:"/>
-						<p:inputText value="-"/>
+						<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 						
 						<p:outputLabel value="Gosta de brincar?"/>
 						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
@@ -325,13 +342,13 @@
 						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
 						
 						<p:outputLabel value="Quais as atividades favoritas?"/>
-						<p:inputText value="-"/>
+						<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 						
 						<p:outputLabel value="Reação em situação de conflitos?"/>
-						<p:inputText value="-"/>
+						<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 						
 						<p:outputLabel value="Observações sobre a sociabilidade:"/>
-						<p:inputTextarea value="-"/>
+						<p:inputTextarea value="-" onblur="value=value.toUpperCase()"/>
 						
 						</h:panelGrid>
 					</p:tab>

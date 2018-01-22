@@ -1,0 +1,197 @@
+package br.org.fepb.electra.controladores;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.ServletContext;
+
+import br.org.fepb.electra.modelo.Bairro;
+import br.org.fepb.electra.modelo.Cidade;
+import br.org.fepb.electra.modelo.Endereco;
+import br.org.fepb.electra.modelo.Evangelizando;
+import br.org.fepb.electra.modelo.UnidadeFederativa;
+import br.org.fepb.electra.repositorios.EvangelizandoRepositorio;
+import br.org.fepb.electra.servicos.EvangelizandoService;
+import br.org.fepb.electra.util.FacesMessages;
+
+@Named
+@ViewScoped
+public class EvangelizandoBean extends GenericBean {
+
+	private static final long serialVersionUID = 8390437989517939381L;
+	
+	@Inject
+	private FacesMessages messages;
+	
+	@Inject
+	private EvangelizandoService evangelizandoServico;
+	
+	@Inject
+	private EvangelizandoRepositorio evangelizandoRepositorio;
+
+	private List<Evangelizando> evangelizandos;
+	
+	private Evangelizando evangelizando;
+	
+	@Inject
+	private Endereco endereco;
+	
+	private String email1;
+	
+	private String email2;
+	
+	private List<Bairro> bairros;
+	
+	//@NotNull TODO: Analisar obrigatoriedade
+	private Bairro bairroSelecionado;
+	
+	@Inject
+	private ServletContext servletContext;
+	
+	/** Método para iniciar a tela de cadastro de evangelizandos */
+	public String iniciar() {
+		this.limparVariaveis();
+		setState(ESTADO_DE_LISTAGEM);
+		return "/pages/Evangelizando";
+	}
+	
+	public String cancelar() {
+		limparVariaveis();
+		return "/pages/Evangelizando";
+	}
+	
+	public void listar() {
+		if ( evangelizandos == null)
+			evangelizandos = new ArrayList<Evangelizando>();
+		else
+			evangelizandos.clear();
+		
+		evangelizandos = evangelizandoRepositorio.listarTodos();
+		setState(ESTADO_DE_LISTAGEM);
+	}
+	
+	private void limparVariaveis() {
+		//TODO
+		this.evangelizando = new Evangelizando();
+		//configurar spring
+		this.evangelizandos = new ArrayList<Evangelizando>();
+		this.email1 = "";
+		this.email2 = "";
+		this.bairroSelecionado = new Bairro();
+	}
+	
+	public void prepararNovoCadastro() {
+		this.evangelizando = new Evangelizando();
+		setState(ESTADO_DE_NOVO);
+	}
+	
+	public void prepararEdicao() {
+	}
+	
+	public String salvar() {
+		//valida email
+		if(!email2.equals(email1)){
+			messages.error("Não foi possível confirmar o e-mail, favor preencher novamente.");
+			return "";
+		} else {
+			evangelizando.setEmail(email1);
+		}
+		//vlaida bairro
+		if(endereco !=null && bairroSelecionado !=null){
+			//evangelizando.getEndereco().setBairro(new Bairro(idBairro));
+			endereco.setBairro(bairroSelecionado);
+			evangelizando.setEndereco(endereco);
+		}
+		evangelizando = evangelizandoServico.salvar(evangelizando);
+		messages.info("Evangelizando salvo com sucesso! Realize agora a matrícula...");
+		listar();
+		servletContext.setAttribute("evangelizando", evangelizando);
+ 		return "/pages/Matricula";
+	}
+	
+	public void excluir() {
+		try {
+		evangelizandoServico.excluir(evangelizando);
+		evangelizando = null;
+		messages.info("Evangelizando(a) excluído(a) com sucesso!");
+		listar();
+		} catch (Exception e) {
+			e.printStackTrace();
+			messages.error("Existe uma matrícula vinculada. Para remoção completa, primeiramente precisa remover a matrícula dependente");
+			
+		}
+	}
+	
+	public List<Evangelizando> getEvangelizandos() {
+		if(evangelizandos == null){
+			return evangelizandoRepositorio.listarTodos();
+		}
+		return evangelizandos;
+	}
+
+	public void setEvangelizandos(List<Evangelizando> evangelizandos) {
+		this.evangelizandos = evangelizandos;
+	}
+
+	public Evangelizando getEvangelizando() {
+		return evangelizando;
+	}
+
+	public void setEvangelizando(Evangelizando evangelizando) {
+		this.evangelizando = evangelizando;
+	}
+
+	public String getEmail1() {
+		return email1;
+	}
+
+	public void setEmail1(String email1) {
+		this.email1 = email1;
+	}
+
+	public String getEmail2() {
+		return email2;
+	}
+
+	public void setEmail2(String email2) {
+		this.email2 = email2;
+	}
+
+	public Bairro getBairroSelecionado() {
+		return bairroSelecionado;
+	}
+
+	public void setBairroSelecionado(Bairro bairroSelecionado) {
+		this.bairroSelecionado = bairroSelecionado;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public List<Bairro> getBairros() {
+		//TODO: 
+		if(bairros == null){
+			bairros = new ArrayList<>();
+			//bairros.add(new Bairro(Long.parseLong("1"), "Torre", Long.parseLong("1")));
+			//bairros.add(new Bairro(Long.parseLong("2"), "Pedro Gondim", Long.parseLong("1")));
+			bairros.add(new Bairro(Long.parseLong("1"), "Torre"));
+			bairros.add(new Bairro(Long.parseLong("2"), "Pedro Gondim"));
+		}
+		return bairros;
+	}
+
+	public void setBairros(List<Bairro> bairros) {
+		this.bairros = bairros;
+	}
+	
+
+	
+}

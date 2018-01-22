@@ -109,68 +109,72 @@
 				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
 				
 				<h:panelGrid columns="2" id="painel-formulario">
-					<p:outputLabel value="Nome" for="nome-fantasia" />
-					<p:inputText id="nome-fantasia" size="60" maxlength="60" 
-						value="#{evangelizadorBean.evangelizador.nome}" />
+					<p:outputLabel value="Nome completo: (*)" for="nome-completo" />
+					<p:inputText id="nome-completo" size="60" maxlength="60" 
+						value="#{evangelizadorBean.evangelizador.nome}" onblur="value=value.toUpperCase()"/>
 					
-					<p:outputLabel value="Apelido" for="razao-social" />
+					<p:outputLabel value="Nome como é chamado? (*)" for="razao-social" />
 					<p:inputText id="razao-social" size="40" maxlength="40"
-						value="#{evangelizadorBean.evangelizador.comoSerChamado}" />
+						value="#{evangelizadorBean.evangelizador.comoSerChamado}" onblur="value=value.toUpperCase()"/>
 					
-					<p:outputLabel value="Escolaridade" for="escolaridade" />
+					<p:outputLabel value="Escolaridade: (*)" for="escolaridade" />
 					<p:selectOneMenu value="#{evangelizadorBean.evangelizador.escolaridade}" id="escolaridade">
 					 	<f:selectItem itemLabel="--Selecione um item--" itemValue="" />
-						<f:selectItem itemValue="Fundamental - Incompleto" itemLabel="Fundamental - Incompleto"/>
-						<f:selectItem itemValue="Fundamental - Completo" itemLabel="Fundamental - Completo"/>
-						<f:selectItem itemValue="Medio - Incompleto" itemLabel="Médio - Incompleto"/>
-						<f:selectItem itemValue="Medio - Completo" itemLabel="Médio - Completo"/>
-						<f:selectItem itemValue="Superior - Incompleto" itemLabel="Superior - Incompleto"/>
-						<f:selectItem itemValue="Superior - Completo" itemLabel="Superior - Completo"/>
-						<f:selectItem itemValue="Pos-graduacao - Incompleto" itemLabel="Pós-graduação - Incompleto"/>
-						<f:selectItem itemValue="Pos-graduacao - Completo" itemLabel="Pós-graduação - Completo"/>
+						<f:selectItem itemValue="Fundamental - Incompleto" itemLabel="FUNDAMENTAL - INCOMPLETO"/>
+						<f:selectItem itemValue="Fundamental - Completo" itemLabel="FUNDAMENTAL - COMPLETO"/>
+						<f:selectItem itemValue="Medio - Incompleto" itemLabel="MÉDIO - INCOMPLETO"/>
+						<f:selectItem itemValue="Medio - Completo" itemLabel="MÉDIO - COMPLETO"/>
+						<f:selectItem itemValue="Superior - Incompleto" itemLabel="SUPERIOR - INCOMPLETO"/>
+						<f:selectItem itemValue="Superior - Completo" itemLabel="SUPERIOR - COMPLETO"/>
+						<f:selectItem itemValue="Pos-graduacao - Incompleto" itemLabel="PÓS-GRADUAÇÃO - INCOMPLETO"/>
+						<f:selectItem itemValue="Pos-graduacao - Completo" itemLabel="PÓS-GRADUAÇÃO - COMPLETO"/>
 					</p:selectOneMenu>
 					
-					<p:outputLabel value="Ocupação" for="ocupacao" />
+					<p:outputLabel value="Ocupação: (*)" for="ocupacao" />
 					<p:inputText id="ocupacao" size="40" maxlength="60"
-						value="#{evangelizadorBean.evangelizador.ocupacao}" />
+						value="#{evangelizadorBean.evangelizador.ocupacao}" onblur="value=value.toUpperCase()"/>
 					
-					<p:outputLabel value="Email" for="email" />
-					<p:inputText id="email" size="40" maxlength="60"
-						value="#{evangelizadorBean.evangelizador.email}" />
+					<p:outputLabel value="Email:" for="email1" />
+					<p:inputText id="email1" size="40" maxlength="60" onblur="value=value.toLowerCase()"
+						value="#{evangelizadorBean.email1}" />
 					
-					<p:outputLabel value="CPF" for="cpf" />
+					<p:outputLabel value="Email (confirmação): " for="email2" />
+					<p:inputText id="email2" size="40" maxlength="60" onblur="value=value.toLowerCase()"
+						value="#{evangelizadorBean.email2}" />	
+					
+					<p:outputLabel value="CPF:" for="cpf" />
 					<p:inputMask id="cpf" size="14" maxlength="14"
 						value="#{evangelizadorBean.evangelizador.cpf}"
 						mask="999.999.999-99" />
 					
-					<p:outputLabel value="Telefone" for="telefone" />
+					<p:outputLabel value="Telefone: (*)" for="telefone" />
 					<p:inputMask id="telefone" size="14" maxlength="14"
 						value="#{evangelizadorBean.evangelizador.telefone1}"
 						mask="(99)99999-9999" />
 					
-					<p:outputLabel value="Data de Nascimento" for="data-fundacao" />
+					<p:outputLabel value="Data de Nascimento: (*)" for="data-fundacao" />
 					<p:calendar id="data-fundacao" size="10"
 						value="#{evangelizadorBean.evangelizador.dataNascimento}" 
 						pattern="dd/MM/yyyy" mask="99/99/9999" />
 						
 						
-					<p:outputLabel value="Sexo" for="sexo"/>
+					<p:outputLabel value="Sexo: " for="sexo"/>
 					<p:selectOneButton value="#{evangelizadorBean.evangelizador.sexo}" id="sexo">
 						<f:selectItem itemLabel="Masculino" itemValue="M"/>
 						<f:selectItem itemLabel="Feminino" itemValue="F"/>
 					</p:selectOneButton>	
 									
-					<p:outputLabel value="Raça" for="raca"/>
+					<p:outputLabel value="Raça: " for="raca"/>
 					<p:selectOneButton value="#{evangelizadorBean.evangelizador.raca}" id="raca">
-						<f:selectItem itemLabel="Branco" itemValue="Branco"/>
-						<f:selectItem itemLabel="Negro" itemValue="Negro"/>
-						<f:selectItem itemLabel="Pardo" itemValue="Pardo"/>
-						<f:selectItem itemLabel="Amarela" itemValue="Amarela"/>
-						<f:selectItem itemLabel="Indígina" itemValue="Indígina"/>
-						<f:selectItem itemLabel="Outro" itemValue="Outro"/>
+						<f:selectItem itemLabel="Branco" itemValue="BRANCO"/>
+						<f:selectItem itemLabel="Negro" itemValue="NEGRO"/>
+						<f:selectItem itemLabel="Pardo" itemValue="PARDO"/>
+						<f:selectItem itemLabel="Amarela" itemValue="AAMARELA"/>
+						<f:selectItem itemLabel="Indígina" itemValue="INDÍGENA"/>
+						<f:selectItem itemLabel="Outra" itemValue="OUTRA"/>
 					</p:selectOneButton>	
 					
-					<p:outputLabel value="Tipo sanguíneo" for="tipo_sanguineo"/>
+					<p:outputLabel value="Tipo sanguíneo: (*)" for="tipo_sanguineo"/>
 					<p:selectOneButton value="#{evangelizadorBean.evangelizador.tipoSanguineo}" id="tipo_sanguineo">
 						<f:selectItem itemLabel="A+" itemValue="A+"/>
 						<f:selectItem itemLabel="A-" itemValue="A-"/>
@@ -271,7 +275,7 @@
 				<p:toolbar id="toolbar-cadastro">
 					<f:facet name="left">
 						<p:commandButton icon="ui-icon-cancel" value="Limpar Instituições" 
-							action="#{evangelizadorBean.cancelInstituicaoDrop}" update=":frm" process="@this"/>
+							action="#{evangelizadorBean.cancelInstituicaoDrop}" update=":frm:instituicaoSubForm" process="@this"/>
 						<p:commandButton value="Cancelar" icon="ui-icon-cancel" id="cancelar-button"
 							action="#{evangelizadorBean.cancelar}" update=":frm" process="@this"/>
 						<p:commandButton value="Salvar" icon="ui-icon-disk" id="salvar-button"

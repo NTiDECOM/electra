@@ -102,11 +102,12 @@
 				
 				<h:panelGrid columns="2" id="painel-formulario">
 					<p:outputLabel value="Nome:" for="nome" />
-					<p:inputText id="nome" size="60" maxlength="60" 
+					<p:inputText id="nome" size="60" maxlength="60" onblur="value=value.toUpperCase()"
 						value="#{instituicaoEspiritaBean.instituicao.nome}" />
 					
 					<p:outputLabel value="Presidente:" for="presidente" />
-					<p:inputText id="presidente" size="60" maxlength="60" value="#{instituicaoEspiritaBean.instituicao.presidente}" />
+					<p:inputText id="presidente" size="60" maxlength="60" 
+					value="#{instituicaoEspiritaBean.instituicao.presidente}" onblur="value=value.toUpperCase()"/>
 					
 					<p:outputLabel value="Evangeliza?" for="evangeliza" />
 					<p:selectBooleanButton id="evangeliza" value="#{instituicaoEspiritaBean.instituicao.evangeliza}" onLabel="Sim" offLabel="Não" 
