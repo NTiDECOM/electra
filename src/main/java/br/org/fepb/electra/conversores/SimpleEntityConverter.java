@@ -22,7 +22,7 @@ public class SimpleEntityConverter implements Converter {
 		if (value != null
 				&& !"".equals(value)) {
 
-			BaseEntity entity = (BaseEntity) value;
+			EntidadeBasica entity = (EntidadeBasica) value;
 
 			// adiciona item como atributo do componente
 			this.addAttribute(component, entity);
@@ -36,7 +36,7 @@ public class SimpleEntityConverter implements Converter {
 		return (String) value;
 	}
 
-	protected void addAttribute(UIComponent component, BaseEntity o) {
+	protected void addAttribute(UIComponent component, EntidadeBasica o) {
 		String key = o.getId().toString(); // codigo da empresa como chave neste caso
 		this.getAttributesFrom(component).put(key, o);
 	}

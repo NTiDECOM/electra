@@ -7,10 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import br.org.fepb.electra.conversores.BaseEntity;
+import br.org.fepb.electra.conversores.EntidadeBasica;
 
 @MappedSuperclass
-public class GenericModel implements BaseEntity, Serializable {
+public class GenericModel implements EntidadeBasica, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

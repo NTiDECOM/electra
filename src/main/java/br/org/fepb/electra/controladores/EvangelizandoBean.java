@@ -9,10 +9,8 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 
 import br.org.fepb.electra.modelo.Bairro;
-import br.org.fepb.electra.modelo.Cidade;
 import br.org.fepb.electra.modelo.Endereco;
 import br.org.fepb.electra.modelo.Evangelizando;
-import br.org.fepb.electra.modelo.UnidadeFederativa;
 import br.org.fepb.electra.repositorios.EvangelizandoRepositorio;
 import br.org.fepb.electra.servicos.EvangelizandoService;
 import br.org.fepb.electra.util.FacesMessages;

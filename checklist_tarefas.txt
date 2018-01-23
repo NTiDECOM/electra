@@ -51,5 +51,9 @@ Sala:
 
 Outros:
 + Mudar sessão
+<<<<<<< HEAD
 + Incluir autenticação (login)
+=======
++ Incluir autenticação
+>>>>>>> b68ec74cfd5397a670c2f5e04546472b7df9da3b
 + Filtrar consultas por instituiçoes do usuário logado

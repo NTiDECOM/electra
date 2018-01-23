@@ -5,11 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
-import br.org.fepb.electra.conversores.BaseEntity;
+import br.org.fepb.electra.conversores.EntidadeBasica;
 
 @Entity
 @Table(name = "tb_bairro")
-public class Bairro extends GenericModel implements BaseEntity {
+public class Bairro extends GenericModel implements EntidadeBasica {
     
 	private static final long serialVersionUID = 8614111716431677593L;
 
