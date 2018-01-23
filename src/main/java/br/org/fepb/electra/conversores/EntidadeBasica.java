@@ -1,7 +1,7 @@
 package br.org.fepb.electra.conversores;
 
 //TESTE
-public interface BaseEntity {
+public interface EntidadeBasica {
 
 	public Long getId();
 	
