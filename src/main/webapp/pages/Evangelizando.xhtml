@@ -204,32 +204,51 @@
 					</p:tab>	
 					
 					<p:tab title="Saúde">
-						<h:panelGrid columns="2" id="dados-saude">
-							<p:outputLabel value="Possui alergia(s)? Descreva:"/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
+						<h:panelGrid columns="5" id="dados-saude">
+							<p:outputLabel value="Possui alergia(s)?"/>
+							<p:selectBooleanButton offLabel="NÃO" onLabel="SIM" value="#{evangelizandoBean.dadosSaude.possuiAlergia}">
+								<p:ajax update="alergia" event="change"/>
+							</p:selectBooleanButton>
 							
-							<p:outputLabel value="Toma medicamento controlado?"/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
+							<p:spacer width="30px"/>
+							<p:outputLabel value="Descreva:" for="alergia"/>
+							<p:inputText id="alergia" value="#{evangelizandoBean.dadosSaude.alergia}" onblur="value=value.toUpperCase()" disabled="#{!evangelizandoBean.dadosSaude.possuiAlergia}"/>
 							
-							<p:outputLabel value="Possui doença que exige cuidados?"/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
+							<p:outputLabel value="Faz uso contínuo de alguma medicação?"/>
+							<p:selectBooleanButton offLabel="NÃO" onLabel="SIM" value="#{evangelizandoBean.dadosSaude.tomaMedicamentoContinuo}">
+								<p:ajax update="medicamentoContinuo" event="change"/>
+							</p:selectBooleanButton>
+							
+							<p:spacer width="30px"/>
+							<p:outputLabel value="Descreva:"/>
+							<p:inputText id="medicamentoContinuo" value="#{evangelizandoBean.dadosSaude.medicamentoContinuo}" onblur="value=value.toUpperCase()" disabled="#{!evangelizandoBean.dadosSaude.tomaMedicamentoContinuo}"/>
 							
 							<p:outputLabel value="Alguma necessidade especial?"/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
+							<p:selectBooleanButton offLabel="NÃO" onLabel="SIM" value="#{evangelizandoBean.dadosSaude.possuiNecessidadeEspecial}">
+								<p:ajax update="necessidadeEspecial" event="change"/>
+							</p:selectBooleanButton>
 							
-							<p:outputLabel value="Fez tratamento espiritual? Descreva:"/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
+							<p:spacer width="30px"/>
+							<p:outputLabel value="Descreva:"/>
+							<p:inputText id="necessidadeEspecial" value="#{evangelizandoBean.dadosSaude.necessidadeEspecial}" onblur="value=value.toUpperCase()" disabled="#{!evangelizandoBean.dadosSaude.possuiNecessidadeEspecial}"/>
 							
-							<p:outputLabel value="Local do tratamento espiritual?"/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
+							<p:outputLabel value="Fez tratamento espiritual?"/>
+							<p:selectBooleanButton offLabel="NÃO" onLabel="SIM" value="#{evangelizandoBean.dadosSaude.fezTratamentoEspiritual}">
+								<p:ajax update="tratamentoEspiritual" event="change"/>
+							</p:selectBooleanButton>
 							
-							<p:outputLabel value="Motivo do tratamento espiritual?"/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
+							<p:spacer width="30px"/>
+							<p:outputLabel value="Descreva:"/>
+							<p:inputTextarea id="tratamentoEspiritual" value="#{evangelizandoBean.dadosSaude.descricaoTratamentoEspiritual}" 
+							placeholder="Tipo do tratamento, local realizado e motivo"
+							onblur="value=value.toUpperCase()" disabled="#{!evangelizandoBean.dadosSaude.fezTratamentoEspiritual}"/>
+						
+							</h:panelGrid>
 							
-							<p:outputLabel value="Observações sobre a saúde:"/>
-							<p:inputTextarea value="-" onblur="value=value.toUpperCase()"/>
-							
-						</h:panelGrid>
+							<p:outputLabel value="Observações sobre a saúde:   "/>
+							<p:inputTextarea value="#{evangelizandoBean.dadosSaude.observacoes}" onblur="value=value.toUpperCase()"/>
+						
+																	
 					</p:tab>
 					
 					<p:tab title="Família">
@@ -255,14 +274,31 @@
 							<p:outputLabel value="Alfabetizado?"/>
 							<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
 							
-							<p:outputLabel value="Dificuldade com aprendizado na escola? Descreva"/>
+							<p:outputLabel value="Dificuldade com aprendizado na escola? Descreva: "/>
 							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
 							
-							<p:outputLabel value="Nível escolar?"/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
+							<p:outputLabel value="Nível escolar: (Cursando)" for="nivel"/>
+							<p:selectOneMenu value="#{evangelizandoBean.dadosAcademicos.nivel}" id="nivel">
+					 			<f:selectItem itemLabel="--Selecione um item--" itemValue="" />
+								<f:selectItem itemValue="Educação infantil (creche/pré-escola)" itemLabel="Educação infantil (creche/pré-escola)"/>
+								<f:selectItem itemValue="Fundamental - 1º Ano" itemLabel="Fundamental - 1º Ano"/>
+								<f:selectItem itemValue="Fundamental - 2º Ano" itemLabel="Fundamental - 2º Ano"/>
+								<f:selectItem itemValue="Fundamental - 3º Ano" itemLabel="Fundamental - 3º Ano"/>
+								<f:selectItem itemValue="Fundamental - 4º Ano" itemLabel="Fundamental - 4º Ano"/>
+								<f:selectItem itemValue="Fundamental - 5º Ano" itemLabel="Fundamental - 5º Ano"/>
+								<f:selectItem itemValue="Fundamental - 6º Ano" itemLabel="Fundamental - 6º Ano"/>
+								<f:selectItem itemValue="Fundamental - 7º Ano" itemLabel="Fundamental - 7º Ano"/>
+								<f:selectItem itemValue="Fundamental - 8º Ano" itemLabel="Fundamental - 8º Ano"/>
+								<f:selectItem itemValue="Fundamental - 9º Ano" itemLabel="Fundamental - 9º Ano"/>
+								<f:selectItem itemValue="Medio - 1º ano" itemLabel="Medio - 1º ano"/>
+								<f:selectItem itemValue="Medio - 2º ano" itemLabel="Medio - 2º ano"/>
+								<f:selectItem itemValue="Medio - 3º ano" itemLabel="Medio - 3º ano"/>
+								<f:selectItem itemValue="Ensino Superior - Graduação" itemLabel="Ensino Superior - Graduação"/>
+								<f:selectItem itemValue="Ensino Superior - Pós-Graduação" itemLabel="Ensino Superior - Pós-Graduação"/>
+							</p:selectOneMenu>
 							
 							<p:outputLabel value="Observações sobre a vida acadêmica:"/>
-							<p:inputTextarea value="-" onblur="value=value.toUpperCase()"/>
+							<p:inputTextarea value="#{evangelizandoBean.dadosAcademicos.observacoes}" onblur="value=value.toUpperCase()"/>
 							
 						</h:panelGrid>
 					</p:tab>

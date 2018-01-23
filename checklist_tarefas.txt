@@ -8,7 +8,11 @@ Evangelizando:
 + Incluir opção 'Não sabe' nas opções de tipos sanguíneos. [OK]
 + Modificar abas, incluir botão 'próximo', salvar no banco de dados. [FALTA]
 + Incluir endereço em Pessoa (evangelizando, evangelizador, etc) [EVANGELIZANDO OK... FALTA EVANGELIZADOR]
-+ Em acadêmico montar combo com tabela no campo nível escolar
++ Em acadêmico montar combo com tabela no campo nível escolar [OK]
+Sobre Saúde:  
+	- Checkbox 'SIM' para todas as perguntas, habilitar edição das descrições. [REVER]
+	- Modificar label p/ 'Faz uso contínuo de alguma medicação?' [OK]
+	- Remover campo 'Possui doença..' [OK]
 Em família:
 	- Colocar legenda para explicar o conceito de responsável
 	- Remover telefone 1 e 2
@@ -19,10 +23,6 @@ Em família:
 + Remover campos pai e mãe
 	- Tipo parente: Mãe/Pai, Avó(ô), Tia(o), Irmã(o), Prima(o), Vizinha(o), outros
 + Analisar posteriormente: Incluir talentos aos responsáveis (Ver modelo da fepb)	
-+ Sobre Saúde:  
-	- Checkbox 'SIM' para todas as perguntas, habilitar edição das descrições.
-	- Modificar label p/ 'Faz uso contínuo de alguma medicação?'
-	- Remover campo 'Possui doença..'
 + Implementar edição na listagem de evangelizando.
 + Definicação dos campos obrigatórios: Nome completo, como ser chamado, telefone, d. nascimento, sexo, tipo sanguíneo.	
 + Analisar posteriormente informações internas (sigilo), como vulnerabilidade. 

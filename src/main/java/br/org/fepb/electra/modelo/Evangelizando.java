@@ -1,10 +1,8 @@
 package br.org.fepb.electra.modelo;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -14,42 +12,25 @@ public class Evangelizando extends Pessoa {
 
 	private static final long serialVersionUID = 7927686865996077792L;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_dados_saude")
     private DadosSaude dadosSaude;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_dados_familia")
     private DadosFamilia dadosFamilia;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_dados_academicos")
     private DadosAcademicos dadosAcademicos;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_dados_desv_socioemocional")
 	private DadosDesvSocioEmocional dadosDesvSocioEmocional;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_dados_sociabilidade")
     private DadosSociabilidade dadosSociabilidade;
-	
-	/*@Column(name="logradouro")
-	private String logradouro;
-
-	@Column(name="numero")
-	private String numero;
-
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fk_bairro")
-	private Bairro bairro;
-
-	@Column(name="cep")
-	private String cep;
-
-	@Column(name="complemento")
-	private String complemento;*/
-
 	
 	public DadosFamilia getDadosFamilia() {
 		return dadosFamilia;

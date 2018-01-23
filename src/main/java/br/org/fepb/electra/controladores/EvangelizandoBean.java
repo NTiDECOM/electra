@@ -9,6 +9,11 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 
 import br.org.fepb.electra.modelo.Bairro;
+import br.org.fepb.electra.modelo.DadosAcademicos;
+import br.org.fepb.electra.modelo.DadosDesvSocioEmocional;
+import br.org.fepb.electra.modelo.DadosFamilia;
+import br.org.fepb.electra.modelo.DadosSaude;
+import br.org.fepb.electra.modelo.DadosSociabilidade;
 import br.org.fepb.electra.modelo.Endereco;
 import br.org.fepb.electra.modelo.Evangelizando;
 import br.org.fepb.electra.repositorios.EvangelizandoRepositorio;
@@ -36,6 +41,21 @@ public class EvangelizandoBean extends GenericBean {
 	
 	@Inject
 	private Endereco endereco;
+	
+	@Inject
+	private DadosSaude dadosSaude;
+	
+	@Inject
+	private DadosAcademicos dadosAcademicos;
+	
+	@Inject
+	private DadosFamilia dadosFamilia;
+	
+	@Inject
+	private DadosDesvSocioEmocional dadosDesvSocioEmocional;
+	
+	@Inject
+	private DadosSociabilidade dadosSociabilidade;
 	
 	private String email1;
 	
@@ -72,13 +92,18 @@ public class EvangelizandoBean extends GenericBean {
 	}
 	
 	private void limparVariaveis() {
-		//TODO
+		//TODO: configurar spring
 		this.evangelizando = new Evangelizando();
-		//configurar spring
 		this.evangelizandos = new ArrayList<Evangelizando>();
 		this.email1 = "";
 		this.email2 = "";
 		this.bairroSelecionado = new Bairro();
+		this.endereco = new Endereco();
+		this.dadosSaude = new DadosSaude();
+		this.dadosAcademicos = new DadosAcademicos();
+		this.dadosFamilia = new DadosFamilia();
+		this.dadosDesvSocioEmocional = new DadosDesvSocioEmocional();
+		this.dadosSociabilidade = new DadosSociabilidade();
 	}
 	
 	public void prepararNovoCadastro() {
@@ -103,6 +128,12 @@ public class EvangelizandoBean extends GenericBean {
 			endereco.setBairro(bairroSelecionado);
 			evangelizando.setEndereco(endereco);
 		}
+		evangelizando.setDadosSaude(dadosSaude);
+		evangelizando.setDadosAcademicos(dadosAcademicos);
+		evangelizando.setDadosFamilia(dadosFamilia);
+		evangelizando.setDadosDesvSocioEmocional(dadosDesvSocioEmocional);
+		evangelizando.setDadosSociabilidade(dadosSociabilidade);
+		
 		evangelizando = evangelizandoServico.salvar(evangelizando);
 		messages.info("Evangelizando salvo com sucesso! Realize agora a matrícula...");
 		listar();
@@ -174,6 +205,14 @@ public class EvangelizandoBean extends GenericBean {
 		this.endereco = endereco;
 	}
 
+	public DadosSaude getDadosSaude() {
+		return dadosSaude;
+	}
+
+	public void setDadosSaude(DadosSaude dadosSaude) {
+		this.dadosSaude = dadosSaude;
+	}
+
 	public List<Bairro> getBairros() {
 		//TODO: 
 		if(bairros == null){
@@ -188,6 +227,30 @@ public class EvangelizandoBean extends GenericBean {
 
 	public void setBairros(List<Bairro> bairros) {
 		this.bairros = bairros;
+	}
+
+	public EvangelizandoService getEvangelizandoServico() {
+		return evangelizandoServico;
+	}
+
+	public EvangelizandoRepositorio getEvangelizandoRepositorio() {
+		return evangelizandoRepositorio;
+	}
+
+	public DadosAcademicos getDadosAcademicos() {
+		return dadosAcademicos;
+	}
+
+	public DadosFamilia getDadosFamilia() {
+		return dadosFamilia;
+	}
+
+	public DadosDesvSocioEmocional getDadosDesvSocioEmocional() {
+		return dadosDesvSocioEmocional;
+	}
+
+	public DadosSociabilidade getDadosSociabilidade() {
+		return dadosSociabilidade;
 	}
 	
 

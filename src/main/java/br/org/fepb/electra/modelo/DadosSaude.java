@@ -13,41 +13,36 @@ import javax.persistence.Table;
 @Table(name = "tb_dados_saude")
 public class DadosSaude  implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = -2928435210349899056L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //private boolean possuiAlergia;
+    @Column(name="possui_alergia")
+    private boolean possuiAlergia;
 
-    @Column(name="alergia")
+    @Column(name="descricao_alergia")
     private String alergia;
 
-    //private boolean tomaMedicamentoControlado;
+    @Column(name="toma_medicamento_continuo")
+    private boolean tomaMedicamentoContinuo;
 
-    @Column(name="medicamento_controlado")
-    private String medicamentoControlado;
+    @Column(name="medicamento_continuo")
+    private String medicamentoContinuo;
 
-    //private boolean possuiDoencaExigeCuidados;
-
-    @Column(name="doenca_exige_cuidados")
-    private String doencaExigeCuidados;
-
-    //private boolean possuiNecessidadeEspecial;
+    @Column(name="possui_necessidade_especial")
+    private boolean possuiNecessidadeEspecial;
 
     @Column(name="necessidade_especial")
     private String necessidadeEspecial;
 
-    //private boolean fezTratamentoEspiritual;
+    @Column(name="fez_tratamento_espiritual")
+    private boolean fezTratamentoEspiritual;
 
     @Column(name="descricao_tratamento_espiritual")
     private String descricaoTratamentoEspiritual;
 
-    @Column(name="local_tratamento_espiritual")
-    private String localTratamentoEspiritual;
-
-    @Column(name="motivo_tratamento_espiritual")
-    private String motivoTratamentoEspiritual;
-    
     @Column(name="observacoes")
     private String observacoes;
 
@@ -67,22 +62,6 @@ public class DadosSaude  implements Serializable {
 		this.alergia = alergia;
 	}
 
-	public String getMedicamentoControlado() {
-		return medicamentoControlado;
-	}
-
-	public void setMedicamentoControlado(String medicamentoControlado) {
-		this.medicamentoControlado = medicamentoControlado;
-	}
-
-	public String getDoencaExigeCuidados() {
-		return doencaExigeCuidados;
-	}
-
-	public void setDoencaExigeCuidados(String doencaExigeCuidados) {
-		this.doencaExigeCuidados = doencaExigeCuidados;
-	}
-
 	public String getNecessidadeEspecial() {
 		return necessidadeEspecial;
 	}
@@ -99,22 +78,6 @@ public class DadosSaude  implements Serializable {
 		this.descricaoTratamentoEspiritual = descricaoTratamentoEspiritual;
 	}
 
-	public String getLocalTratamentoEspiritual() {
-		return localTratamentoEspiritual;
-	}
-
-	public void setLocalTratamentoEspiritual(String localTratamentoEspiritual) {
-		this.localTratamentoEspiritual = localTratamentoEspiritual;
-	}
-
-	public String getMotivoTratamentoEspiritual() {
-		return motivoTratamentoEspiritual;
-	}
-
-	public void setMotivoTratamentoEspiritual(String motivoTratamentoEspiritual) {
-		this.motivoTratamentoEspiritual = motivoTratamentoEspiritual;
-	}
-
 	public String getObservacoes() {
 		return observacoes;
 	}
@@ -123,5 +86,46 @@ public class DadosSaude  implements Serializable {
 		this.observacoes = observacoes;
 	}
 
+	public boolean getPossuiAlergia() {
+		return possuiAlergia;
+	}
+
+	public void setPossuiAlergia(boolean possuiAlergia) {
+		this.possuiAlergia = possuiAlergia;
+	}
+
+	public boolean getPossuiNecessidadeEspecial() {
+		return possuiNecessidadeEspecial;
+	}
+
+	public void setPossuiNecessidadeEspecial(boolean possuiNecessidadeEspecial) {
+		this.possuiNecessidadeEspecial = possuiNecessidadeEspecial;
+	}
+
+	public boolean getFezTratamentoEspiritual() {
+		return fezTratamentoEspiritual;
+	}
+
+	public void setFezTratamentoEspiritual(boolean fezTratamentoEspiritual) {
+		this.fezTratamentoEspiritual = fezTratamentoEspiritual;
+	}
+
+	public boolean getTomaMedicamentoContinuo() {
+		return tomaMedicamentoContinuo;
+	}
+
+	public void setTomaMedicamentoContinuo(boolean tomaMedicamentoContinuo) {
+		this.tomaMedicamentoContinuo = tomaMedicamentoContinuo;
+	}
+
+	public String getMedicamentoContinuo() {
+		return medicamentoContinuo;
+	}
+
+	public void setMedicamentoContinuo(String medicamentoContinuo) {
+		this.medicamentoContinuo = medicamentoContinuo;
+	}
+
+	
 	   
 }
