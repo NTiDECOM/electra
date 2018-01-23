@@ -31,8 +31,6 @@ public class Bairro extends GenericModel implements BaseEntity {
 		//this.cidade = new Cidade(idCidade);
 	}
 
-
-
 	public Bairro(){
 		//vazio
 	}
@@ -44,11 +42,6 @@ public class Bairro extends GenericModel implements BaseEntity {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	
-	
-	
-	
 
 	@Override
 	public String toString() {
