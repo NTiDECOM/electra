@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+                           http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/task/spring-context-3.2.xsd">
+   
+   
+ 
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="url" value="jdbc:mysql://localhost:3306/electra" />
+    <property name="username" value="root" />
+    <property name="password" value="root" />
+	</bean>   
+
+ 	<bean
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        id="entityManagerFactory">
+        <property name="dataSource" ref="dataSource" />
+            
+    </bean>
+ 
+    <context:component-scan base-package="br.org.fepb.electra.repositorios">
+        <context:include-filter type="annotation"
+            expression="org.springframework.stereotype.Repository" />
+    </context:component-scan>
+ 
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager"
+        id="transactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+ 
+    <tx:annotation-driven mode="aspectj"
+        transaction-manager="transactionManager" />
+ 
+    <context:spring-configured />
+    <context:annotation-config />
+    
+ 
+   <!--  bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+      <property name="entityManagerFactory" ref="entityManagerFactory" />
+   </bean>
+   
+   <tx:annotation-driven />
+ 
+   <bean id="persistenceExceptionTranslationPostProcessor"
+      class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+    <jpa:repositories base-package="br.org.fepb.electra.repositorios"
+                      entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager"/-->
+                      
+    <jpa:repositories base-package="br.org.fepb.electra.repositorios"
+                  entity-manager-factory-ref="entityManagerFactory"
+                  transaction-manager-ref="transactionManager"/> 
+</beans>
