@@ -9,12 +9,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.validation.constraints.NotNull;
 
 import org.primefaces.context.RequestContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import br.org.fepb.electra.modelo.Evangelizando;
 import br.org.fepb.electra.modelo.InstituicaoEspirita;
@@ -25,7 +25,7 @@ import br.org.fepb.electra.servicos.MatriculaService;
 import br.org.fepb.electra.servicos.SalaService;
 import br.org.fepb.electra.util.FacesMessages;
 
-@Named
+@Controller("matriculaBean")
 @ViewScoped
 public class MatriculaBean extends GenericBean {
 
@@ -33,16 +33,20 @@ public class MatriculaBean extends GenericBean {
 
 	private static final long serialVersionUID = 8390437989517939381L;
 	
-	@Inject
+	//@Inject
+	@Autowired
 	private FacesMessages messages;
 	
-	@Inject
+	//@Inject
+	@Autowired
 	private MatriculaService matriculaServico;
 	
-	@Inject
+	//@Inject
+	@Autowired
 	private InstituicaoEspiritaService instituicaoServico;
 	
-	@Inject
+	//@Inject
+	@Autowired
 	private SalaService salaServico;
 	
 	private List<Matricula> matriculas;
@@ -68,7 +72,8 @@ public class MatriculaBean extends GenericBean {
 	
 	private String observacoes;
 	
-	@Inject
+	//@Inject
+	@Autowired
 	private ServletContext servletContext;
 	
 	@PostConstruct

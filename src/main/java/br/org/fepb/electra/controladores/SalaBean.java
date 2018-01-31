@@ -1,14 +1,14 @@
 package br.org.fepb.electra.controladores;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import br.org.fepb.electra.modelo.InstituicaoEspirita;
 import br.org.fepb.electra.modelo.Sala;
@@ -17,30 +17,38 @@ import br.org.fepb.electra.servicos.SalaService;
 import br.org.fepb.electra.util.FacesMessages;
 
 
-@Named("salaBean")
+@Controller("salaBean")
 @ViewScoped
 public class SalaBean extends GenericBean {
 
 	private static final long serialVersionUID = -35739181856698227L;
 
-	@Inject
+	//@Inject
+	@Autowired
 	private FacesMessages messages;
 	
-	@Inject
+	//@Inject
+	@Autowired
 	private SalaService salaService;
 	
-	@Inject
+	//@Inject
+	@Autowired
 	private InstituicaoEspiritaService instituicaoService;
 	
 	@NotNull
-	private Long idInstituicao;
+	private InstituicaoEspirita instituicaoSelecionada;
+
+	private List<InstituicaoEspirita> instituicoesEspiritas;
 	
 	private Sala sala;
 	
 	private List<Sala> salas;
 	
 	/** Método para iniciar a tela de cadastro de instituição */
+	@PostConstruct
 	public String iniciar() {
+		limparVariaveis();
+		this.instituicoesEspiritas = instituicaoService.listarTodos();
 		this.salas = salaService.listarTodos();
 		setState(ESTADO_DE_LISTAGEM);
 		return "/pages/Sala";
@@ -54,24 +62,24 @@ public class SalaBean extends GenericBean {
 	
 	private void limparVariaveis() {
 		salas = salaService.listarTodos();
-		idInstituicao = null;
+		instituicaoSelecionada = new InstituicaoEspirita();
 		sala = null;
 	}
 	
 	public void prepararNovoCadastro() {
 		sala = new Sala();
-		idInstituicao = null;
+		instituicaoSelecionada = null;
 		setState(ESTADO_DE_NOVO);
 	}
 	
 	public void prepararEdicao() {
-		idInstituicao = sala.getInstituicao().getId();
+		instituicaoSelecionada = sala.getInstituicao();
 		setState(ESTADO_DE_EDICAO);
 	}
 	
 	public void salvar() {
 		try {
-		sala.setInstituicao(new InstituicaoEspirita(idInstituicao));
+		sala.setInstituicao(instituicaoSelecionada);
 		salaService.salvar(sala);
 		messages.info("Registro gravado com sucesso!");
 		listar();
@@ -91,38 +99,11 @@ public class SalaBean extends GenericBean {
 		listar();
 	}
 
-	public List<SelectItem> getInstituicoes() {
-		List<SelectItem> retorno = new ArrayList<SelectItem>();
-		
-		for (InstituicaoEspirita in : instituicaoService.listarTodos()) {
-			retorno.add(new SelectItem(in.getId(), in.getNome()));
-		}
-		return retorno;
-	}
-	
-	public String recuperarInstituicao(Long idInstituicao) {
-		String retorno = "-";
-		
-		InstituicaoEspirita instituicao = instituicaoService.pesquisarPorId(idInstituicao);
-		if ( instituicao != null )
-			retorno = instituicao.getNome() + " - " + instituicao.getPresidente();
-	
-		return retorno;
-	}
-
 	
 	// **** GETs e SETs ****//
 
 	public Sala getSala() {
 		return sala;
-	}
-
-	public Long getIdInstituicao() {
-		return idInstituicao;
-	}
-
-	public void setIdInstituicao(Long idInstituicao) {
-		this.idInstituicao = idInstituicao;
 	}
 
 	public void setSala(Sala sala) {
@@ -139,5 +120,22 @@ public class SalaBean extends GenericBean {
 	public void setSalas(List<Sala> salas) {
 		this.salas = salas;
 	}
+
+	public InstituicaoEspirita getInstituicaoSelecionada() {
+		return instituicaoSelecionada;
+	}
+
+	public void setInstituicaoSelecionada(InstituicaoEspirita instituicaoSelecionada) {
+		this.instituicaoSelecionada = instituicaoSelecionada;
+	}
+
+	public List<InstituicaoEspirita> getInstituicoesEspiritas() {
+		return instituicoesEspiritas;
+	}
+
+	public void setInstituicoesEspiritas(List<InstituicaoEspirita> instituicoesEspiritas) {
+		this.instituicoesEspiritas = instituicoesEspiritas;
+	}
+	
 	
 }

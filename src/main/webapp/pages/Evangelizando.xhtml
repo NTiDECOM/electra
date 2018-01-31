@@ -193,7 +193,8 @@
 							<p:inputText value="#{evangelizandoBean.endereco.numero}" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Bairro:"/>
-							<p:selectOneMenu value="#{evangelizandoBean.bairroSelecionado}" converter="simpleEntityConverter">
+							<p:selectOneMenu value="#{evangelizandoBean.bairroSelecionado}"><!-- converter="simpleEntityConverter" -->
+								<f:selectItem itemLabel="--- selecione um bairro ---" itemValue=""></f:selectItem>
 								<f:selectItems value="#{evangelizandoBean.bairros}"/>
 							</p:selectOneMenu>
 							
@@ -203,196 +204,15 @@
 						</h:panelGrid>
 					</p:tab>	
 					
-					<p:tab title="Saúde">
-						<h:panelGrid columns="5" id="dados-saude">
-							<p:outputLabel value="Possui alergia(s)?"/>
-							<p:selectBooleanButton offLabel="NÃO" onLabel="SIM" value="#{evangelizandoBean.dadosSaude.possuiAlergia}">
-								<p:ajax update="alergia" event="change"/>
-							</p:selectBooleanButton>
-							
-							<p:spacer width="30px"/>
-							<p:outputLabel value="Descreva:" for="alergia"/>
-							<p:inputText id="alergia" value="#{evangelizandoBean.dadosSaude.alergia}" onblur="value=value.toUpperCase()" disabled="#{!evangelizandoBean.dadosSaude.possuiAlergia}"/>
-							
-							<p:outputLabel value="Faz uso contínuo de alguma medicação?"/>
-							<p:selectBooleanButton offLabel="NÃO" onLabel="SIM" value="#{evangelizandoBean.dadosSaude.tomaMedicamentoContinuo}">
-								<p:ajax update="medicamentoContinuo" event="change"/>
-							</p:selectBooleanButton>
-							
-							<p:spacer width="30px"/>
-							<p:outputLabel value="Descreva:"/>
-							<p:inputText id="medicamentoContinuo" value="#{evangelizandoBean.dadosSaude.medicamentoContinuo}" onblur="value=value.toUpperCase()" disabled="#{!evangelizandoBean.dadosSaude.tomaMedicamentoContinuo}"/>
-							
-							<p:outputLabel value="Alguma necessidade especial?"/>
-							<p:selectBooleanButton offLabel="NÃO" onLabel="SIM" value="#{evangelizandoBean.dadosSaude.possuiNecessidadeEspecial}">
-								<p:ajax update="necessidadeEspecial" event="change"/>
-							</p:selectBooleanButton>
-							
-							<p:spacer width="30px"/>
-							<p:outputLabel value="Descreva:"/>
-							<p:inputText id="necessidadeEspecial" value="#{evangelizandoBean.dadosSaude.necessidadeEspecial}" onblur="value=value.toUpperCase()" disabled="#{!evangelizandoBean.dadosSaude.possuiNecessidadeEspecial}"/>
-							
-							<p:outputLabel value="Fez tratamento espiritual?"/>
-							<p:selectBooleanButton offLabel="NÃO" onLabel="SIM" value="#{evangelizandoBean.dadosSaude.fezTratamentoEspiritual}">
-								<p:ajax update="tratamentoEspiritual" event="change"/>
-							</p:selectBooleanButton>
-							
-							<p:spacer width="30px"/>
-							<p:outputLabel value="Descreva:"/>
-							<p:inputTextarea id="tratamentoEspiritual" value="#{evangelizandoBean.dadosSaude.descricaoTratamentoEspiritual}" 
-							placeholder="Tipo do tratamento, local realizado e motivo"
-							onblur="value=value.toUpperCase()" disabled="#{!evangelizandoBean.dadosSaude.fezTratamentoEspiritual}"/>
-						
-							</h:panelGrid>
-							
-							<p:outputLabel value="Observações sobre a saúde:   "/>
-							<p:inputTextarea value="#{evangelizandoBean.dadosSaude.observacoes}" onblur="value=value.toUpperCase()"/>
-						
-																	
-					</p:tab>
+								...
 					
-					<p:tab title="Família">
-						<h:panelGrid columns="2" id="dados-familia">
-													
-							<p:outputLabel value="Qual é a expectativa sobre as aulas?"/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
-							
-							<p:outputLabel value="O Evangelizando reside com quais parentes?"/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
-							
-							<p:outputLabel value="Realiza o evangelho no lar? *"/>
-							<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-							
-							<p:outputLabel value="Observações sobre a família:"/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
-							
-						</h:panelGrid>
-					</p:tab>
 					
-					<p:tab title="Acadêmico">
-						<h:panelGrid columns="2" id="dados-academico">
-							<p:outputLabel value="Alfabetizado?"/>
-							<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-							
-							<p:outputLabel value="Dificuldade com aprendizado na escola? Descreva: "/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
-							
-							<p:outputLabel value="Nível escolar: (Cursando)" for="nivel"/>
-							<p:selectOneMenu value="#{evangelizandoBean.dadosAcademicos.nivel}" id="nivel">
-					 			<f:selectItem itemLabel="--Selecione um item--" itemValue="" />
-								<f:selectItem itemValue="Educação infantil (creche/pré-escola)" itemLabel="Educação infantil (creche/pré-escola)"/>
-								<f:selectItem itemValue="Fundamental - 1º Ano" itemLabel="Fundamental - 1º Ano"/>
-								<f:selectItem itemValue="Fundamental - 2º Ano" itemLabel="Fundamental - 2º Ano"/>
-								<f:selectItem itemValue="Fundamental - 3º Ano" itemLabel="Fundamental - 3º Ano"/>
-								<f:selectItem itemValue="Fundamental - 4º Ano" itemLabel="Fundamental - 4º Ano"/>
-								<f:selectItem itemValue="Fundamental - 5º Ano" itemLabel="Fundamental - 5º Ano"/>
-								<f:selectItem itemValue="Fundamental - 6º Ano" itemLabel="Fundamental - 6º Ano"/>
-								<f:selectItem itemValue="Fundamental - 7º Ano" itemLabel="Fundamental - 7º Ano"/>
-								<f:selectItem itemValue="Fundamental - 8º Ano" itemLabel="Fundamental - 8º Ano"/>
-								<f:selectItem itemValue="Fundamental - 9º Ano" itemLabel="Fundamental - 9º Ano"/>
-								<f:selectItem itemValue="Medio - 1º ano" itemLabel="Medio - 1º ano"/>
-								<f:selectItem itemValue="Medio - 2º ano" itemLabel="Medio - 2º ano"/>
-								<f:selectItem itemValue="Medio - 3º ano" itemLabel="Medio - 3º ano"/>
-								<f:selectItem itemValue="Ensino Superior - Graduação" itemLabel="Ensino Superior - Graduação"/>
-								<f:selectItem itemValue="Ensino Superior - Pós-Graduação" itemLabel="Ensino Superior - Pós-Graduação"/>
-							</p:selectOneMenu>
-							
-							<p:outputLabel value="Observações sobre a vida acadêmica:"/>
-							<p:inputTextarea value="#{evangelizandoBean.dadosAcademicos.observacoes}" onblur="value=value.toUpperCase()"/>
-							
-						</h:panelGrid>
-					</p:tab>
-					
-					<p:tab title="Socioemocional">
-						<h:panelGrid columns="2" id="dados-socioemocional">
-						
-						<p:outputLabel value="Alegre?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Imaginação fértil?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Curioso?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Sente-se inferior?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Relaciona-se bem com o próximo?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Conversa bastante?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Revela-se líder?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Triste?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Irrita-se facilmente?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Propenso a brigas?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Dificuldade em partilhar coisas?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Impulsivo?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Inseguro emocionalmente?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Ofende-se facilmente?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Toma decisão sozinho?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Medos?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Observações socioemocionais:"/>
-						<p:inputTextarea value="-" onblur="value=value.toUpperCase()"/>
-						
-						</h:panelGrid>
-					</p:tab>
-					
-					<p:tab title="Sociabilidade">
-						<h:panelGrid columns="2" id="dados-sociabilidade">
-							<p:outputLabel value="Tem amigos?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Tem momentos de lazer?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Descreva os tipos de lazer:"/>
-						<p:inputText value="-" onblur="value=value.toUpperCase()"/>
-						
-						<p:outputLabel value="Gosta de brincar?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Bem aceito em grupos?"/>
-						<p:selectBooleanButton offLabel="SIM" onLabel="NÃO"/>
-						
-						<p:outputLabel value="Quais as atividades favoritas?"/>
-						<p:inputText value="-" onblur="value=value.toUpperCase()"/>
-						
-						<p:outputLabel value="Reação em situação de conflitos?"/>
-						<p:inputText value="-" onblur="value=value.toUpperCase()"/>
-						
-						<p:outputLabel value="Observações sobre a sociabilidade:"/>
-						<p:inputTextarea value="-" onblur="value=value.toUpperCase()"/>
-						
-						</h:panelGrid>
-					</p:tab>
-					
-					</p:tabView>
-					
+				</p:tabView>
 				</h:panelGrid>
+				</t:div>
 				
+					
+		
 				<p:spacer height="10"/>
 				<p:toolbar id="toolbar-cadastro">
 					<f:facet name="left">
@@ -402,8 +222,8 @@
 							action="#{evangelizandoBean.salvar}" update=":frm"/>
 					</f:facet>
 				</p:toolbar>
-				
-			</t:div>
+		
+		
 		
 		</h:form>
 		

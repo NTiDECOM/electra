@@ -3,9 +3,8 @@ package br.org.fepb.electra.controladores;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.primefaces.context.RequestContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import br.org.fepb.electra.repositorios.BairroRepositorio;
 
@@ -25,8 +24,7 @@ public class GenericBean implements Serializable {
 
 	private String state = ESTADO_DE_LISTAGEM;
 
-	@Inject
-	//private BairroService bairroServico;
+	@Autowired
 	private BairroRepositorio bairroRepositorio;
 
 	public String getState() {

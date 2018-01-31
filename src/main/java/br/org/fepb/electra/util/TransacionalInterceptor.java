@@ -2,26 +2,29 @@ package br.org.fepb.electra.util;
 
 import java.io.Serializable;
 
-import javax.annotation.Priority;
+/*import javax.annotation.Priority;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
+import javax.interceptor.InvocationContext;*/
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-@Interceptor
+import org.springframework.beans.factory.annotation.Autowired;
+
+//@Interceptor
 @Transacional
-@Priority(Interceptor.Priority.APPLICATION + 1)
+//@Priority(Interceptor.Priority.APPLICATION + 1)
 public class TransacionalInterceptor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
+	//@Inject
+	@Autowired
 	private EntityManager manager;
 
-	@AroundInvoke
-	public Object invoke(InvocationContext context) throws Exception {
+	//@AroundInvoke
+	/*public Object invoke(InvocationContext context) throws Exception {
 		EntityTransaction trx = manager.getTransaction();
 		boolean criador = false;
 
@@ -50,6 +53,6 @@ public class TransacionalInterceptor implements Serializable {
 				trx.commit();
 			}
 		}
-	}
+	}*/
 
 }

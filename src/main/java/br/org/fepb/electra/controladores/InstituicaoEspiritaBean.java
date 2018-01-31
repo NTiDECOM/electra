@@ -4,25 +4,27 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import br.org.fepb.electra.modelo.InstituicaoEspirita;
 import br.org.fepb.electra.servicos.InstituicaoEspiritaService;
 import br.org.fepb.electra.util.FacesMessages;
 
-@Named("instituicaoEspiritaBean")
+@Controller("instituicaoEspiritaBean")
 @ViewScoped
 public class InstituicaoEspiritaBean extends GenericBean {
 
 	private static final long serialVersionUID = -8329219684847899990L;
 
-	@Inject
+	//@Inject
+	@Autowired
 	private FacesMessages messages;
 	
-	@Inject
+	//@Inject
+		@Autowired
 	private InstituicaoEspiritaService instituicaoService;
 	
 	private List<InstituicaoEspirita> instituicoes;

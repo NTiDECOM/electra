@@ -4,37 +4,34 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 
 import org.primefaces.event.DragDropEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import br.org.fepb.electra.modelo.Evangelizador;
 import br.org.fepb.electra.modelo.InstituicaoEspirita;
-import br.org.fepb.electra.repositorios.EvangelizadorRepositorio;
-import br.org.fepb.electra.repositorios.InstituicaoEspiritaRepositorio;
 import br.org.fepb.electra.servicos.EvangelizadorService;
+import br.org.fepb.electra.servicos.InstituicaoEspiritaService;
 import br.org.fepb.electra.util.FacesMessages;
 
-@Named
+@Controller("evangelizadorBean")
 @ViewScoped
 public class EvangelizadorBean extends GenericBean {
 
 	private static final long serialVersionUID = -1745521686277227026L;
 
-	@Inject
+	@Autowired
 	private FacesMessages messages;
 	
-	@Inject
+	@Autowired
 	private EvangelizadorService evangelizadorService;
-	
-	@Inject
-	private EvangelizadorRepositorio evangelizadorRepositorio;
-	
-	@Inject 
-	private InstituicaoEspiritaRepositorio instituicaoEspiritaRepositorio;
+
+	@Autowired
+	private InstituicaoEspiritaService instituicaoEspiritaService;
 
 	private List<Evangelizador> evangelizadores;
 	
@@ -51,19 +48,18 @@ public class EvangelizadorBean extends GenericBean {
 	@NotNull
 	private InstituicaoEspirita selectedInstituicao;
 	
-	
-
 	/** Método para iniciar a tela de cadastro de evangelizadores */
+	@PostConstruct
 	public String iniciar() {
 		this.limparVariaveis();
-		this.instituicoes = instituicaoEspiritaRepositorio.listarTodos();
+		this.instituicoes = instituicaoEspiritaService.listarTodos();
 		this.droppedInstituicoes = new ArrayList<>();
 		return "/pages/Evangelizador";
 	}
 	
 	public void listar() {
 		limparVariaveis();
-		evangelizadores = evangelizadorRepositorio.listarTodos();
+		evangelizadores = (List<Evangelizador>) evangelizadorService.listarTodos();
 	}
 	
 	public void cancelar() {
@@ -76,7 +72,7 @@ public class EvangelizadorBean extends GenericBean {
 		this.instituicoes = null;
 		this.droppedInstituicoes = null;
 		this.selectedInstituicao = null;
-		this.evangelizadores = evangelizadorRepositorio.listarTodos();
+		this.evangelizadores = (List<Evangelizador>) evangelizadorService.listarTodos();
 	}
 	
 	public void prepararNovoCadastro() {
@@ -107,9 +103,17 @@ public class EvangelizadorBean extends GenericBean {
 	
 	public void prepararEdicao() {
 		droppedInstituicoes = evangelizador.getInstituicoesEspiritas();
-		instituicoes = instituicaoEspiritaRepositorio.listarTodos();
+		instituicoes = instituicaoEspiritaService.listarTodos();
 		if(droppedInstituicoes!=null && instituicoes !=null){
-			instituicoes.removeAll(droppedInstituicoes);
+			List<InstituicaoEspirita> instTemp = new ArrayList<>();
+			for(InstituicaoEspirita ie : instituicoes){
+				if(!droppedInstituicoes.contains(ie)){
+					instTemp.add(ie);
+				}
+			}
+			//instituicoes.removeAll(droppedInstituicoes);
+			instituicoes.clear();
+			instituicoes.addAll(instTemp);
 		}
 		setState(ESTADO_DE_EDICAO);
 	}
@@ -123,7 +127,7 @@ public class EvangelizadorBean extends GenericBean {
 
 	public List<InstituicaoEspirita> getInstituicoes() {
 		if(instituicoes == null){
-			instituicoes = instituicaoEspiritaRepositorio.listarTodos();
+			instituicoes = instituicaoEspiritaService.listarTodos();
 		}
 		return instituicoes;
 	}
@@ -141,13 +145,13 @@ public class EvangelizadorBean extends GenericBean {
     public void cancelInstituicaoDrop() {
     	droppedInstituicoes.clear();
     	selectedInstituicao = null;
-    	instituicoes = instituicaoEspiritaRepositorio.listarTodos();
+    	instituicoes = instituicaoEspiritaService.listarTodos();
       
     }
 	
 	public List<Evangelizador> getEvangelizadores() {
 		if(evangelizadores == null){
-			return evangelizadorRepositorio.listarTodos();
+			return (List<Evangelizador>) evangelizadorService.listarTodos();
 		}
 		return evangelizadores;
 	}

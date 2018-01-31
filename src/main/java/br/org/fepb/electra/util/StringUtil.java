@@ -157,11 +157,11 @@ public class StringUtil {
 	 * @param frase Frase que terá os caracteres trocados e caixa alta.
 	 * @return Frase com os caracteres trocados e caixa alta.
 	 */
-	public static String converteMaiusculoSemAcento(String frase) {
+	/*public static String converteMaiusculoSemAcento(String frase) {
 		
 		if ( frase == null ) return frase;
 		return StringUtil.trocarCaracteresAcentuados(frase.toUpperCase());
-	}
+	}*/
 	
 	/**
 	 * Trocar os caracteres acentuados por seus equivalentes sem acentuação.
@@ -169,7 +169,7 @@ public class StringUtil {
 	 * @param frase Frase que terá os caracteres trocados.
 	 * @return Frase com os caracteres trocados.
 	 */
-	public static String trocarCaracteresAcentuados(String frase) {
+	/*public static String trocarCaracteresAcentuados(String frase) {
 		if ( frase == null ) return frase;
 		return frase.replaceAll("[ãâàáä]", "a")   
         .replaceAll("[êèéë]", "e")   
@@ -186,7 +186,7 @@ public class StringUtil {
         .replace('ñ', 'n')   
         .replace('Ñ', 'N'); 
 		
-	}
+	}*/
 	
 	/**
 	 * Remove os caracteres de pontuação.

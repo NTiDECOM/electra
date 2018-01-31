@@ -8,6 +8,9 @@ import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class FacesMessages implements Serializable {
 
 	private static final long serialVersionUID = 1L;

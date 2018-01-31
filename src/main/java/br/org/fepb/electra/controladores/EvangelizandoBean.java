@@ -3,10 +3,12 @@ package br.org.fepb.electra.controladores;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import br.org.fepb.electra.modelo.Bairro;
 import br.org.fepb.electra.modelo.DadosAcademicos;
@@ -17,44 +19,46 @@ import br.org.fepb.electra.modelo.DadosSociabilidade;
 import br.org.fepb.electra.modelo.Endereco;
 import br.org.fepb.electra.modelo.Evangelizando;
 import br.org.fepb.electra.repositorios.EvangelizandoRepositorio;
+import br.org.fepb.electra.servicos.BairroService;
 import br.org.fepb.electra.servicos.EvangelizandoService;
 import br.org.fepb.electra.util.FacesMessages;
 
-@Named
+//@Named
+@Controller("evangelizandoBean")
 @ViewScoped
 public class EvangelizandoBean extends GenericBean {
 
 	private static final long serialVersionUID = 8390437989517939381L;
 	
-	@Inject
+	@Autowired
 	private FacesMessages messages;
 	
-	@Inject
+	@Autowired
 	private EvangelizandoService evangelizandoServico;
 	
-	@Inject
+	@Autowired
 	private EvangelizandoRepositorio evangelizandoRepositorio;
 
 	private List<Evangelizando> evangelizandos;
 	
 	private Evangelizando evangelizando;
 	
-	@Inject
+	@Autowired
 	private Endereco endereco;
 	
-	@Inject
+	@Autowired
 	private DadosSaude dadosSaude;
 	
-	@Inject
+	@Autowired
 	private DadosAcademicos dadosAcademicos;
 	
-	@Inject
+	@Autowired
 	private DadosFamilia dadosFamilia;
 	
-	@Inject
+	@Autowired
 	private DadosDesvSocioEmocional dadosDesvSocioEmocional;
 	
-	@Inject
+	@Autowired
 	private DadosSociabilidade dadosSociabilidade;
 	
 	private String email1;
@@ -63,14 +67,20 @@ public class EvangelizandoBean extends GenericBean {
 	
 	private List<Bairro> bairros;
 	
+	@Autowired
+	private BairroService bairroService;
+	
 	//@NotNull TODO: Analisar obrigatoriedade
+	@Autowired
 	private Bairro bairroSelecionado;
 	
-	@Inject
+	@Autowired
 	private ServletContext servletContext;
 	
 	/** Método para iniciar a tela de cadastro de evangelizandos */
+	@PostConstruct
 	public String iniciar() {
+		this.bairros = bairroService.listarTodos();
 		this.limparVariaveis();
 		setState(ESTADO_DE_LISTAGEM);
 		return "/pages/Evangelizando";
@@ -87,7 +97,8 @@ public class EvangelizandoBean extends GenericBean {
 		else
 			evangelizandos.clear();
 		
-		evangelizandos = evangelizandoRepositorio.listarTodos();
+		//evangelizandos = evangelizandoRepositorio.listarTodos();
+		evangelizandos = (List<Evangelizando>) evangelizandoRepositorio.findAll();
 		setState(ESTADO_DE_LISTAGEM);
 	}
 	
@@ -156,7 +167,8 @@ public class EvangelizandoBean extends GenericBean {
 	
 	public List<Evangelizando> getEvangelizandos() {
 		if(evangelizandos == null){
-			return evangelizandoRepositorio.listarTodos();
+			//return evangelizandoRepositorio.listarTodos();
+			return (List<Evangelizando>) evangelizandoRepositorio.findAll();
 		}
 		return evangelizandos;
 	}

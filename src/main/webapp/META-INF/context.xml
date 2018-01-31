@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-	<Manager pathname="" />
-	<Resource name="BeanManager" auth="Container"
-		type="javax.enterprise.inject.spi.BeanManager" factory="org.jboss.weld.resources.ManagerObjectFactory" />
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+ 
+    <!-- Resource
+            factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+            name="jdbc/jettyDS"
+            auth="Container"
+            type="javax.sql.DataSource"
+            initialSize="1"
+            maxActive="20"
+            maxIdle="3"
+            minIdle="1"
+            maxWait="5000"
+            username="root"
+            password="root"
+            driverClassName="com.mysql.jdbc.Driver"
+            validationQuery="SELECT 'OK'"
+            testWhileIdle="true"
+            testOnBorrow="true"
+            numTestsPerEvictionRun="5"
+            timeBetweenEvictionRunsMillis="30000"
+            minEvictableIdleTimeMillis="60000"
+            url="jdbc:mysql://localhost/electra" /-->
+ 
 </Context>
+
+
+	<!--Manager pathname="" /-->
+	<!--  Resource name="BeanManager" auth="Container"
+		type="javax.enterprise.inject.spi.BeanManager" factory="org.jboss.weld.resources.ManagerObjectFactory" /-->
+

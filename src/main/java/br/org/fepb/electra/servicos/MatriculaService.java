@@ -3,31 +3,34 @@ package br.org.fepb.electra.servicos;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.org.fepb.electra.modelo.Matricula;
 import br.org.fepb.electra.repositorios.MatriculaRepositorio;
 import br.org.fepb.electra.util.Transacional;
 
+@Service
 public class MatriculaService implements Serializable {
 	
 	private static final long serialVersionUID = -4802660230220768541L;
 	
-	@Inject
+	//@Inject
+	@Autowired
 	private MatriculaRepositorio matriculaRepositorio;
 
 	@Transacional
 	public Matricula salvar(Matricula matricula) {
-		return matriculaRepositorio.salvar(matricula);
+		return matriculaRepositorio.save(matricula);
 	}
 
 	@Transacional
 	public void excluir(Matricula matricula) {
-		matriculaRepositorio.remover(matricula);
+		matriculaRepositorio.delete(matricula);
 	}
 	
 	public List<Matricula> listarTodos(){
-		return matriculaRepositorio.listarTodos();
+		return (List<Matricula>) matriculaRepositorio.findAll();
 	}
 
 }

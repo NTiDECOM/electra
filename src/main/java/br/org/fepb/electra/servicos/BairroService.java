@@ -1,15 +1,29 @@
 package br.org.fepb.electra.servicos;
 
 import java.io.Serializable;
+import java.util.List;
 
-//@Service
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.org.fepb.electra.modelo.Bairro;
+import br.org.fepb.electra.repositorios.BairroRepositorio;
+
+@Service
 public class BairroService implements Serializable {
+	
+	@Autowired
+	private BairroRepositorio bairroRepositorio;
 	
 	public BairroService(){
 		//vazio
 	}
 
-	/*private static final long serialVersionUID = 5214699266012705925L;
+	public List<Bairro> listarTodos() {
+		return (List<Bairro>) bairroRepositorio.findAll();
+	}
+	
+	/*
 
 	@Inject
 	private BairroRepositorio bairroRepositorio;

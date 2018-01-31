@@ -9,8 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 @Entity
 @Table(name = "tb_dados_desv_socioemocional")
+@Component
 public class DadosDesvSocioEmocional implements Serializable {
     
 	private static final long serialVersionUID = 1035704602387530513L;
@@ -217,5 +220,29 @@ public class DadosDesvSocioEmocional implements Serializable {
 		this.medos = medos;
 	}
     
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DadosDesvSocioEmocional other = (DadosDesvSocioEmocional) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
     
 }

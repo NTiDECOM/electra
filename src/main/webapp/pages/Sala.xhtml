@@ -72,13 +72,15 @@
 					
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
-					
+				
+					<p:column headerText="Nome da Sala" sortBy="#{row.descricao}">
+						<h:outputText value="#{row.descricao}" />
+					</p:column>
+						
 					<p:column headerText="Instituição" sortBy="#{row.instituicao.nome}">
 						<h:outputText value="#{row.instituicao.nome}" />
 					</p:column>
-					<p:column headerText="Descrição" sortBy="#{row.descricao}">
-						<h:outputText value="#{row.descricao}" />
-					</p:column>
+				
 					<p:column headerText="Faixa Etária" width="250">
 						<h:outputText value="#{row.faixasEtarias}" />
 					</p:column>
@@ -112,9 +114,9 @@
 					</p:panelGrid>
 
 					<p:outputLabel value="Instituição:" for="instituicao" />
-			        <p:selectOneMenu id="instituicao" value="#{salaBean.idInstituicao}">
+			        <p:selectOneMenu id="instituicao" value="#{salaBean.instituicaoSelecionada}">
 			            <f:selectItem itemLabel="--Selecione um item--" itemValue="" />
-			            <f:selectItems value="#{salaBean.instituicoes}" var="i" itemLabel="#{i.nome}" itemValue="#{i}" />
+			            <f:selectItems value="#{salaBean.instituicoesEspiritas}" />
 			        </p:selectOneMenu>
 			        
 			        <p:outputLabel for="gridDiasAulas" value="Dia da Aula:"/>
