@@ -45,5 +45,12 @@ public class GrauParentesco extends GenericModel {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return descricao;
+	}
+	
+	
 	
 }

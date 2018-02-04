@@ -15,7 +15,6 @@ public class SalaService implements Serializable {
 
 	private static final long serialVersionUID = 5214699266012705925L;
 
-	//@Inject
 	@Autowired
 	private SalaRepositorio salaRepositorio;
 	

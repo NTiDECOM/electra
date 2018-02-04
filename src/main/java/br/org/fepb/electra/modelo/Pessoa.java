@@ -13,7 +13,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.stereotype.Component;
 
+@Component
 @MappedSuperclass
 public abstract class Pessoa extends GenericModel {
 
@@ -52,11 +54,18 @@ public abstract class Pessoa extends GenericModel {
 	private Date dataCadastro;
 	
 	@NotEmpty
-	@Column(name = "telefone1", nullable = false, length = 14)
-	private String telefone1;
+	@Column(name = "contato1", nullable = false, length = 14)
+	private String contato1;
 	
-	@Column(name = "telefone2", length = 14)
-	private String telefone2;
+	@NotEmpty
+	@Column(name = "tipo_contato1", nullable = false)
+	private String tipoContato1;
+	
+	@Column(name = "contato2", length = 14)
+	private String contato2;
+	
+	@Column(name = "tipo_contato2", nullable = false)
+	private String tipoContato2;
 
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_endereco")
@@ -116,20 +125,36 @@ public abstract class Pessoa extends GenericModel {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public String getTelefone1() {
-		return telefone1;
+	public String getContato1() {
+		return contato1;
 	}
 
-	public void setTelefone1(String telefone1) {
-		this.telefone1 = telefone1;
+	public void setContato1(String contato1) {
+		this.contato1 = contato1;
 	}
 
-	public String getTelefone2() {
-		return telefone2;
+	public String getTipoContato1() {
+		return tipoContato1;
 	}
 
-	public void setTelefone2(String telefone2) {
-		this.telefone2 = telefone2;
+	public void setTipoContato1(String tipoContato1) {
+		this.tipoContato1 = tipoContato1;
+	}
+
+	public String getContato2() {
+		return contato2;
+	}
+
+	public void setContato2(String contato2) {
+		this.contato2 = contato2;
+	}
+
+	public String getTipoContato2() {
+		return tipoContato2;
+	}
+
+	public void setTipoContato2(String tipoContato2) {
+		this.tipoContato2 = tipoContato2;
 	}
 
 	public Endereco getEndereco() {

@@ -18,12 +18,13 @@ import br.org.fepb.electra.modelo.DadosSaude;
 import br.org.fepb.electra.modelo.DadosSociabilidade;
 import br.org.fepb.electra.modelo.Endereco;
 import br.org.fepb.electra.modelo.Evangelizando;
-import br.org.fepb.electra.repositorios.EvangelizandoRepositorio;
+import br.org.fepb.electra.modelo.GrauParentesco;
+import br.org.fepb.electra.modelo.Parente;
+import br.org.fepb.electra.repositorios.GrauParentescoService;
 import br.org.fepb.electra.servicos.BairroService;
 import br.org.fepb.electra.servicos.EvangelizandoService;
 import br.org.fepb.electra.util.FacesMessages;
 
-//@Named
 @Controller("evangelizandoBean")
 @ViewScoped
 public class EvangelizandoBean extends GenericBean {
@@ -36,9 +37,6 @@ public class EvangelizandoBean extends GenericBean {
 	@Autowired
 	private EvangelizandoService evangelizandoServico;
 	
-	@Autowired
-	private EvangelizandoRepositorio evangelizandoRepositorio;
-
 	private List<Evangelizando> evangelizandos;
 	
 	private Evangelizando evangelizando;
@@ -74,13 +72,20 @@ public class EvangelizandoBean extends GenericBean {
 	@Autowired
 	private Bairro bairroSelecionado;
 	
+	private List<GrauParentesco> grausParentesco; 
+	
+	@Autowired
+	private GrauParentescoService grauParentescoService;
+	
+	@Autowired
+	private List<Parente> parentes;
+	
 	@Autowired
 	private ServletContext servletContext;
 	
 	/** Método para iniciar a tela de cadastro de evangelizandos */
 	@PostConstruct
 	public String iniciar() {
-		this.bairros = bairroService.listarTodos();
 		this.limparVariaveis();
 		setState(ESTADO_DE_LISTAGEM);
 		return "/pages/Evangelizando";
@@ -98,12 +103,11 @@ public class EvangelizandoBean extends GenericBean {
 			evangelizandos.clear();
 		
 		//evangelizandos = evangelizandoRepositorio.listarTodos();
-		evangelizandos = (List<Evangelizando>) evangelizandoRepositorio.findAll();
+		evangelizandos = (List<Evangelizando>) evangelizandoServico.listarTodos();
 		setState(ESTADO_DE_LISTAGEM);
 	}
 	
 	private void limparVariaveis() {
-		//TODO: configurar spring
 		this.evangelizando = new Evangelizando();
 		this.evangelizandos = new ArrayList<Evangelizando>();
 		this.email1 = "";
@@ -115,6 +119,10 @@ public class EvangelizandoBean extends GenericBean {
 		this.dadosFamilia = new DadosFamilia();
 		this.dadosDesvSocioEmocional = new DadosDesvSocioEmocional();
 		this.dadosSociabilidade = new DadosSociabilidade();
+		this.parentes = new ArrayList<>();
+		this.grausParentesco = new ArrayList<>();
+		this.bairros = bairroService.listarTodos();
+		this.grausParentesco = grauParentescoService.listarTodos();
 	}
 	
 	public void prepararNovoCadastro() {
@@ -135,7 +143,6 @@ public class EvangelizandoBean extends GenericBean {
 		}
 		//vlaida bairro
 		if(endereco !=null && bairroSelecionado !=null){
-			//evangelizando.getEndereco().setBairro(new Bairro(idBairro));
 			endereco.setBairro(bairroSelecionado);
 			evangelizando.setEndereco(endereco);
 		}
@@ -167,8 +174,7 @@ public class EvangelizandoBean extends GenericBean {
 	
 	public List<Evangelizando> getEvangelizandos() {
 		if(evangelizandos == null){
-			//return evangelizandoRepositorio.listarTodos();
-			return (List<Evangelizando>) evangelizandoRepositorio.findAll();
+			return (List<Evangelizando>) evangelizandoServico.listarTodos();
 		}
 		return evangelizandos;
 	}
@@ -245,10 +251,6 @@ public class EvangelizandoBean extends GenericBean {
 		return evangelizandoServico;
 	}
 
-	public EvangelizandoRepositorio getEvangelizandoRepositorio() {
-		return evangelizandoRepositorio;
-	}
-
 	public DadosAcademicos getDadosAcademicos() {
 		return dadosAcademicos;
 	}
@@ -264,7 +266,33 @@ public class EvangelizandoBean extends GenericBean {
 	public DadosSociabilidade getDadosSociabilidade() {
 		return dadosSociabilidade;
 	}
-	
 
+	public List<GrauParentesco> getGrausParentesco() {
+		return grausParentesco;
+	}
+
+	public void setGrausParentesco(List<GrauParentesco> grausParentesco) {
+		this.grausParentesco = grausParentesco;
+	}
+
+	public List<Parente> getParentes() {
+		if(parentes.size() == 0){
+			this.parentes.add(new Parente("> Edite a partir daqui <"));
+		}
+		return parentes;
+	}
+
+	public void setParentes(List<Parente> parentes) {
+		this.parentes = parentes;
+	}
+	
+	public void addParente(){
+		this.parentes.add(new Parente());
+	}
+	
+	public void removerParente(){
+		this.parentes.remove(parentes.size() -1);
+	}
+	
 	
 }

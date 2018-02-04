@@ -11,11 +11,10 @@ import br.org.fepb.electra.repositorios.InstituicaoEspiritaRepositorio;
 import br.org.fepb.electra.util.Transacional;
 
 @Service
-public class InstituicaoEspiritaService implements Serializable {
+public class InstituicaoEspiritaService implements Serializable, ServiceInterface<InstituicaoEspirita> {
 
 	private static final long serialVersionUID = 8460255497365537489L;
 
-	//@Inject
 	@Autowired
 	private InstituicaoEspiritaRepositorio instituicaoRepositorio;
 	
@@ -28,8 +27,8 @@ public class InstituicaoEspiritaService implements Serializable {
 	}
 
 	@Transacional
-	public void salvar(InstituicaoEspirita evangelizador) {
-		instituicaoRepositorio.save(evangelizador);
+	public InstituicaoEspirita salvar(InstituicaoEspirita evangelizador) {
+		return instituicaoRepositorio.save(evangelizador);
 	}
 
 	@Transacional

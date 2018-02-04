@@ -10,8 +10,10 @@ import br.org.fepb.electra.modelo.Bairro;
 import br.org.fepb.electra.repositorios.BairroRepositorio;
 
 @Service
-public class BairroService implements Serializable {
+public class BairroService implements Serializable, ServiceInterface<Bairro> {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private BairroRepositorio bairroRepositorio;
 	
@@ -22,32 +24,17 @@ public class BairroService implements Serializable {
 	public List<Bairro> listarTodos() {
 		return (List<Bairro>) bairroRepositorio.findAll();
 	}
-	
-	/*
 
-	@Inject
-	private BairroRepositorio bairroRepositorio;
-	
-	public List<Bairro> listarTodos() {
-		return bairroRepositorio.listarTodos();
-	}
-	
-	public Bairro buscarPorId(Long id) {
-		return bairroRepositorio.pesquisarPorId(id);
-	}
-	
-	public List<Bairro> listarBairrosByIdCidade(Long id) {
-		return (List<Bairro>) bairroRepositorio.listarBairroByCidade(id);
+	@Override
+	public Bairro salvar(Bairro e) {
+		return bairroRepositorio.save(e);
 	}
 
-	@Transacional
-	public void salvar(Bairro bairro) {
-		bairroRepositorio.salvar(bairro);
+	@Override
+	public void excluir(Bairro e) {
+		bairroRepositorio.delete(e);
+		
 	}
-
-	@Transacional
-	public void excluir(Bairro bairro) {
-		bairroRepositorio.remover(bairro);
-	}*/
+	
 	
 }

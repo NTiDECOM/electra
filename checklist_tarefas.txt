@@ -13,6 +13,7 @@ Sobre Saúde:
 	- Checkbox 'SIM' para todas as perguntas, habilitar edição das descrições. [REVER]
 	- Modificar label p/ 'Faz uso contínuo de alguma medicação?' [OK]
 	- Remover campo 'Possui doença..' [OK]
+	
 Em família:
 	- Colocar legenda para explicar o conceito de responsável
 	- Remover telefone 1 e 2
@@ -49,11 +50,10 @@ Sala:
 + Vincular Evangelizador a Turma (OPCIONAL)
 + incluir campos periodicidade das aulas (Diariamente, Semanal, Mensal).
 
+Evangelizador: 
++ Ajuste na edicação [OK]
+
 Outros:
 + Mudar sessão
-<<<<<<< HEAD
 + Incluir autenticação (login)
-=======
-+ Incluir autenticação
->>>>>>> b68ec74cfd5397a670c2f5e04546472b7df9da3b
 + Filtrar consultas por instituiçoes do usuário logado

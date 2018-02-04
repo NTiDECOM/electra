@@ -95,7 +95,7 @@
 						<h:outputText value="#{evangelizador.escolaridade}" />
 					</p:column>
 					<p:column headerText="telefone" width="120">
-						<h:outputText value="#{evangelizador.telefone1}" />
+						<h:outputText value="#{evangelizador.contato1}" />
 					</p:column>
 				</p:dataTable>
 				
@@ -147,10 +147,18 @@
 						value="#{evangelizadorBean.evangelizador.cpf}"
 						mask="999.999.999-99" />
 					
-					<p:outputLabel value="Telefone: (*)" for="telefone" />
+					<p:outputLabel value="Contato: (*)" for="telefone" />
 					<p:inputMask id="telefone" size="14" maxlength="14"
-						value="#{evangelizadorBean.evangelizador.telefone1}"
+						value="#{evangelizadorBean.evangelizador.contato1}"
 						mask="(99)99999-9999" />
+						
+					<p:outputLabel value="Tipo contato:" for="tipo_contato" />
+					<p:selectOneButton value="#{evangelizadorBean.evangelizador.tipoContato1}" id="tipo_contato">
+						<f:selectItem itemLabel="--- Selecione o tipo ---" itemValue=""/>
+						<f:selectItem itemLabel="Whatsapp" itemValue="WHATSAPP"/>
+						<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
+						<f:selectItem itemLabel="Residencial" itemValue="RESIDENCIAL"/>
+					</p:selectOneButton>		
 					
 					<p:outputLabel value="Data de Nascimento: (*)" for="data-fundacao" />
 					<p:calendar id="data-fundacao" size="10"

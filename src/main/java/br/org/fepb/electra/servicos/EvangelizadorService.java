@@ -12,7 +12,7 @@ import br.org.fepb.electra.repositorios.EvangelizadorRepositorio;
 import br.org.fepb.electra.util.Transacional;
 
 @Service
-public class EvangelizadorService implements Serializable {
+public class EvangelizadorService implements Serializable, ServiceInterface<Evangelizador> {
 	
 	private static final long serialVersionUID = -4802660230220768541L;
 	
@@ -21,9 +21,9 @@ public class EvangelizadorService implements Serializable {
 	private EvangelizadorRepositorio evangelizadorRepositorio;
 
 	@Transacional
-	public void salvar(Evangelizador evangelizador) {
+	public Evangelizador salvar(Evangelizador evangelizador) {
 		evangelizador.setDataCadastro(new Date());
-		evangelizadorRepositorio.save(evangelizador);
+		return evangelizadorRepositorio.save(evangelizador);
 	}
 
 	@Transacional

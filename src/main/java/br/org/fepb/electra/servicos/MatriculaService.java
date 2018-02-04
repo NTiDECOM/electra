@@ -11,11 +11,10 @@ import br.org.fepb.electra.repositorios.MatriculaRepositorio;
 import br.org.fepb.electra.util.Transacional;
 
 @Service
-public class MatriculaService implements Serializable {
+public class MatriculaService implements Serializable, ServiceInterface<Matricula> {
 	
 	private static final long serialVersionUID = -4802660230220768541L;
 	
-	//@Inject
 	@Autowired
 	private MatriculaRepositorio matriculaRepositorio;
 

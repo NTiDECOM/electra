@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
 
@@ -22,23 +23,12 @@ public class DadosFamilia implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-	@Column(name="nome_mae")
-    private String nomeMae;
-    
-	@Column(name="nome_pai")
-    private String nomePai;
-    
+	@NotNull
+	@Column(name="evangelho_lar")
+	private Boolean evangelhoLar;
+	
 	@Column(name="expectativa_aulas")
     private String expectativaAulas;
-    
-	@Column(name="parentes_com_quem_reside")
-    private String parentesComQuemReside;
-    
-	@Column(name="telefone1")
-    private String telefone1;
-    
-	@Column(name="telefone2")
-    private String telefone2;
     
 	@Column(name="observacoes")
     private String observacoes;
@@ -50,22 +40,6 @@ public class DadosFamilia implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getNomeMae() {
-		return nomeMae;
-	}
-
-	public void setNomeMae(String nomeMae) {
-		this.nomeMae = nomeMae;
-	}
-
-	public String getNomePai() {
-		return nomePai;
-	}
-
-	public void setNomePai(String nomePai) {
-		this.nomePai = nomePai;
 	}
 
 	public String getExpectativaAulas() {
@@ -84,30 +58,14 @@ public class DadosFamilia implements Serializable {
 		this.observacoes = observacoes;
 	}
 
-	public String getParentesComQuemReside() {
-		return parentesComQuemReside;
+	public Boolean getEvangelhoLar() {
+		return evangelhoLar;
 	}
 
-	public void setParentesComQuemReside(String parentesComQuemReside) {
-		this.parentesComQuemReside = parentesComQuemReside;
+	public void setEvangelhoLar(Boolean evangelhoLar) {
+		this.evangelhoLar = evangelhoLar;
 	}
 
-	public String getTelefone1() {
-		return telefone1;
-	}
-
-	public void setTelefone1(String telefone1) {
-		this.telefone1 = telefone1;
-	}
-
-	public String getTelefone2() {
-		return telefone2;
-	}
-
-	public void setTelefone2(String telefone2) {
-		this.telefone2 = telefone2;
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

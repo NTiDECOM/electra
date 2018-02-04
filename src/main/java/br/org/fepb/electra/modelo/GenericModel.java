@@ -7,8 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import br.org.fepb.electra.conversores.EntidadeBasica;
+import org.springframework.stereotype.Component;
 
+import br.org.fepb.electra.conversores.EntidadeBasica;
+@Component
 @MappedSuperclass
 public class GenericModel implements EntidadeBasica, Serializable {
 

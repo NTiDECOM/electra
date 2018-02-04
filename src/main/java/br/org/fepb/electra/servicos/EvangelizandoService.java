@@ -2,6 +2,7 @@ package br.org.fepb.electra.servicos;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import br.org.fepb.electra.repositorios.EvangelizandoRepositorio;
 import br.org.fepb.electra.util.Transacional;
 
 @Service
-public class EvangelizandoService implements Serializable {
+public class EvangelizandoService implements Serializable, ServiceInterface<Evangelizando> {
 
 	private static final long serialVersionUID = 5712580837918380230L;
 	
@@ -28,6 +29,11 @@ public class EvangelizandoService implements Serializable {
 	@Transacional
 	public void excluir(Evangelizando evangelizando) {
 		evangelizandoRepositorio.delete(evangelizando);
+	}
+
+	@Override
+	public List<Evangelizando> listarTodos() {
+		return (List<Evangelizando>) evangelizandoRepositorio.findAll();
 	}
 	
 }

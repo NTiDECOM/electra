@@ -7,3 +7,6 @@ insert into tb_cidade (id, descricao, fk_uf) values (1, 'João Pessoa', 1)
 
 insert into tb_bairro (id, descricao, fk_cidade) values (1, 'Torre', 1)
 insert into tb_bairro (id, descricao, fk_cidade) values (2, 'Pedro Gondim', 1)
+
+insert tb_grau_parentesco values (1, 'Mãe/Pai')
+insert tb_grau_parentesco values (2, 'Avó/Avô')
