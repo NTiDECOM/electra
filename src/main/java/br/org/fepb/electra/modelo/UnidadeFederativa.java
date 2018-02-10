@@ -1,36 +1,41 @@
 package br.org.fepb.electra.modelo;
-import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "tb_unidade_federativa")
-public class UnidadeFederativa implements Serializable {
+public class UnidadeFederativa extends GenericModel implements Serializable{
     
 	private static final long serialVersionUID = -8591357257537938081L;
 
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     private String descricao;
 
+	@Column(name = "sigla", nullable = false)
     private String sigla;
+
+	@ManyToOne
+	@JoinColumn(name="fk_regiao")
+	private Regiao regiao;
 
     public UnidadeFederativa(){
     	//vazio
     }
-    
-	public Integer getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Regiao getRegiao() {
+		return regiao;
+	}
+
+	public void setRegiao(Regiao regiao) {
+		this.regiao = regiao;
 	}
 
 	public String getDescricao() {

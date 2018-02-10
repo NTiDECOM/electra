@@ -60,6 +60,9 @@ public class Endereco extends GenericModel implements Serializable  {
 	}
 
 	public Bairro getBairro() {
+		if(bairro == null){
+			return new Bairro();
+		}
 		return bairro;
 	}
 

@@ -73,7 +73,7 @@
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
-					<p:column headerText="id" sortBy="#{evangelizando.id}">
+					<p:column headerText="Id" sortBy="#{evangelizando.id}" style="width: 10%;">
 						<h:outputText value="#{evangelizando.id}" />
 					</p:column>
 					<p:column headerText="Nome do Evangelizando" sortBy="#{evangelizando.nome}">
@@ -181,7 +181,12 @@
 						<f:selectItem itemLabel="O-" itemValue="O-"/>
 						<f:selectItem itemLabel="Não sabe" itemValue="NAO SABE"/>
 					</p:selectOneButton>
-					
+
+					<p:outputLabel value="Naturalidade: " for="naturalidade"/>
+					<p:autoComplete id="naturalidade" placeholder="Digite as iniciais..."
+									dropdown="true" value="#{evangelizandoBean.naturalidadeSelecionada}"
+									completeMethod="#{evangelizandoBean.completeCidades}" />
+
 					</h:panelGrid>
 					
 					</p:tab>
@@ -199,11 +204,8 @@
 							<p:inputText value="#{evangelizandoBean.endereco.numero}" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Bairro:"/>
-							<p:selectOneMenu value="#{evangelizandoBean.bairroSelecionado}"><!-- converter="simpleEntityConverter" -->
-								<f:selectItem itemLabel="--- selecione um bairro ---" itemValue=""></f:selectItem>
-								<f:selectItems value="#{evangelizandoBean.bairros}"/>
-							</p:selectOneMenu>
-							
+							<p:autoComplete id="bairro" placeholder="Digite as iniciais..." dropdown="true" value="#{evangelizandoBean.bairroSelecionado}" completeMethod="#{evangelizandoBean.completeBairros}" />
+
 							<p:outputLabel value="Complemento:"/>
 							<p:inputText value="#{evangelizandoBean.endereco.complemento}" onblur="value=value.toUpperCase()"/>
 							
@@ -422,8 +424,8 @@
 
 							</p:dataTable>
 
-						<p>* <strong>Responsável</strong> pode ser um parente ou vizinho que assumiu o papel de levar a criança ou jovem até a evangelização.
-							Pode ser o contato direto para tratar de assuntos ligados a evangelização. </p>
+						<p>* <strong>Responsável</strong> é aquela pessoa (ou aquelas) que leva a criança ou o jovem para a Evangelização. Pode ser, portanto, a mãe, o pai, o avó, o tio, o vizinho etc.
+							É o elo direto entre a criança (ou jovem) e a Evangelização.</p>
 
 					</p:tab>
 					

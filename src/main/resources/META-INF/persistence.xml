@@ -6,7 +6,7 @@
 
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<!-- provider>org.hibernate.ejb.HibernatePersistence</provider-->
-    	<non-jta-data-source>java:comp/env/jdbc/jettyDS</non-jta-data-source>
+    	<!--non-jta-data-source>java:comp/env/jdbc/jettyDS</non-jta-data-source-->
 <!-- 		<class>br.org.fepb.electra.models.Empresa</class> -->
 
 		<properties>
@@ -23,7 +23,8 @@
 			<!-- usar value="drop-and-create" para atualização da estrutura das tabelas -->
 			<property name="javax.persistence.schema-generation.database.action" value="none" />
   			<property name="javax.persistence.schema-generation.create-source" value="metadata" />
-			<property name="javax.persistence.sql-load-script-source" value="META-INF/sql/dados-iniciais.sql"/>
+            <!--META-INF/sql/dados-iniciais-masterdata.sql carrega todos os scripts de banco (MAIS DEMORADO)-->
+			<property name="javax.persistence.sql-load-script-source" value="META-INF/sql/dados-iniciais-masterdata.sql"/>
 
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />

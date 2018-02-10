@@ -25,6 +25,10 @@ public class BairroService implements Serializable, ServiceInterface<Bairro> {
 		return (List<Bairro>) bairroRepositorio.findAll();
 	}
 
+	public List<Bairro> listarPorCidade(Long idCidade) {
+		return (List<Bairro>) bairroRepositorio.findAllByCidade(idCidade);
+	}
+
 	@Override
 	public Bairro salvar(Bairro e) {
 		return bairroRepositorio.save(e);
@@ -35,6 +39,8 @@ public class BairroService implements Serializable, ServiceInterface<Bairro> {
 		bairroRepositorio.delete(e);
 		
 	}
-	
-	
+
+	public Bairro buscarPorDescricao(String bairroSelecionado) {
+		return bairroRepositorio.findByDescricao(bairroSelecionado);
+	}
 }

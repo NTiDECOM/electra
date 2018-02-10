@@ -24,10 +24,10 @@ Em família:
 + Remover campos pai e mãe [OK]
 	- Tipo parente: Mãe/Pai, Avó(ô), Tia(o), Irmã(o), Prima(o), Vizinha(o), outros [OK]
 + Analisar posteriormente: Incluir talentos aos responsáveis (Ver modelo da fepb)	[VERSAO POSTERIOR]
-+ Implementar edição na listagem de evangelizando.
-+ Definicação dos campos obrigatórios: Nome completo, como ser chamado, telefone, d. nascimento, sexo, tipo sanguíneo.	
-+ Analisar posteriormente informações internas (sigilo), como vulnerabilidade. 
-+ Criar listagem de evangelizandos por data de nascimento
++ Implementar edição na listagem de evangelizando.[OK]
++ Definicação dos campos obrigatórios: Nome completo, como ser chamado, telefone, d. nascimento, sexo, tipo sanguíneo. [OK]
++ Analisar posteriormente informações internas (sigilo), como vulnerabilidade. [VERSAO POSTERIOR]
++ Criar listagem de evangelizandos por data de nascimento [FALTA <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<]
 + Novo campo naturalidade
 + Criar mensagem de validação informativa: Unicidade: Primeiro nome, d. nascimento e naturalidade.
 	 

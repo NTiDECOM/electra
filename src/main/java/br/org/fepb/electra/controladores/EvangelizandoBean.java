@@ -1,27 +1,19 @@
 package br.org.fepb.electra.controladores;
 
-import java.util.ArrayList;
-import java.util.List;
+import br.org.fepb.electra.modelo.*;
+import br.org.fepb.electra.servicos.BairroService;
+import br.org.fepb.electra.servicos.CidadeService;
+import br.org.fepb.electra.servicos.EvangelizandoService;
+import br.org.fepb.electra.servicos.ParenteService;
+import br.org.fepb.electra.util.FacesMessages;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
-import br.org.fepb.electra.modelo.Bairro;
-import br.org.fepb.electra.modelo.DadosAcademicos;
-import br.org.fepb.electra.modelo.DadosDesvSocioEmocional;
-import br.org.fepb.electra.modelo.DadosFamilia;
-import br.org.fepb.electra.modelo.DadosSaude;
-import br.org.fepb.electra.modelo.DadosSociabilidade;
-import br.org.fepb.electra.modelo.Endereco;
-import br.org.fepb.electra.modelo.Evangelizando;
-import br.org.fepb.electra.modelo.Parente;
-import br.org.fepb.electra.servicos.BairroService;
-import br.org.fepb.electra.servicos.EvangelizandoService;
-import br.org.fepb.electra.util.FacesMessages;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller("evangelizandoBean")
 @ViewScoped
@@ -62,19 +54,31 @@ public class EvangelizandoBean extends GenericBean {
 	private String email2;
 	
 	private List<Bairro> bairros;
-	
+
 	@Autowired
 	private BairroService bairroService;
+
+	@Autowired
+	private CidadeService cidadeService;
+
+	@Autowired
+	private ParenteService parenteService;
 	
 	//@NotNull TODO: Analisar obrigatoriedade
-	@Autowired
-	private Bairro bairroSelecionado;
+	//@Autowired
+	private String bairroSelecionado;
 	
 	private List<Parente> parentes;
 	
 	@Autowired
 	private ServletContext servletContext;
-	
+
+	private String ufAtual = "PB";
+
+	private String cidadeAtual = "2507507";
+
+	private String naturalidadeSelecionada;
+
 	/** Método para iniciar a tela de cadastro de evangelizandos */
 	@PostConstruct
 	public String iniciar() {
@@ -95,7 +99,6 @@ public class EvangelizandoBean extends GenericBean {
 		else
 			evangelizandos.clear();
 		
-		//evangelizandos = evangelizandoRepositorio.listarTodos();
 		evangelizandos = (List<Evangelizando>) evangelizandoServico.listarTodos();
 		setState(ESTADO_DE_LISTAGEM);
 	}
@@ -105,7 +108,8 @@ public class EvangelizandoBean extends GenericBean {
 		this.evangelizandos = new ArrayList<Evangelizando>();
 		this.email1 = "";
 		this.email2 = "";
-		this.bairroSelecionado = new Bairro();
+		this.naturalidadeSelecionada = "";
+		this.bairroSelecionado = "";
 		this.endereco = new Endereco();
 		this.dadosSaude = new DadosSaude();
 		this.dadosAcademicos = new DadosAcademicos();
@@ -113,7 +117,9 @@ public class EvangelizandoBean extends GenericBean {
 		this.dadosDesvSocioEmocional = new DadosDesvSocioEmocional();
 		this.dadosSociabilidade = new DadosSociabilidade();
 		this.parentes = new ArrayList<>();
-		this.bairros = bairroService.listarTodos();
+		//default: Joao Pessoa/PB
+		this.bairros = bairroService.listarPorCidade(Long.parseLong(cidadeAtual));
+		//this.bairros = bairroService.listarTodos();
 	}
 	
 	public void prepararNovoCadastro() {
@@ -123,9 +129,13 @@ public class EvangelizandoBean extends GenericBean {
 	
 	public void prepararEdicao() {
 		endereco = evangelizando.getEndereco();
+		naturalidadeSelecionada = evangelizando.getNaturalidade().getDescricao();
+		bairroSelecionado = evangelizando.getEndereco().getBairro().getDescricao();
 		dadosSaude = evangelizando.getDadosSaude();
 		dadosAcademicos = evangelizando.getDadosAcademicos();
-		dadosFamilia = evangelizando.getDadosFamilia();
+		DadosFamilia familia = evangelizando.getDadosFamilia();
+		familia.setParentes(parenteService.listarPorEvangelizando(evangelizando.getId()));
+		dadosFamilia = familia;
 		dadosDesvSocioEmocional = evangelizando.getDadosDesvSocioEmocional();
 		dadosSociabilidade = evangelizando.getDadosSociabilidade();
 		email1 = evangelizando.getEmail();
@@ -141,13 +151,21 @@ public class EvangelizandoBean extends GenericBean {
 		} else {
 			evangelizando.setEmail(email1);
 		}
-		//vlaida bairro
+		//valida bairro
 		if(endereco !=null && bairroSelecionado !=null){
-			endereco.setBairro(bairroSelecionado);
+			endereco.setBairro(bairroService.buscarPorDescricao(bairroSelecionado));
 			evangelizando.setEndereco(endereco);
+		}
+		//validade naturalidade
+		if(naturalidadeSelecionada !=null){
+			evangelizando.setNaturalidade(cidadeService.buscarPorDescricao(naturalidadeSelecionada));
 		}
 		evangelizando.setDadosSaude(dadosSaude);
 		evangelizando.setDadosAcademicos(dadosAcademicos);
+		//valida parentes/familia
+		if(parentes != null){
+			dadosFamilia.setParentes(parentes);
+		}
 		evangelizando.setDadosFamilia(dadosFamilia);
 		evangelizando.setDadosDesvSocioEmocional(dadosDesvSocioEmocional);
 		evangelizando.setDadosSociabilidade(dadosSociabilidade);
@@ -192,6 +210,36 @@ public class EvangelizandoBean extends GenericBean {
 		return evangelizandos;
 	}
 
+	//autocomplete
+	public List<Cidade> completeCidades(String query) {
+		List<Cidade> allCidades = cidadeService.listarCidadesPorUF(ufAtual);
+		List<Cidade> filteredCidades = new ArrayList<Cidade>();
+
+		for (int i = 0; i < allCidades.size(); i++) {
+			Cidade skin = allCidades.get(i);
+			if(skin.getDescricao().toLowerCase().startsWith(query.toLowerCase())) {
+				filteredCidades.add(skin);
+			}
+		}
+
+		return filteredCidades;
+	}
+
+	//autocomplete
+	public List<Bairro> completeBairros(String query) {
+		List<Bairro> allBairros = bairroService.listarPorCidade(Long.parseLong(cidadeAtual));
+		List<Bairro> filteredBairros = new ArrayList<Bairro>();
+
+		for (int i = 0; i < allBairros.size(); i++) {
+			Bairro skin = allBairros.get(i);
+			if(skin.getDescricao().toLowerCase().startsWith(query)) {
+				filteredBairros.add(skin);
+			}
+		}
+
+		return filteredBairros;
+	}
+
 	public void setEvangelizandos(List<Evangelizando> evangelizandos) {
 		this.evangelizandos = evangelizandos;
 	}
@@ -220,11 +268,11 @@ public class EvangelizandoBean extends GenericBean {
 		this.email2 = email2;
 	}
 
-	public Bairro getBairroSelecionado() {
+	public String getBairroSelecionado() {
 		return bairroSelecionado;
 	}
 
-	public void setBairroSelecionado(Bairro bairroSelecionado) {
+	public void setBairroSelecionado(String bairroSelecionado) {
 		this.bairroSelecionado = bairroSelecionado;
 	}
 
@@ -245,13 +293,15 @@ public class EvangelizandoBean extends GenericBean {
 	}
 
 	public List<Bairro> getBairros() {
-		//TODO: 
+		//TODO:
 		if(bairros == null){
 			bairros = new ArrayList<>();
-			//bairros.add(new Bairro(Long.parseLong("1"), "Torre", Long.parseLong("1")));
-			//bairros.add(new Bairro(Long.parseLong("2"), "Pedro Gondim", Long.parseLong("1")));
-			bairros.add(new Bairro(Long.parseLong("1"), "Torre"));
-			bairros.add(new Bairro(Long.parseLong("2"), "Pedro Gondim"));
+			//bairros.add(new Bairro(Long.parseLong("1"), "Torre"));
+			//bairros.add(new Bairro(Long.parseLong("2"), "Pedro Gondim"));
+			//default: Joao Pessoa
+			this.bairros = bairroService.listarPorCidade(2507507L);
+			//this.bairros = bairroService.listarTodos();
+
 		}
 		return bairros;
 	}
@@ -298,6 +348,28 @@ public class EvangelizandoBean extends GenericBean {
 	public void removerParente(){
 		this.parentes.remove(parentes.size() -1);
 	}
-	
-	
+
+	public String getUfAtual() {
+		return ufAtual;
+	}
+
+	public void setUfAtual(String ufAtual) {
+		this.ufAtual = ufAtual;
+	}
+
+	public String getCidadeAtual() {
+		return cidadeAtual;
+	}
+
+	public void setCidadeAtual(String cidadeAtual) {
+		this.cidadeAtual = cidadeAtual;
+	}
+
+	public String getNaturalidadeSelecionada() {
+		return naturalidadeSelecionada;
+	}
+
+	public void setNaturalidadeSelecionada(String naturalidadeSelecionada) {
+		this.naturalidadeSelecionada = naturalidadeSelecionada;
+	}
 }

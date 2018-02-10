@@ -1,19 +1,12 @@
 package br.org.fepb.electra.modelo;
 
-import java.util.Date;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import java.util.Date;
 
 @Component
 @MappedSuperclass
@@ -33,7 +26,7 @@ public abstract class Pessoa extends GenericModel {
 	@Column(name = "sexo")
 	private char sexo;
 	
-	@Column(name = "raca", nullable=false)
+	@Column(name = "raca")
 	private String raca;
 	
 	@Column(name = "cpf", length = 14)
@@ -41,8 +34,8 @@ public abstract class Pessoa extends GenericModel {
 	
 	@Column(name = "email", length = 60)
 	private String email;
-	
-	@NotNull(message = "'data de nascimento' deve ser informado")
+
+	//@NotNull(message = "'data de nascimento' deve ser informado")
 	@Past
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_nascimento")
@@ -72,6 +65,10 @@ public abstract class Pessoa extends GenericModel {
 	
 	@Column(name="tipo_sanguineo")
 	private String tipoSanguineo;
+
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="fk_naturalidade")
+	private Cidade naturalidade;
 	
 	@Column(name = "excluido")
 	private Boolean excluido;
@@ -198,7 +195,18 @@ public abstract class Pessoa extends GenericModel {
 	public void setTipoSanguineo(String tipoSanguineo) {
 		this.tipoSanguineo = tipoSanguineo;
 	}
-	
+
+	public Cidade getNaturalidade() {
+		if(naturalidade == null){
+			return new Cidade();
+		}
+		return naturalidade;
+	}
+
+	public void setNaturalidade(Cidade naturalidade) {
+		this.naturalidade = naturalidade;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -223,6 +231,5 @@ public abstract class Pessoa extends GenericModel {
 			return false;
 		return true;
 	}
-	
 
 }

@@ -2,9 +2,7 @@ package br.org.fepb.electra.modelo;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.springframework.stereotype.Component;
 
@@ -12,27 +10,31 @@ import br.org.fepb.electra.conversores.EntidadeBasica;
 
 @Entity
 @Table(name = "tb_bairro")
-@Component
-public class Bairro extends GenericModel implements EntidadeBasica, Serializable {
+public class Bairro extends GenericModel implements Serializable {
     
 	private static final long serialVersionUID = 8614111716431677593L;
 
 	@Column(name="descricao")
     private String descricao;
 
-    //@JoinColumn(name="fk_cidade")
-    @Column(name="fk_cidade")
-    private Integer cidade = 1;
+	@Column(name="sigla_uf")
+	private String siglaUF;
+
+	@ManyToOne
+	@JoinColumn(name="fk_cidade")
+    private Cidade cidade;
+
 
 	public Bairro(Long idBairro) {
 		setId(idBairro);
 	}
 	
-	public Bairro(Long id, String descricao) {
+	public Bairro(Long id, String descricao, String siglaUF, Cidade cidade) {
 		super();
 		this.setId(id);
 		this.descricao = descricao;
-		//this.cidade = new Cidade(idCidade);
+		this.siglaUF = siglaUF;
+		this.cidade = cidade;
 	}
 
 	public Bairro(){
@@ -47,6 +49,22 @@ public class Bairro extends GenericModel implements EntidadeBasica, Serializable
 		this.descricao = descricao;
 	}
 
+	public String getSiglaUF() {
+		return siglaUF;
+	}
+
+	public void setSiglaUF(String siglaUF) {
+		this.siglaUF = siglaUF;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
 	@Override
 	public String toString() {
 		return descricao;
@@ -56,7 +74,7 @@ public class Bairro extends GenericModel implements EntidadeBasica, Serializable
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		return result;
 	}
 
@@ -69,10 +87,10 @@ public class Bairro extends GenericModel implements EntidadeBasica, Serializable
 		if (getClass() != obj.getClass())
 			return false;
 		Bairro other = (Bairro) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (descricao == null) {
+			if (other.descricao != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!descricao.equals(other.descricao))
 			return false;
 		return true;
 	}

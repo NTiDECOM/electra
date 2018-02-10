@@ -1,9 +1,6 @@
 package br.org.fepb.electra.modelo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_cidade")
@@ -14,8 +11,8 @@ public class Cidade extends GenericModel {
     @Column(name="descricao")
     private String descricao;
 
+    @ManyToOne
     @JoinColumn(name="fk_uf")
-    @Column(name="fk_uf")
     private UnidadeFederativa uf;
 	
 	public Cidade(){
@@ -34,6 +31,15 @@ public class Cidade extends GenericModel {
 		setId(id);
 	}
 
+	@Override
+	public Long getId() {
+		return super.getId();
+	}
+
+	@Override
+	public void setId(Long id) {
+		super.setId(id);
+	}
 
 	public String getDescricao() {
 		return descricao;
@@ -75,5 +81,9 @@ public class Cidade extends GenericModel {
 			return false;
 		return true;
 	}
-    
+
+	@Override
+	public String toString() {
+		return descricao;
+	}
 }

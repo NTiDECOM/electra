@@ -1,11 +1,6 @@
 package br.org.fepb.electra.modelo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 @Table(name="tb_parente")
@@ -22,7 +17,7 @@ public class Parente extends Pessoa {
 	 * 
 	 */
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="fk_evangelizando")
 	private Evangelizando evangelizando;
 

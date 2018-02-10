@@ -118,6 +118,7 @@ public class MatriculaBean extends GenericBean {
 	}
 	
 	public void prepararEdicao() {
+
 	}
 	
 	public String salvar() {

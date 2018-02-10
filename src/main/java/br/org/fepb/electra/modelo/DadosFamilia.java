@@ -1,16 +1,12 @@
 package br.org.fepb.electra.modelo;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_dados_familia")
@@ -32,7 +28,10 @@ public class DadosFamilia implements Serializable {
     
 	@Column(name="observacoes")
     private String observacoes;
-    
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Parente> parentes = new ArrayList<>();
+
 
 	public Integer getId() {
 		return id;
@@ -64,6 +63,14 @@ public class DadosFamilia implements Serializable {
 
 	public void setEvangelhoLar(Boolean evangelhoLar) {
 		this.evangelhoLar = evangelhoLar;
+	}
+
+	public List<Parente> getParentes() {
+		return parentes;
+	}
+
+	public void setParentes(List<Parente> parentes) {
+		this.parentes = parentes;
 	}
 
 	@Override

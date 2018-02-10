@@ -1,6 +1,11 @@
-1518214425810 ERROR SqlExceptionHelper [http-bio-8080-exec-4] Cannot delete or update a parent row: a foreign key constraint fails (`electra`.`tb_matricula`, CONSTRAINT `FKhkv4nu4r7fvj5nlncyuclsxbb` FOREIGN KEY (`fk_evangelizando`) REFERENCES `tb_evangelizando` (`id`))
-1518214425845 ERROR ExceptionMapperStandardImpl [http-bio-8080-exec-4] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
-1518215700716 ERROR SqlExceptionHelper [http-bio-8080-exec-3] Cannot delete or update a parent row: a foreign key constraint fails (`electra`.`tb_matricula`, CONSTRAINT `FKhkv4nu4r7fvj5nlncyuclsxbb` FOREIGN KEY (`fk_evangelizando`) REFERENCES `tb_evangelizando` (`id`))
-1518215700720 ERROR ExceptionMapperStandardImpl [http-bio-8080-exec-3] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
-1518227706139 ERROR SqlExceptionHelper [http-bio-8080-exec-1] Column 'data_nascimento' cannot be null
-1518227858874 ERROR SqlExceptionHelper [http-bio-8080-exec-3] Column 'data_nascimento' cannot be null
+1518284401158 ERROR SqlExceptionHelper [localhost-startStop-1] Cannot determine value type from string 'PB'
+1518285294671 ERROR SqlExceptionHelper [localhost-startStop-1] Cannot determine value type from string 'PB'
+1518285600863 ERROR SqlExceptionHelper [http-bio-8080-exec-9] Cannot determine value type from string 'PB'
+1518285765227 ERROR SqlExceptionHelper [localhost-startStop-1] Cannot determine value type from string 'PB'
+1518286130383 ERROR SqlExceptionHelper [localhost-startStop-1] Cannot determine value type from string 'PB'
+1518286261908 ERROR SqlExceptionHelper [localhost-startStop-1] Cannot determine value type from string 'PB'
+1518287187739 ERROR SqlExceptionHelper [localhost-startStop-1] Cannot determine value type from string 'PB'
+1518287267908 ERROR SqlExceptionHelper [localhost-startStop-1] Cannot determine value type from string 'PB'
+1518287672743 ERROR SqlExceptionHelper [localhost-startStop-1] Cannot determine value type from string 'PB'
+1518287908444 ERROR SqlExceptionHelper [localhost-startStop-1] Cannot determine value type from string 'PB'
+1518295689432 ERROR ExceptionMapperStandardImpl [http-bio-8080-exec-7] HHH000346: Error during managed flush [org.hibernate.TransientObjectException: object references an unsaved transient instance - save the transient instance beforeQuery flushing: br.org.fepb.electra.modelo.Parente]

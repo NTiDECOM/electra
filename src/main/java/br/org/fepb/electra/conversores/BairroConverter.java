@@ -26,9 +26,9 @@ public class BairroConverter implements Converter {
 	    public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object value) {
 	        if (value instanceof Bairro) {
 	            Bairro entity= (Bairro) value;
-	            if (entity != null && entity instanceof Bairro && entity.getId() != null) {
-	                uiComponent.getAttributes().put( entity.getId().toString(), entity);
-	                return entity.getId().toString();
+	            if (entity != null && entity instanceof Bairro && entity.getDescricao() != null) {
+	                uiComponent.getAttributes().put( entity.getDescricao(), entity);
+	                return entity.getDescricao();
 	            }
 	        }
 	        return "";
