@@ -23,15 +23,12 @@ public class SalaBean extends GenericBean {
 
 	private static final long serialVersionUID = -35739181856698227L;
 
-	//@Inject
 	@Autowired
 	private FacesMessages messages;
 	
-	//@Inject
 	@Autowired
 	private SalaService salaService;
 	
-	//@Inject
 	@Autowired
 	private InstituicaoEspiritaService instituicaoService;
 	
@@ -111,7 +108,7 @@ public class SalaBean extends GenericBean {
 	}
 
 	public List<Sala> getSalas() {
-		if(salas == null){
+		if(salas == null || salas.size() == 0){
 			return salaService.listarTodos();
 		}
 		return salas;

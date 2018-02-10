@@ -76,6 +76,14 @@ public class DadosDesvSocioEmocional implements Serializable {
     @Column(name="observacoes")
     private String observacoes;
 
+	public String getObservacoes() {
+		return observacoes;
+	}
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
+
 	public Integer getId() {
 		return id;
 	}

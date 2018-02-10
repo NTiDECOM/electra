@@ -2,6 +2,7 @@ package br.org.fepb.electra.servicos;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,9 @@ public class SalaService implements Serializable {
 		return (List<Sala>) salaRepositorio.findAll();
 	}
 	
-	public Sala listarById(Long id) {
-		return salaRepositorio.findOne(id);
-	}
+	/*public Optional<Sala> listarById(Long id) {
+		return salaRepositorio.findById(id);
+	}*/
 	
 	public List<Sala> listarByInstituicao(Long idInstituicao) {
 		return salaRepositorio.findAllByInstituicao(idInstituicao);

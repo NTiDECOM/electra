@@ -8,16 +8,9 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<ui:define name="corpo">
-		<f:metadata>
-			<f:viewAction action="#{matriculaBean.listar}" />
-		</f:metadata>
 
 		<h:form id="frm">
-		
-			<t:saveState value="#{matriculaBean.state}"/>
-			<t:saveState value="#{matriculaBean.matricula}"/>
-			<t:saveState value="#{matriculaBean.matriculas}" />
-			
+
 			<p:messages id="msgs" />
 			
 			<!-- TELA DE LISTAGEM -->
@@ -127,9 +120,9 @@
 			        </p:selectOneMenu>
 
 					<p:outputLabel value="Sala de Evangelização:" for="salas" />
-			        <p:selectOneMenu id="salas" value="#{matriculaBean.idSala}">
+			        <p:selectOneMenu id="salas" value="#{matriculaBean.salaSelecionada}">
 			            <f:selectItem itemLabel="--- Selecione um item ---" itemValue="" />
-			            <f:selectItems value="#{matriculaBean.salasPorInstituicao}" var="s" itemLabel="#{s.descricao}" itemValue="#{s}" />
+			            <f:selectItems value="#{matriculaBean.salasPorInstituicao}" var="s" itemLabel="#{s.descricaoCompleta}" itemValue="#{s}" />
 			        </p:selectOneMenu>
 			        
 			        <p:outputLabel value="Evangelizado anteriormente?" for="evangelizadoAnteriormente" />

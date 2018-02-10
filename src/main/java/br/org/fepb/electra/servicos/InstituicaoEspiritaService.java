@@ -2,6 +2,7 @@ package br.org.fepb.electra.servicos;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,9 @@ public class InstituicaoEspiritaService implements Serializable, ServiceInterfac
 	@Autowired
 	private InstituicaoEspiritaRepositorio instituicaoRepositorio;
 	
-	public InstituicaoEspirita pesquisarPorId(Long id) {
-		return instituicaoRepositorio.findOne(id);
-	}
+	/*public Optional<InstituicaoEspirita> pesquisarPorId(Long id) {
+		return instituicaoRepositorio.findById(id);
+	}*/
 	
 	public List<InstituicaoEspirita> listarTodos() {
 		return (List<InstituicaoEspirita>) instituicaoRepositorio.findAll();

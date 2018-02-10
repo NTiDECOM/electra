@@ -18,9 +18,7 @@ import br.org.fepb.electra.modelo.DadosSaude;
 import br.org.fepb.electra.modelo.DadosSociabilidade;
 import br.org.fepb.electra.modelo.Endereco;
 import br.org.fepb.electra.modelo.Evangelizando;
-import br.org.fepb.electra.modelo.GrauParentesco;
 import br.org.fepb.electra.modelo.Parente;
-import br.org.fepb.electra.repositorios.GrauParentescoService;
 import br.org.fepb.electra.servicos.BairroService;
 import br.org.fepb.electra.servicos.EvangelizandoService;
 import br.org.fepb.electra.util.FacesMessages;
@@ -72,12 +70,6 @@ public class EvangelizandoBean extends GenericBean {
 	@Autowired
 	private Bairro bairroSelecionado;
 	
-	private List<GrauParentesco> grausParentesco; 
-	
-	@Autowired
-	private GrauParentescoService grauParentescoService;
-	
-	@Autowired
 	private List<Parente> parentes;
 	
 	@Autowired
@@ -93,6 +85,7 @@ public class EvangelizandoBean extends GenericBean {
 	
 	public String cancelar() {
 		limparVariaveis();
+		setState(ESTADO_DE_LISTAGEM);
 		return "/pages/Evangelizando";
 	}
 	
@@ -120,9 +113,7 @@ public class EvangelizandoBean extends GenericBean {
 		this.dadosDesvSocioEmocional = new DadosDesvSocioEmocional();
 		this.dadosSociabilidade = new DadosSociabilidade();
 		this.parentes = new ArrayList<>();
-		this.grausParentesco = new ArrayList<>();
 		this.bairros = bairroService.listarTodos();
-		this.grausParentesco = grauParentescoService.listarTodos();
 	}
 	
 	public void prepararNovoCadastro() {
@@ -131,6 +122,15 @@ public class EvangelizandoBean extends GenericBean {
 	}
 	
 	public void prepararEdicao() {
+		endereco = evangelizando.getEndereco();
+		dadosSaude = evangelizando.getDadosSaude();
+		dadosAcademicos = evangelizando.getDadosAcademicos();
+		dadosFamilia = evangelizando.getDadosFamilia();
+		dadosDesvSocioEmocional = evangelizando.getDadosDesvSocioEmocional();
+		dadosSociabilidade = evangelizando.getDadosSociabilidade();
+		email1 = evangelizando.getEmail();
+		email2 = evangelizando.getEmail();
+		setState(ESTADO_DE_EDICAO);
 	}
 	
 	public String salvar() {
@@ -151,12 +151,25 @@ public class EvangelizandoBean extends GenericBean {
 		evangelizando.setDadosFamilia(dadosFamilia);
 		evangelizando.setDadosDesvSocioEmocional(dadosDesvSocioEmocional);
 		evangelizando.setDadosSociabilidade(dadosSociabilidade);
-		
+
+		String pagina = null;
+		if(evangelizando.getId() == null) {
+			servletContext.setAttribute("evangelizando", evangelizando);
+			servletContext.setAttribute("state", "_novo");
+			pagina = "/pages/Matricula";
+		} else {
+			pagina = "/pages/Evangelizando";
+		}
+
 		evangelizando = evangelizandoServico.salvar(evangelizando);
 		messages.info("Evangelizando salvo com sucesso! Realize agora a matrícula...");
+
+		//limpar dados
+		limparVariaveis();
+		//listar
 		listar();
-		servletContext.setAttribute("evangelizando", evangelizando);
- 		return "/pages/Matricula";
+
+		return pagina;
 	}
 	
 	public void excluir() {
@@ -173,7 +186,7 @@ public class EvangelizandoBean extends GenericBean {
 	}
 	
 	public List<Evangelizando> getEvangelizandos() {
-		if(evangelizandos == null){
+		if(evangelizandos == null || evangelizandos.size() == 0){
 			return (List<Evangelizando>) evangelizandoServico.listarTodos();
 		}
 		return evangelizandos;
@@ -267,17 +280,9 @@ public class EvangelizandoBean extends GenericBean {
 		return dadosSociabilidade;
 	}
 
-	public List<GrauParentesco> getGrausParentesco() {
-		return grausParentesco;
-	}
-
-	public void setGrausParentesco(List<GrauParentesco> grausParentesco) {
-		this.grausParentesco = grausParentesco;
-	}
-
 	public List<Parente> getParentes() {
 		if(parentes.size() == 0){
-			this.parentes.add(new Parente("> Edite a partir daqui <"));
+			this.parentes.add(new Parente());
 		}
 		return parentes;
 	}

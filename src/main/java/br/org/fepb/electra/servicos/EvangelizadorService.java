@@ -1,22 +1,20 @@
 package br.org.fepb.electra.servicos;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.org.fepb.electra.modelo.Evangelizador;
 import br.org.fepb.electra.repositorios.EvangelizadorRepositorio;
 import br.org.fepb.electra.util.Transacional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class EvangelizadorService implements Serializable, ServiceInterface<Evangelizador> {
 	
 	private static final long serialVersionUID = -4802660230220768541L;
 	
-	//@Inject
 	@Autowired
 	private EvangelizadorRepositorio evangelizadorRepositorio;
 

@@ -21,7 +21,7 @@
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 
 			<!-- usar value="drop-and-create" para atualização da estrutura das tabelas -->
-			<property name="javax.persistence.schema-generation.database.action" value="create" /> 
+			<property name="javax.persistence.schema-generation.database.action" value="none" />
   			<property name="javax.persistence.schema-generation.create-source" value="metadata" />
 			<property name="javax.persistence.sql-load-script-source" value="META-INF/sql/dados-iniciais.sql"/>
 

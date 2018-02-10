@@ -114,10 +114,10 @@
 					</p:panelGrid>
 
 					<p:outputLabel value="Instituição:" for="instituicao" />
-			        <p:selectOneMenu id="instituicao" value="#{salaBean.instituicaoSelecionada}">
+			        <h:selectOneMenu id="instituicao" value="#{salaBean.instituicaoSelecionada}">
 			            <f:selectItem itemLabel="--Selecione um item--" itemValue="" />
 			            <f:selectItems value="#{salaBean.instituicoesEspiritas}" />
-			        </p:selectOneMenu>
+			        </h:selectOneMenu>
 			        
 			        <p:outputLabel for="gridDiasAulas" value="Dia da Aula:"/>
     				<p:selectOneRadio id="gridDiasAulas" value="#{salaBean.sala.diaAula}" layout="grid" columns="3">

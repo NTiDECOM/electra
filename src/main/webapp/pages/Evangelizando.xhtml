@@ -35,9 +35,8 @@
 						<span class="ui-separator">
 							<span class="ui-icon ui-icon-grip-dotted-vertical" />
 	            		</span>
-	            		
-	            		<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{evangelizandoBean.prepararEdicao}" 
-	            			disabled="#{evangelizandoBean.evangelizando == null}" update=":frm">
+
+						<p:commandButton actionListener="#{evangelizandoBean.prepararEdicao}"  icon="ui-icon-pencil" title="Editar" disabled="#{evangelizandoBean.evangelizando == null}" update=":frm">
 	            			<f:setPropertyActionListener value="#{evangelizandoBean.evangelizando}" target="#{evangelizandoBean.evangelizando}" />
 	            		</p:commandButton>
 	            		
@@ -80,7 +79,7 @@
 					<p:column headerText="Nome do Evangelizando" sortBy="#{evangelizando.nome}">
 						<h:outputText value="#{evangelizando.nome}" />
 					</p:column>
-					<p:column headerText="Apelido" sortBy="#{evangelizando.comoSerChamado}">
+					<p:column headerText="Nome como é chamado" sortBy="#{evangelizando.comoSerChamado}">
 						<h:outputText value="#{evangelizando.comoSerChamado}" />
 					</p:column>
 					<p:column headerText="Data Nascimento" width="250">
@@ -120,7 +119,7 @@
 					<p:inputText id="nome" size="60" maxlength="60" onblur="value=value.toUpperCase()"
 						value="#{evangelizandoBean.evangelizando.nome}" />
 					
-					<p:outputLabel value="Nome como é chamado?: (*)" for="comochamado" />
+					<p:outputLabel value="Nome como é chamado: (*)" for="comochamado" />
 					<p:inputText id="comochamado" size="40" maxlength="40" onblur="value=value.toUpperCase()"
 						value="#{evangelizandoBean.evangelizando.comoSerChamado}" />
 						
@@ -137,8 +136,8 @@
 						value="#{evangelizandoBean.evangelizando.cpf}"
 						mask="999.999.999-99" />
 					
-					<p:outputLabel value="Tipo contato:" for="tipo_contato" />
-					<p:selectOneButton value="#{evangelizadorBean.evangelizador.tipoContato1}" id="tipo_contato">
+					<p:outputLabel value="Tipo contato: (*)" for="tipo_contato" />
+					<p:selectOneButton value="#{evangelizandoBean.evangelizando.tipoContato1}" id="tipo_contato">
 						<f:selectItem itemLabel="Whatsapp" itemValue="WHATSAPP"/>
 						<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
 						<f:selectItem itemLabel="Residencial" itemValue="RESIDENCIAL"/>
@@ -265,7 +264,7 @@
 					
 					<p:tab title="Família">
 						<h:panelGrid columns="2" id="dados-familia">
-						
+
 							<p:outputLabel value="Realiza o evangelho no lar? *"/>
 							<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" 
 							value="#{evangelizandoBean.dadosFamilia.evangelhoLar}"/>
@@ -279,11 +278,11 @@
 							</h:panelGrid>
 							
 							<p:spacer height="10"/>
-								
-							<!-- Tabela editável -->	
+
+							<!-- Tabela editável -->
 							<p:dataTable id="parentesTable" var="parente"
 									value="#{evangelizandoBean.parentes}" 
-									editable="true" editMode="cell">
+									editable="true" editMode="cell" editingRow="true">
 									
 									<f:facet name="header">  
         							Incluir parentes/responsáveis: (tabela editável)  
@@ -311,25 +310,32 @@
 										</f:facet>
 										<p:cellEditor>
 											<f:facet name="output">
-												<h:outputText value="#{parente.responsavel}" />
+												<h:outputText value="#{parente.responsavelStr}" />
 											</f:facet>
 											<f:facet name="input">
-												<p:selectBooleanButton id="modelInputResponsavel" value="#{parente.responsavel}"
+												<h:selectOneMenu id="modelInputResponsavel" value="#{parente.responsavel}"
 													placeholder="Informe se é responsável..."
-													onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+													onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px">
+														<f:selectItem itemLabel="SIM" itemValue="true"/>
+														<f:selectItem itemLabel="NÃO" itemValue="false"/>
+												</h:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
-									<p:column>
+									
+									<p:column style="text-align: center;width:80px;" headerText="Convive mesmo lar?">
+										<p:cellEditor>
 										<f:facet name="header">
 											<h:outputText value="Convive mesmo lar?" />
 										</f:facet>
-										<p:cellEditor>
 											<f:facet name="output">
-												<h:outputText value="#{parente.conviveMesmoLar}" />
+												<h:outputText value="#{parente.conviveMesmoLarStr}" />
 											</f:facet>
 											<f:facet name="input">
-												<p:inputText value="#{parente.conviveMesmoLar}" style="width:96%" />
+												<h:selectOneMenu id="modelInputConvive" value="#{parente.conviveMesmoLar}" style="width:60px">
+														<f:selectItem itemLabel="SIM" itemValue="true"/>
+														<f:selectItem itemLabel="NÃO" itemValue="false"/>
+												</h:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -343,14 +349,20 @@
 											</f:facet>
 											<f:facet name="input">
 												<h:selectOneMenu value="#{parente.grauParentesco}" style="width:100%">
-													<f:selectItems value="#{evangelizandoBean.grausParentesco}"
-														var="state" itemLabel="#{state}" itemValue="#{state}" />
+													<f:selectItem itemLabel="-- selecione --" itemValue=""/>
+													<f:selectItem itemLabel="Mãe/Pai" itemValue="MAE/PAI"/>
+													<f:selectItem itemLabel="Avó(ô)" itemValue="AVO"/>
+													<f:selectItem itemLabel="Tia(o)" itemValue="TIA(O)"/>
+													<f:selectItem itemLabel="Irmã(o)" itemValue="IRMA(O)"/>
+													<f:selectItem itemLabel="Prima(o)" itemValue="PRIMA(O)"/>
+													<f:selectItem itemLabel="Vizinha(o)" itemValue="VIZINHA(O)"/>
+													<f:selectItem itemLabel="Outros" itemValue="OUTROS"/>
 												</h:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
 									
-									<p:column>
+									<p:column style="text-align: center;width:100px;">
 										<f:facet name="header">
 											<h:outputText value="Tipo do contato:" />
 										</f:facet>
@@ -359,12 +371,15 @@
 												<h:outputText value="#{parente.tipoContato1}" />
 											</f:facet>
 											<f:facet name="input">
-												<p:inputText id="modelInputTipoContato" value="#{parente.tipoContato1}"
-													style="width:96%" placeholder="Informe o tipo do contato..."/>
+												<h:selectOneMenu value="#{parente.tipoContato1}" placeholder="Informe o tipo do contato...">
+													<f:selectItem itemLabel="-- selecione --" itemValue=""/>
+													<f:selectItem itemLabel="Whatsapp" itemValue="WHATSAPP"/>
+													<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
+													<f:selectItem itemLabel="Residencial" itemValue="RESIDENCIAL"/>
+												</h:selectOneMenu>	
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
-									
 									
 									<p:column>
 										<f:facet name="header">
@@ -407,16 +422,19 @@
 
 							</p:dataTable>
 
+						<p>* <strong>Responsável</strong> pode ser um parente ou vizinho que assumiu o papel de levar a criança ou jovem até a evangelização.
+							Pode ser o contato direto para tratar de assuntos ligados a evangelização. </p>
+
 					</p:tab>
 					
 					<p:tab title="Acadêmico">
 						<h:panelGrid columns="2" id="dados-academico">
 							<p:outputLabel value="Alfabetizado?"/>
 							<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"
-							value=""/>
+							value="#{evangelizandoBean.dadosAcademicos.alfabetizado}"/>
 							
 							<p:outputLabel value="Dificuldade com aprendizado na escola? Descreva: "/>
-							<p:inputText value="-" onblur="value=value.toUpperCase()"/>
+							<p:inputText value="#{evangelizandoBean.dadosAcademicos.dificuldadesAprendizado}" onblur="value=value.toUpperCase()"/>
 							
 							<p:outputLabel value="Nível escolar: (Cursando)" for="nivel"/>
 							<p:selectOneMenu value="#{evangelizandoBean.dadosAcademicos.nivel}" id="nivel">
@@ -448,84 +466,84 @@
 						<h:panelGrid columns="2" id="dados-socioemocional">
 						
 						<p:outputLabel value="Alegre?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.alegre}"/>
 						
 						<p:outputLabel value="Imaginação fértil?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.imaginacaofertil}"/>
 						
 						<p:outputLabel value="Curioso?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.curioso}"/>
 						
 						<p:outputLabel value="Sente-se inferior?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.senteSeInferior}"/>
 						
 						<p:outputLabel value="Relaciona-se bem com o próximo?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.relacionaSeBemComProximo}"/>
 						
 						<p:outputLabel value="Conversa bastante?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.conversaBastante}"/>
 						
 						<p:outputLabel value="Revela-se líder?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.revelaSeLider}"/>
 						
 						<p:outputLabel value="Triste?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.triste}"/>
 						
 						<p:outputLabel value="Irrita-se facilmente?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.irritaSeFacilmente}"/>
 						
 						<p:outputLabel value="Propenso a brigas?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.propensoABriga}"/>
 						
 						<p:outputLabel value="Dificuldade em partilhar coisas?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.dificuldadePartilhar}"/>
 						
 						<p:outputLabel value="Impulsivo?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.impulsivo}"/>
 						
 						<p:outputLabel value="Inseguro emocionalmente?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.inseguroEmocionalmente}"/>
 						
 						<p:outputLabel value="Ofende-se facilmente?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.ofendeSeFacilmente}"/>
 						
 						<p:outputLabel value="Toma decisão sozinho?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.tomaDecisaoSozinho}"/>
 						
 						<p:outputLabel value="Medos?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosDesvSocioEmocional.medos}"/>
 						
 						<p:outputLabel value="Observações socioemocionais:"/>
-						<p:inputTextarea value="-" onblur="value=value.toUpperCase()"/>
-						
+						<p:inputTextarea onblur="value=value.toUpperCase()" value="#{evangelizandoBean.dadosDesvSocioEmocional.observacoes}"/>
+
 						</h:panelGrid>
 					</p:tab>
 					
 					<p:tab title="Sociabilidade">
 						<h:panelGrid columns="2" id="dados-sociabilidade">
 							<p:outputLabel value="Tem amigos?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosSociabilidade.temAmigos}"/>
 						
 						<p:outputLabel value="Tem momentos de lazer?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosSociabilidade.temMomentosLazer}"/>
 						
 						<p:outputLabel value="Descreva os tipos de lazer:"/>
-						<p:inputText value="-" onblur="value=value.toUpperCase()"/>
-						
+						<p:inputText onblur="value=value.toUpperCase()" value="#{evangelizandoBean.dadosSociabilidade.tiposLazer}"/>
+
 						<p:outputLabel value="Gosta de brincar?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosSociabilidade.gostaDeBrincar}"/>
 						
 						<p:outputLabel value="Bem aceito em grupos?"/>
-						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosSociabilidade.bemAceitoGrupos}"/>
 						
 						<p:outputLabel value="Quais as atividades favoritas?"/>
-						<p:inputText value="-" onblur="value=value.toUpperCase()"/>
+						<p:inputText onblur="value=value.toUpperCase()" value="#{evangelizandoBean.dadosSociabilidade.atividadesFavoritas}"/>
 						
 						<p:outputLabel value="Reação em situação de conflitos?"/>
-						<p:inputText value="-" onblur="value=value.toUpperCase()"/>
+						<p:inputText onblur="value=value.toUpperCase()" value="#{evangelizandoBean.dadosSociabilidade.reacaoSituacaoConflito}"/>
 						
 						<p:outputLabel value="Observações sobre a sociabilidade:"/>
-						<p:inputTextarea value="-" onblur="value=value.toUpperCase()"/>
+						<p:inputTextarea onblur="value=value.toUpperCase()" value="#{evangelizandoBean.dadosSociabilidade.observacoes}"/>
 						
 						</h:panelGrid>
 					</p:tab>

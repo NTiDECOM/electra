@@ -90,7 +90,7 @@ public class InstituicaoEspiritaBean extends GenericBean {
 	
 	// **** GETs e SETs ****//
 	public List<InstituicaoEspirita> getInstituicoes() {
-		if(instituicoes == null){
+		if(instituicoes == null || instituicoes.size() == 0){
 			return instituicaoService.listarTodos();
 		}
 		return instituicoes;

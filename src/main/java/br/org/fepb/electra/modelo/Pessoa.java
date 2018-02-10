@@ -21,16 +21,16 @@ public abstract class Pessoa extends GenericModel {
 
 	private static final long serialVersionUID = 4569195060466766612L;
 
-	@NotEmpty
+	@NotEmpty(message = "'nome' deve ser informado")
 	@Column(name = "nome", nullable = false, length = 60)
 	private String nome;
 
-	@NotEmpty
-	@Column(name = "como_ser_chamado", nullable = false, length = 40)
+	//@NotEmpty(message = "'como ser chamado' deve ser informado")
+	@Column(name = "como_ser_chamado", length = 40)
 	private String comoSerChamado;
 
-	@NotNull
-	@Column(name = "sexo", nullable=false)
+	//@NotNull(message = "'sexo' deve ser chamado")
+	@Column(name = "sexo")
 	private char sexo;
 	
 	@Column(name = "raca", nullable=false)
@@ -42,29 +42,28 @@ public abstract class Pessoa extends GenericModel {
 	@Column(name = "email", length = 60)
 	private String email;
 	
-	@NotNull
+	@NotNull(message = "'data de nascimento' deve ser informado")
 	@Past
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_nascimento", nullable = false)
+	@Column(name = "data_nascimento")
 	private Date dataNascimento;
 
-	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_cadastro", nullable = false)
+	@Column(name = "data_cadastro")
 	private Date dataCadastro;
-	
-	@NotEmpty
-	@Column(name = "contato1", nullable = false, length = 14)
-	private String contato1;
-	
-	@NotEmpty
-	@Column(name = "tipo_contato1", nullable = false)
+
+	//@NotEmpty(message = "'tipo de contato' deve ser informado")
+	@Column(name = "tipo_contato1")
 	private String tipoContato1;
-	
+
+	//@NotEmpty(message = "'contato' deve ser informado")
+	@Column(name = "contato1", length = 14)
+	private String contato1;
+
 	@Column(name = "contato2", length = 14)
 	private String contato2;
 	
-	@Column(name = "tipo_contato2", nullable = false)
+	@Column(name = "tipo_contato2")
 	private String tipoContato2;
 
 	@OneToOne(cascade=CascadeType.ALL)
@@ -158,6 +157,9 @@ public abstract class Pessoa extends GenericModel {
 	}
 
 	public Endereco getEndereco() {
+		if(endereco == null){
+			return new Endereco();
+		}
 		return endereco;
 	}
 

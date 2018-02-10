@@ -33,6 +33,9 @@ public class Evangelizando extends Pessoa {
     private DadosSociabilidade dadosSociabilidade;
 	
 	public DadosFamilia getDadosFamilia() {
+		if(dadosFamilia == null){
+			return new DadosFamilia();
+		}
 		return dadosFamilia;
 	}
 
@@ -41,6 +44,9 @@ public class Evangelizando extends Pessoa {
 	}
 
 	public DadosAcademicos getDadosAcademicos() {
+		if(dadosAcademicos == null){
+			return new DadosAcademicos();
+		}
 		return dadosAcademicos;
 	}
 
@@ -49,6 +55,9 @@ public class Evangelizando extends Pessoa {
 	}
 
 	public DadosDesvSocioEmocional getDadosDesvSocioEmocional() {
+		if(dadosDesvSocioEmocional == null){
+			return new DadosDesvSocioEmocional();
+		}
 		return dadosDesvSocioEmocional;
 	}
 
@@ -57,6 +66,9 @@ public class Evangelizando extends Pessoa {
 	}
 
 	public DadosSociabilidade getDadosSociabilidade() {
+		if(dadosSociabilidade == null){
+			return new DadosSociabilidade();
+		}
 		return dadosSociabilidade;
 	}
 
@@ -65,6 +77,9 @@ public class Evangelizando extends Pessoa {
 	}
 
 	public DadosSaude getDadosSaude() {
+		if(dadosSaude == null){
+			return new DadosSaude();
+		}
 		return dadosSaude;
 	}
 

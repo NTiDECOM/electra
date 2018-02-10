@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;
@@ -33,19 +34,15 @@ public class MatriculaBean extends GenericBean {
 
 	private static final long serialVersionUID = 8390437989517939381L;
 	
-	//@Inject
 	@Autowired
 	private FacesMessages messages;
 	
-	//@Inject
 	@Autowired
 	private MatriculaService matriculaServico;
 	
-	//@Inject
 	@Autowired
 	private InstituicaoEspiritaService instituicaoServico;
 	
-	//@Inject
 	@Autowired
 	private SalaService salaServico;
 	
@@ -61,7 +58,7 @@ public class MatriculaBean extends GenericBean {
 	private Long idInstituicao;
 
 	@NotNull
-	private Long idSala;
+	private Sala salaSelecionada;
 	
 	@NotNull
 	private Boolean evangelizadoAnteriormente;
@@ -72,7 +69,6 @@ public class MatriculaBean extends GenericBean {
 	
 	private String observacoes;
 	
-	//@Inject
 	@Autowired
 	private ServletContext servletContext;
 	
@@ -100,14 +96,14 @@ public class MatriculaBean extends GenericBean {
 			matriculas.clear();
 		
 		matriculas = matriculaServico.listarTodos();
-		setState(ESTADO_DE_LISTAGEM);
+		//setState(ESTADO_DE_LISTAGEM);
 	}
 	
 	private void limparVariaveis() {
 		this.matricula = new Matricula();
-		this.matriculas = new ArrayList<Matricula>();
+		this.matriculas = matriculaServico.listarTodos();
 		this.idInstituicao = null;
-		this.idSala = null;
+		this.salaSelecionada = null;
 		this.evangelizadoAnteriormente = false;
 		this.localUltimaEvangelizacao = "";
 		this.tempoUltimaEvangelizacao = "";
@@ -116,7 +112,7 @@ public class MatriculaBean extends GenericBean {
 	
 	public void prepararNovoCadastro() {
 		this.idInstituicao = null;
-		this.idSala = null;
+		this.salaSelecionada = null;
 		this.matricula = new Matricula();
 		setState(ESTADO_DE_NOVO);
 	}
@@ -130,7 +126,7 @@ public class MatriculaBean extends GenericBean {
 		}
 		try {
 		matricula.setEvangelizando(evangelizando);
-		matricula.setSala(new Sala(idSala));
+		matricula.setSala(salaSelecionada);
 		matricula.setEvangelizadoAnteriormente(evangelizadoAnteriormente);
 		matricula.setLocalUltimaEvangelizacao(localUltimaEvangelizacao);
 		matricula.setTempoUltimaEvangelizacao(tempoUltimaEvangelizacao);
@@ -142,6 +138,7 @@ public class MatriculaBean extends GenericBean {
 		servletContext.setAttribute("confirmacaoMatricula", matricula);
 		listar();
 		RequestContext.getCurrentInstance().update(Arrays.asList("frm:msgs", "frm:matriculas-table"));
+		this.limparVariaveis();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "/pages/Matricula";
@@ -180,14 +177,11 @@ public class MatriculaBean extends GenericBean {
 		return retorno;
 	}
 	
-	public List<SelectItem> getSalasPorInstituicao() {
-		List<SelectItem> retorno = new ArrayList<SelectItem>();
+	public List<Sala> getSalasPorInstituicao() {
 		if ( idInstituicao != null ) {
-			for (Sala in : salaServico.listarByInstituicao(idInstituicao)) {
-				retorno.add(new SelectItem(in.getId(), in.getDescricao()));
-			}
+			return salaServico.listarByInstituicao(idInstituicao);
 		}
-		return retorno;
+		return new ArrayList<>();
 	}
 
 	public List<Matricula> getMatriculas() {
@@ -217,12 +211,12 @@ public class MatriculaBean extends GenericBean {
 		this.idInstituicao = idInstituicao;
 	}
 
-	public Long getIdSala() {
-		return idSala;
+	public Sala getSalaSelecionada() {
+		return salaSelecionada;
 	}
 
-	public void setIdSala(Long idSala) {
-		this.idSala = idSala;
+	public void setSalaSelecionada(Sala salaSelecionada) {
+		this.salaSelecionada = salaSelecionada;
 	}
 
 	public Evangelizando getEvangelizando() {

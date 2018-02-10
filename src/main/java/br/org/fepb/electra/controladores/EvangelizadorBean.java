@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.servlet.ServletContext;
 import javax.validation.constraints.NotNull;
 
 import org.primefaces.event.DragDropEvent;
@@ -23,6 +24,9 @@ import br.org.fepb.electra.util.FacesMessages;
 public class EvangelizadorBean extends GenericBean {
 
 	private static final long serialVersionUID = -1745521686277227026L;
+
+    @Autowired
+    private ServletContext servletContext;
 
 	@Autowired
 	private FacesMessages messages;
@@ -99,6 +103,9 @@ public class EvangelizadorBean extends GenericBean {
 		messages.info("Evangelizador salvo com sucesso!");
 		listar();
 		atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm:evangelizadores-table"));
+        servletContext.setAttribute("state", "_novo");
+        atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm"));
+
 	}
 	
 	public void prepararEdicao() {
@@ -150,7 +157,7 @@ public class EvangelizadorBean extends GenericBean {
     }
 	
 	public List<Evangelizador> getEvangelizadores() {
-		if(evangelizadores == null){
+		if(evangelizadores == null || evangelizadores.size() == 0){
 			return (List<Evangelizador>) evangelizadorService.listarTodos();
 		}
 		return evangelizadores;

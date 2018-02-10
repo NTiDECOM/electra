@@ -1,14 +1,10 @@
 package br.org.fepb.electra.modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -24,6 +20,9 @@ public class Sala extends GenericModel {
 	@NotEmpty
 	@Column(length = 255, nullable=true)
 	private String descricao;
+
+	@Transient
+	private String descricaoCompleta;
 	
 	@NotNull
 	@Column(name="faixa_etaria_inicial")
@@ -33,7 +32,7 @@ public class Sala extends GenericModel {
 	@Column(name="faixa_etaria_final")
 	private Integer faixaEtariaFinal;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="fk_instituicao")
 	private InstituicaoEspirita instituicao;
 	
@@ -60,6 +59,17 @@ public class Sala extends GenericModel {
 	}
 	
 	// ****** GETs e SETs ********//
+
+    @Override
+	public Long getId() {
+		return id;
+	}
+
+    @Override
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -116,6 +126,17 @@ public class Sala extends GenericModel {
 		this.diaAula = diaAula;
 	}
 
+	public String getDescricaoCompleta() {
+		String descricaoCompleta = null;
+		if(descricao!=null && faixaEtariaInicial!=null && faixaEtariaFinal !=null && horaInicio !=null && horaTermino !=null) {
+			descricaoCompleta = descricao + " (" + faixaEtariaInicial + "-" + faixaEtariaFinal + " anos) " +
+					diaAula +" - "+ DateUtil.formatarHora(horaInicio) + "-" + DateUtil.formatarHora(horaTermino);
+		} else {
+			descricaoCompleta = descricao;
+		}
+		return descricaoCompleta;
+	}
+
 	// metodos formatadores para tela
 	public String getFaixasEtarias() {
 		return this.getFaixaEtariaInicial() +" a "+ this.getFaixaEtariaFinal() + " anos";
@@ -126,29 +147,16 @@ public class Sala extends GenericModel {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Sala sala = (Sala) o;
+		return Objects.equals(descricao, sala.descricao);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Sala other = (Sala) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public int hashCode() {
+
+		return Objects.hash(descricao);
 	}
-	
-	
 }

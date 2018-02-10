@@ -1,14 +1,14 @@
 package br.org.fepb.electra.modelo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.org.fepb.electra.util.FormatadorBean;
 import br.org.fepb.electra.util.StringUtil;
+
+import java.util.Objects;
 
 @Entity
 @Table(name="tb_instituicao_espirita")
@@ -22,7 +22,7 @@ public class InstituicaoEspirita extends GenericModel {
 	public static final String TIPO_FEDERATIVA = "F";
 	public static final String CASA_ESPIRITA = "Casa Espírita";
 	public static final String FEDERATIVA = "Federativa";
-	
+
 	@NotEmpty
 	@Column(nullable = false, length = 60)
 	private String nome;
@@ -48,6 +48,16 @@ public class InstituicaoEspirita extends GenericModel {
 	}
 
 	// ****** GETs e SETs ********//
+	@Override
+    public Long getId() {
+		return id;
+	}
+
+    @Override
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -89,28 +99,17 @@ public class InstituicaoEspirita extends GenericModel {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		InstituicaoEspirita that = (InstituicaoEspirita) o;
+		return Objects.equals(nome, that.nome);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		InstituicaoEspirita other = (InstituicaoEspirita) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public int hashCode() {
+
+		return Objects.hash(nome);
 	}
 
 	@Override

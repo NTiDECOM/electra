@@ -9,10 +9,9 @@ import javax.persistence.MappedSuperclass;
 
 import org.springframework.stereotype.Component;
 
-import br.org.fepb.electra.conversores.EntidadeBasica;
 @Component
 @MappedSuperclass
-public class GenericModel implements EntidadeBasica, Serializable {
+public class GenericModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
