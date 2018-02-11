@@ -126,11 +126,11 @@
 					
 					<p:outputLabel value="Nome completo: (*)" for="nome" />
 					<p:inputText id="nome" size="60" maxlength="60" onblur="value=value.toUpperCase()"
-						value="#{evangelizandoBean.evangelizando.nome}" />
+						value="#{evangelizandoBean.evangelizando.nome}" required="true" requiredMessage="'nome completo' deve ser informado"/>
 					
 					<p:outputLabel value="Nome como é chamado: (*)" for="comochamado" />
 					<p:inputText id="comochamado" size="40" maxlength="40" onblur="value=value.toUpperCase()"
-						value="#{evangelizandoBean.evangelizando.comoSerChamado}" />
+						value="#{evangelizandoBean.evangelizando.comoSerChamado}" required="true" requiredMessage="'nome como ser chamado' deve ser informado"/>
 						
 					<p:outputLabel value="Email:" for="email1" />
 					<p:inputText id="email1" size="40" maxlength="60" onblur="value=value.toLowerCase()"
@@ -146,7 +146,8 @@
 						mask="999.999.999-99" />
 					
 					<p:outputLabel value="Tipo contato: (*)" for="tipo_contato" />
-					<p:selectOneButton value="#{evangelizandoBean.evangelizando.tipoContato1}" id="tipo_contato">
+					<p:selectOneButton value="#{evangelizandoBean.evangelizando.tipoContato1}" id="tipo_contato"
+									   required="true" requiredMessage="'tipo contato' deve ser informado">
 						<f:selectItem itemLabel="Whatsapp" itemValue="WHATSAPP"/>
 						<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
 						<f:selectItem itemLabel="Residencial" itemValue="RESIDENCIAL"/>
@@ -155,15 +156,15 @@
 					<p:outputLabel value="Contato: (*)" for="contato1" />
 					<p:inputMask id="contato1" size="14" maxlength="14"
 						value="#{evangelizandoBean.evangelizando.contato1}"
-						mask="(99)99999-9999" />
+						mask="(99)99999-9999" required="true" requiredMessage="'contato' deve ser informado"/>
 						
 					<p:outputLabel value="Data de Nascimento: (*)" for="data-fundacao" />
 					<p:calendar id="data-fundacao" size="10"
 						value="#{evangelizandoBean.evangelizando.dataNascimento}" 
-						pattern="dd/MM/yyyy" mask="99/99/9999" />
+						pattern="dd/MM/yyyy" mask="99/99/9999" required="true" requiredMessage="'data nascimento' deve ser informado"/>
 		
 					<p:outputLabel value="Sexo: (*)" for="sexo"/>
-					<p:selectOneButton value="#{evangelizandoBean.evangelizando.sexo}" id="sexo">
+					<p:selectOneButton value="#{evangelizandoBean.evangelizando.sexo}" id="sexo" required="true" requiredMessage="'sexo' deve ser informado">
 						<f:selectItem itemLabel="Masculino" itemValue="M"/>
 						<f:selectItem itemLabel="Feminino" itemValue="F"/>
 					</p:selectOneButton>	

@@ -1,14 +1,15 @@
 package br.org.fepb.electra.servicos;
 
 import br.org.fepb.electra.modelo.Evangelizando;
+import br.org.fepb.electra.modelo.Parente;
 import br.org.fepb.electra.repositorios.EvangelizandoRepositorio;
+import br.org.fepb.electra.repositorios.ParenteRepositorio;
 import br.org.fepb.electra.util.DateUtil;
 import br.org.fepb.electra.util.Transacional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,9 @@ public class EvangelizandoService implements Serializable, ServiceInterface<Evan
 	@Autowired
 	private EvangelizandoRepositorio evangelizandoRepositorio;
 
+	@Autowired
+	private ParenteRepositorio parenteRepositorio;
+
 	@Transacional
 	public Evangelizando salvar(Evangelizando evangelizando) {
 		evangelizando.setDataCadastro(new Date());
@@ -29,6 +33,11 @@ public class EvangelizandoService implements Serializable, ServiceInterface<Evan
 
 	@Transacional
 	public void excluir(Evangelizando evangelizando) {
+		//remove parentes (dependencias)
+		List<Parente> parentesAssociados = parenteRepositorio.findAllByEvangelizando(evangelizando.getId());
+		for(Parente pa : parentesAssociados){
+			parenteRepositorio.delete(pa);
+		}
 		evangelizandoRepositorio.delete(evangelizando);
 	}
 

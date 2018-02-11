@@ -16,7 +16,7 @@ public class Parente extends Pessoa {
 	 * e-mail
 	 * 
 	 */
-	
+
 	@ManyToOne()
 	@JoinColumn(name="fk_evangelizando")
 	private Evangelizando evangelizando;
