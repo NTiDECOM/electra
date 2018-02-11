@@ -34,7 +34,7 @@ Em família:
 Matrícula:
 + Novo formato de matrícula: YYYYMMDD999(1,2,3...) sequencial a apartir da mesma data [OK]
 + Implementar edicação do evangelizando (etapa de matrícula) -> VOLTAR; [OK]
-	- E na listagem de matrícula poder editar a matrícula, incluindo ainda, data (fixo) e status [FALTA]
+	- E na listagem de matrícula poder editar a matrícula, incluindo ainda, data (fixo) e status [OK]
 + Mostrar mais informações sobre a 'turma matriculada' [OK]
 + Trocar botão/componente 'Evangelizando anteriormente?' (SIM/NAO) [OK]
 
@@ -46,9 +46,9 @@ Instituição:
 + incluir campo 'Quantidade de espaços físicos para evangelização?' Quantidade: 0-99
 
 Sala:
-+ Modificar nome para Turma
++ Modificar nome para Turma [FALTA]
 + Vincular Evangelizador a Turma (OPCIONAL)
-+ incluir campos periodicidade das aulas (Diariamente, Semanal, Mensal).
++ incluir campos periodicidade das aulas (Diariamente, Semanal, Mensal).[FALTA]
 
 Evangelizador: 
 + Ajuste na edicação [OK]

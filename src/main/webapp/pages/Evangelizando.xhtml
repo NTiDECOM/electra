@@ -121,6 +121,8 @@
 				
 				<p:tabView onblur="value=value.toUpperCase()">
 					<p:tab title="Dados gerais">
+
+					<br clear="all"/>
 					
 					<h:panelGrid columns="2" id="dados-gerais">
 					
@@ -202,6 +204,9 @@
 					</p:tab>
 					
 					<p:tab title="Endereço">
+
+						<br clear="all"/>
+
 						<h:panelGrid columns="2" id="dados-endereco">
 							<p:outputLabel value="CEP:"/>
 							<p:inputMask value="#{evangelizandoBean.endereco.cep}" 
@@ -223,6 +228,9 @@
 					</p:tab>	
 					
 					<p:tab title="Saúde">
+
+						<br clear="all"/>
+
 						<h:panelGrid columns="5" id="dados-saude">
 							<p:outputLabel value="Possui alergia(s)?"/>
 							<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"
@@ -275,6 +283,12 @@
 					</p:tab>
 					
 					<p:tab title="Família">
+
+						<br clear="all"/>
+						<br clear="all"/>
+
+						<h:panelGroup>
+
 						<h:panelGrid columns="2" id="dados-familia">
 
 							<p:outputLabel value="Realiza o evangelho no lar? *"/>
@@ -288,9 +302,9 @@
 							<p:inputTextarea value="#{evangelizandoBean.dadosFamilia.observacoes}"  onblur="value=value.toUpperCase()" tabindex="4"/>
 							
 							</h:panelGrid>
-							
-							<p:spacer height="10"/>
 
+							<br clear="all"/>
+							
 							<!-- Tabela editável -->
 							<p:dataTable id="parentesTable" var="parente"
 									value="#{evangelizandoBean.parentes}" 
@@ -434,12 +448,17 @@
 
 							</p:dataTable>
 
-						<p>* <strong>Responsável</strong> é aquela pessoa (ou aquelas) que leva a criança ou o jovem para a Evangelização. Pode ser, portanto, a mãe, o pai, o avó, o tio, o vizinho etc.
+							<p>* <strong>Responsável</strong> é aquela pessoa (ou aquelas) que leva a criança ou o jovem para a Evangelização. Pode ser, portanto, a mãe, o pai, o avó, o tio, o vizinho etc.
 							É o elo direto entre a criança (ou jovem) e a Evangelização.</p>
+
+						</h:panelGroup>
 
 					</p:tab>
 					
 					<p:tab title="Acadêmico">
+
+						<br clear="all"/>
+
 						<h:panelGrid columns="2" id="dados-academico">
 							<p:outputLabel value="Alfabetizado?"/>
 							<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"
@@ -475,6 +494,9 @@
 					</p:tab>
 					
 					<p:tab title="Socioemocional">
+
+						<br clear="all"/>
+
 						<h:panelGrid columns="2" id="dados-socioemocional">
 						
 						<p:outputLabel value="Alegre?"/>
@@ -532,6 +554,9 @@
 					</p:tab>
 					
 					<p:tab title="Sociabilidade">
+
+						<br clear="all"/>
+
 						<h:panelGrid columns="2" id="dados-sociabilidade">
 							<p:outputLabel value="Tem amigos?"/>
 						<p:selectBooleanButton onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" value="#{evangelizandoBean.dadosSociabilidade.temAmigos}"/>
