@@ -14,8 +14,8 @@ public abstract class Pessoa extends GenericModel {
 
 	private static final long serialVersionUID = 4569195060466766612L;
 
-	@NotEmpty(message = "'nome' deve ser informado")
-	@Column(name = "nome", nullable = false, length = 60)
+	//@NotEmpty(message = "'nome' deve ser informado")
+	@Column(name = "nome")
 	private String nome;
 
 	//@NotEmpty(message = "'como ser chamado' deve ser informado")

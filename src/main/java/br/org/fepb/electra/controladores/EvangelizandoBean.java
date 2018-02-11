@@ -79,14 +79,17 @@ public class EvangelizandoBean extends GenericBean {
 
 	private String naturalidadeSelecionada;
 
+	private String textoPesquisa;
+
 	/** Método para iniciar a tela de cadastro de evangelizandos */
 	@PostConstruct
 	public String iniciar() {
 		this.limparVariaveis();
+		listar();
 		setState(ESTADO_DE_LISTAGEM);
-		return "/pages/Evangelizando";
+		return "/pages/Evangelizando?faces-redirect=true";
 	}
-	
+
 	public String cancelar() {
 		limparVariaveis();
 		setState(ESTADO_DE_LISTAGEM);
@@ -108,6 +111,7 @@ public class EvangelizandoBean extends GenericBean {
 		this.evangelizandos = new ArrayList<Evangelizando>();
 		this.email1 = "";
 		this.email2 = "";
+		this.textoPesquisa = "";
 		this.naturalidadeSelecionada = "";
 		this.bairroSelecionado = "";
 		this.endereco = new Endereco();
@@ -121,12 +125,19 @@ public class EvangelizandoBean extends GenericBean {
 		this.bairros = bairroService.listarPorCidade(Long.parseLong(cidadeAtual));
 		//this.bairros = bairroService.listarTodos();
 	}
-	
+
+	public String buscarPorDataNasc(){
+		setEvangelizandos(null);
+		this.evangelizandos = evangelizandoServico.buscarPorDataNasc(textoPesquisa);
+		setState(ESTADO_DE_LISTAGEM);
+		return "/pages/Evangelizando";
+	}
+
 	public void prepararNovoCadastro() {
 		this.evangelizando = new Evangelizando();
 		setState(ESTADO_DE_NOVO);
 	}
-	
+
 	public void prepararEdicao() {
 		endereco = evangelizando.getEndereco();
 		naturalidadeSelecionada = evangelizando.getNaturalidade().getDescricao();
@@ -136,13 +147,20 @@ public class EvangelizandoBean extends GenericBean {
 		DadosFamilia familia = evangelizando.getDadosFamilia();
 		familia.setParentes(parenteService.listarPorEvangelizando(evangelizando.getId()));
 		dadosFamilia = familia;
+		parentes = dadosFamilia.getParentes();
 		dadosDesvSocioEmocional = evangelizando.getDadosDesvSocioEmocional();
 		dadosSociabilidade = evangelizando.getDadosSociabilidade();
 		email1 = evangelizando.getEmail();
 		email2 = evangelizando.getEmail();
 		setState(ESTADO_DE_EDICAO);
 	}
-	
+
+	public String prepararEdicaoUrl(Evangelizando evangelizando) {
+		prepararEdicao();
+		this.evangelizando = evangelizando;
+		return "/pages/Evangelizando";
+	}
+
 	public String salvar() {
 		//valida email
 		if(!email2.equals(email1)){
@@ -163,8 +181,14 @@ public class EvangelizandoBean extends GenericBean {
 		evangelizando.setDadosSaude(dadosSaude);
 		evangelizando.setDadosAcademicos(dadosAcademicos);
 		//valida parentes/familia
+		List<Parente> parentesTmp = new ArrayList<>();
 		if(parentes != null){
-			dadosFamilia.setParentes(parentes);
+			for(Parente pa : parentes){
+				if(pa.getNome() != null && !pa.getNome().isEmpty()){
+					parentesTmp.add(pa);
+				}
+			}
+			dadosFamilia.setParentes(parentesTmp);
 		}
 		evangelizando.setDadosFamilia(dadosFamilia);
 		evangelizando.setDadosDesvSocioEmocional(dadosDesvSocioEmocional);
@@ -179,9 +203,15 @@ public class EvangelizandoBean extends GenericBean {
 			pagina = "/pages/Evangelizando";
 		}
 
+		//salva evangelizando
 		evangelizando = evangelizandoServico.salvar(evangelizando);
+		//atualiza parte com id de evangelizando
+		for(Parente p : parentes) {
+			p.setEvangelizando(new Evangelizando(evangelizando.getId()));
+			parenteService.salvar(p);
+		}
+		//mensagem de confirmacao
 		messages.info("Evangelizando salvo com sucesso! Realize agora a matrícula...");
-
 		//limpar dados
 		limparVariaveis();
 		//listar
@@ -204,9 +234,9 @@ public class EvangelizandoBean extends GenericBean {
 	}
 	
 	public List<Evangelizando> getEvangelizandos() {
-		if(evangelizandos == null || evangelizandos.size() == 0){
+		/*if(evangelizandos == null || evangelizandos.size() == 0){
 			return (List<Evangelizando>) evangelizandoServico.listarTodos();
-		}
+		}*/
 		return evangelizandos;
 	}
 
@@ -372,4 +402,13 @@ public class EvangelizandoBean extends GenericBean {
 	public void setNaturalidadeSelecionada(String naturalidadeSelecionada) {
 		this.naturalidadeSelecionada = naturalidadeSelecionada;
 	}
+
+    public String getTextoPesquisa() {
+        return textoPesquisa;
+    }
+
+    public void setTextoPesquisa(String textoPesquisa) {
+        this.textoPesquisa = textoPesquisa;
+    }
 }
+

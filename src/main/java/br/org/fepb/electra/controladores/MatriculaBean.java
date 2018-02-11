@@ -7,12 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;
 import javax.validation.constraints.NotNull;
 
+import br.org.fepb.electra.servicos.EvangelizandoService;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ import br.org.fepb.electra.util.FacesMessages;
 @ViewScoped
 public class MatriculaBean extends GenericBean {
 
-	private static final String FORMATO_ID_ZEROS = "0000";
+	private static final String FORMATO_ID_ZEROS = "000";
 
 	private static final long serialVersionUID = 8390437989517939381L;
 	
@@ -45,6 +45,9 @@ public class MatriculaBean extends GenericBean {
 	
 	@Autowired
 	private SalaService salaServico;
+
+	@Autowired
+	private EvangelizandoService evangelizandoService;
 	
 	private List<Matricula> matriculas;
 	
@@ -68,6 +71,8 @@ public class MatriculaBean extends GenericBean {
 	private String tempoUltimaEvangelizacao;
 	
 	private String observacoes;
+
+	private String textoPesquisa;
 	
 	@Autowired
 	private ServletContext servletContext;
@@ -78,6 +83,7 @@ public class MatriculaBean extends GenericBean {
 	}
 	
 	/** Método para iniciar a tela de cadastro de matriculas */
+	@PostConstruct
 	public String iniciar() {
 		this.limparVariaveis();
 		setState(ESTADO_DE_LISTAGEM);
@@ -88,7 +94,14 @@ public class MatriculaBean extends GenericBean {
 		limparVariaveis();
 		return "/pages/Evangelizando";
 	}
-	
+
+	public String buscarPorDataNasc(){
+		setMatriculas(null);
+		this.matriculas = matriculaServico.buscarPorDataNasc(textoPesquisa);
+		setState(ESTADO_DE_LISTAGEM);
+		return "/pages/Matricula";
+	}
+
 	public void listar() {
 		if ( matriculas == null)
 			matriculas = new ArrayList<Matricula>();
@@ -108,6 +121,7 @@ public class MatriculaBean extends GenericBean {
 		this.localUltimaEvangelizacao = "";
 		this.tempoUltimaEvangelizacao = "";
 		this.observacoes = "";
+		this.textoPesquisa = "";
 	}
 	
 	public void prepararNovoCadastro() {
@@ -119,6 +133,14 @@ public class MatriculaBean extends GenericBean {
 	
 	public void prepararEdicao() {
 
+		evangelizando = matricula.getEvangelizando();
+		idInstituicao = matricula.getSala().getInstituicao().getId();
+		salaSelecionada = matricula.getSala();
+		evangelizadoAnteriormente = matricula.getEvangelizadoAnteriormente();
+		localUltimaEvangelizacao = matricula.getLocalUltimaEvangelizacao();
+		tempoUltimaEvangelizacao = matricula.getTempoUltimaEvangelizacao();
+		observacoes = matricula.getObservacoes();
+		setState(ESTADO_DE_EDICAO);
 	}
 	
 	public String salvar() {
@@ -135,7 +157,11 @@ public class MatriculaBean extends GenericBean {
 		//gerar numeracao
 		matricula.setNumeroMatricula(gerarNumeroMatricula(evangelizando));
 		matricula = matriculaServico.salvar(matricula);
-		messages.info("Matrícula realizada com sucesso!");
+		if(getState().equals(ESTADO_DE_EDICAO)) {
+			messages.info("Matrícula atualizada com sucesso!");
+		} else {
+			messages.info("Matrícula realizada com sucesso!");
+		}
 		servletContext.setAttribute("confirmacaoMatricula", matricula);
 		listar();
 		RequestContext.getCurrentInstance().update(Arrays.asList("frm:msgs", "frm:matriculas-table"));
@@ -150,15 +176,15 @@ public class MatriculaBean extends GenericBean {
 	/**
 	 * 
 	 * Gera a numeração no formato:
-	 * YYYYMMDD + 
+	 * YYYYMMDD999(1,2,3...) sequencial da quant. de data nascimento
 	 * 
 	 */
 	public String gerarNumeroMatricula(Evangelizando evangelizando){
 		StringBuilder numeroMatricula = new StringBuilder(); 
 			numeroMatricula.append(new SimpleDateFormat("YYYYMMdd").format(evangelizando.getDataNascimento()));
-			//numeroMatricula.append(evangelizando.getComoSerChamado().trim().toUpperCase().replaceAll(" ", ""));
 			DecimalFormat df = new DecimalFormat(FORMATO_ID_ZEROS);
-			numeroMatricula.append(df.format(evangelizando.getId()));
+			int contadorDataNasc = evangelizandoService.contaPorDataNascimento(evangelizando.getDataNascimento());
+			numeroMatricula.append(df.format(contadorDataNasc++));
 		return numeroMatricula.toString();
 	}
 	
@@ -186,9 +212,9 @@ public class MatriculaBean extends GenericBean {
 	}
 
 	public List<Matricula> getMatriculas() {
-		if(matriculas == null){
+		/*if(matriculas == null){
 			return matriculaServico.listarTodos();
-		}
+		}*/
 		return matriculas;
 	}
 
@@ -273,6 +299,12 @@ public class MatriculaBean extends GenericBean {
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
-	
-	
+
+	public String getTextoPesquisa() {
+		return textoPesquisa;
+	}
+
+	public void setTextoPesquisa(String textoPesquisa) {
+		this.textoPesquisa = textoPesquisa;
+	}
 }

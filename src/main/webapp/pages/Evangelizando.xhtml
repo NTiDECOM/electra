@@ -9,14 +9,14 @@
 	
 	<ui:define name="corpo">
 		<f:metadata>
-			<f:viewAction action="#{evangelizandoBean.listar}" />
+			<!--f:viewAction action="#{evangelizandoBean.listar}" /-->
 		</f:metadata>
 		
 		<h:form id="frm">
 		
 			<t:saveState value="#{evangelizandoBean.state}"/>
 			<t:saveState value="#{evangelizandoBean.evangelizando}"/>
-			<t:saveState value="#{evangelizandoBean.evangelizandos}" />
+			<!--t:saveState value="#{evangelizandoBean.evangelizandos}" /-->
 			
 			<p:messages id="msgs" />
 			
@@ -57,8 +57,11 @@
 					</f:facet>
 					
 					<f:facet name="right">
-			            <p:inputText style="margin-right:10px" placeholder="Procurar"/>
-			            <p:commandButton type="button" icon="ui-icon-extlink" />
+						<h:form prependId="false">
+			            	<p:inputMask mask="99/99/9999" style="margin-right:10px" size="25" value="#{evangelizandoBean.textoPesquisa}" placeholder="Procurar por Data de Nascimento..."/>
+			            	<p:commandButton icon="ui-icon-search" action="#{evangelizandoBean.buscarPorDataNasc()}"
+										 process="@form" update=":frm" ajax="true"/>
+						</h:form>
 			        </f:facet>
 		        
 				</p:toolbar>
@@ -553,10 +556,7 @@
 					
 				</p:tabView>
 				</h:panelGrid>
-				</t:div>
-				
-					
-		
+
 				<p:spacer height="10"/>
 				<p:toolbar id="toolbar-cadastro">
 					<f:facet name="left">
@@ -566,8 +566,8 @@
 							action="#{evangelizandoBean.salvar}" update=":frm"/>
 					</f:facet>
 				</p:toolbar>
-		
-		
+
+            </t:div>
 		
 		</h:form>
 		

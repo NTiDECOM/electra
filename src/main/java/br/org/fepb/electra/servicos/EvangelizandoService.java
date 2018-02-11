@@ -1,15 +1,16 @@
 package br.org.fepb.electra.servicos;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
+import br.org.fepb.electra.modelo.Evangelizando;
+import br.org.fepb.electra.repositorios.EvangelizandoRepositorio;
+import br.org.fepb.electra.util.DateUtil;
+import br.org.fepb.electra.util.Transacional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.org.fepb.electra.modelo.Evangelizando;
-import br.org.fepb.electra.repositorios.EvangelizandoRepositorio;
-import br.org.fepb.electra.util.Transacional;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class EvangelizandoService implements Serializable, ServiceInterface<Evangelizando> {
@@ -35,5 +36,12 @@ public class EvangelizandoService implements Serializable, ServiceInterface<Evan
 	public List<Evangelizando> listarTodos() {
 		return (List<Evangelizando>) evangelizandoRepositorio.findAll();
 	}
-	
+
+	public int contaPorDataNascimento(Date data){
+		return evangelizandoRepositorio.contaEvangelizandosPorDataNascimento(DateUtil.formatarData(data, "dd/MM/yyyy"));
+	}
+
+	public List<Evangelizando> buscarPorDataNasc(String dataNasc){
+		return evangelizandoRepositorio.buscarPorDataNasc(dataNasc);
+	}
 }

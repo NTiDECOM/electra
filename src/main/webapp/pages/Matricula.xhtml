@@ -51,8 +51,11 @@
 					</f:facet>
 					
 					<f:facet name="right">
-			            <p:inputText style="margin-right:10px" placeholder="Procurar"/>
-			            <p:commandButton type="button" icon="ui-icon-extlink" />
+						<h:form prependId="false">
+							<p:inputMask mask="99/99/9999" style="margin-right:10px" size="25" value="#{matriculaBean.textoPesquisa}" placeholder="Procurar por Data de Nascimento..."/>
+							<p:commandButton icon="ui-icon-search" action="#{matriculaBean.buscarPorDataNasc()}"
+											 process="@form" update=":frm" ajax="true"/>
+						</h:form>
 			        </f:facet>
 		        
 				</p:toolbar>
@@ -73,6 +76,9 @@
 					<p:column headerText="Nome do Evangelizando" sortBy="#{matricula.nome}">
 						<h:outputText value="#{matricula.evangelizando.nome}" />
 					</p:column>
+					<p:column headerText="Data Nascimento" sortBy="#{matricula.dataNascimento}">
+						<h:outputText value="#{matricula.evangelizando.dataNascimento}" />
+					</p:column>
 					<p:column headerText="Número da Matrícula" sortBy="#{matricula.numeroMatricula}">
 						<h:outputText value="#{matricula.numeroMatricula}" />
 					</p:column>
@@ -82,7 +88,7 @@
 					<p:column headerText="Sala" sortBy="#{matricula.sala.descricao}">
 						<h:outputText value="#{matricula.sala.descricao}" />
 					</p:column>
-			
+
 				</p:dataTable>
 				
 			</t:div>
@@ -93,7 +99,7 @@
 				<h1>Matricular Evangelizando</h1>
 
 				<p:steps activeIndex="1" styleClass="custom" readonly="false">
-					<p:menuitem value="Cadastro do Evangelizando" url="#" />
+					<p:menuitem value="Cadastro do Evangelizando" action="#{evangelizandoBean.prepararEdicaoUrl(matriculaBean.evangelizando)}"/>
 					<p:menuitem value="Matrícula" url="#" />
 					<p:menuitem value="Confirmação" url="#" />
 				</p:steps>
@@ -103,6 +109,7 @@
 				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
 				
 				<h:panelGrid columns="2" id="painel-formulario">
+
 					<p:outputLabel value="Nome do Evangelizando: " for="nome-fantasia" />
 					<p:inputText id="nome-fantasia" size="60" maxlength="60" 
 						value="#{matriculaBean.evangelizando.nome}" disabled="true"/>

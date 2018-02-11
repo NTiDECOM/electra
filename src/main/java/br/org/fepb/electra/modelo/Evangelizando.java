@@ -31,7 +31,15 @@ public class Evangelizando extends Pessoa {
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="fk_dados_sociabilidade")
     private DadosSociabilidade dadosSociabilidade;
-	
+
+	public Evangelizando(){
+		//vazio
+	}
+
+	public Evangelizando(Long id){
+		setId(id);
+	}
+
 	public DadosFamilia getDadosFamilia() {
 		if(dadosFamilia == null){
 			return new DadosFamilia();

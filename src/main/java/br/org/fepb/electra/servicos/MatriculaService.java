@@ -32,4 +32,7 @@ public class MatriculaService implements Serializable, ServiceInterface<Matricul
 		return (List<Matricula>) matriculaRepositorio.findAll();
 	}
 
+    public List<Matricula> buscarPorDataNasc(String textoPesquisa) {
+		return matriculaRepositorio.buscarPorDataNasc(textoPesquisa);
+    }
 }

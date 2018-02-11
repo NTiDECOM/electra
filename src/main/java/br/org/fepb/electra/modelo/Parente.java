@@ -17,7 +17,7 @@ public class Parente extends Pessoa {
 	 * 
 	 */
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name="fk_evangelizando")
 	private Evangelizando evangelizando;
 
@@ -74,6 +74,9 @@ public class Parente extends Pessoa {
 	}
 	
 	public Evangelizando getEvangelizando() {
+		if(evangelizando == null){
+			return new Evangelizando();
+		}
 		return evangelizando;
 	}
 
