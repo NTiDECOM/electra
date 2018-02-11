@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;

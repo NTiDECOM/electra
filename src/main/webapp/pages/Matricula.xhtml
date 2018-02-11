@@ -110,15 +110,30 @@
 				
 				<h:panelGrid columns="2" id="painel-formulario">
 
+					<p:outputLabel value="Número da Matrícula: " rendered="#{not empty matriculaBean.matricula.dataCadastro}"/>
+					<p:outputLabel value="#{matriculaBean.matricula.numeroMatricula}" style="color:red;font-weight:bold" rendered="#{not empty matriculaBean.matricula.dataCadastro}"/>
+
 					<p:outputLabel value="Nome do Evangelizando: " for="nome-fantasia" />
-					<p:inputText id="nome-fantasia" size="60" maxlength="60" 
+					<p:outputLabel id="nome-fantasia" size="60" maxlength="60"
 						value="#{matriculaBean.evangelizando.nome}" disabled="true"/>
 					
 					<p:outputLabel value="Data de Nascimento" for="data-fundacao" />
-					<p:calendar id="data-fundacao" size="10"
+					<p:outputLabel id="data-fundacao" size="10"
 						value="#{matriculaBean.evangelizando.dataNascimento}" 
 						pattern="dd/MM/yyyy" mask="99/99/9999" disabled="true"/>
-						
+
+                    <p:outputLabel value="Data da Matrícula: " for="data-matricula" rendered="#{not empty matriculaBean.matricula.dataCadastro}"/>
+                    <p:outputLabel id="data-matricula" size="10"
+                                value="#{matriculaBean.matricula.dataCadastro}" rendered="#{not empty matriculaBean.matricula.dataCadastro}"
+                                pattern="dd/MM/yyyy" mask="99/99/9999" disabled="true"/>
+
+                    <p:outputLabel value="Situaçao da Matrícula: " for="status" rendered="#{not empty matriculaBean.matricula.situacao}"/>
+                    <p:selectOneMenu id="status" value="#{matriculaBean.matricula.situacao}" disabled="#{!matriculaBean.isEditando()}">
+                        <f:selectItem itemLabel="ATIVA" itemValue="ATIVA"/>
+                        <f:selectItem itemLabel="CANCELADA" itemValue="CANCELADA"/>
+                        <f:selectItem itemLabel="EVADIDO" itemValue="EVADIDO"/>
+                    </p:selectOneMenu>
+
 					<p:outputLabel value="Instituição:" for="instituicao" />
 			        <p:selectOneMenu id="instituicao" value="#{matriculaBean.idInstituicao}">
 			            <f:selectItem itemLabel="--- Selecione um item ---" itemValue="" />

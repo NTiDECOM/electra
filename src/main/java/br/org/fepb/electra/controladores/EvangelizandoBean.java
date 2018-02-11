@@ -26,6 +26,9 @@ public class EvangelizandoBean extends GenericBean {
 	
 	@Autowired
 	private EvangelizandoService evangelizandoServico;
+
+	@Autowired
+	private MatriculaBean matriculaBean;
 	
 	private List<Evangelizando> evangelizandos;
 	
@@ -195,9 +198,12 @@ public class EvangelizandoBean extends GenericBean {
 		evangelizando.setDadosSociabilidade(dadosSociabilidade);
 
 		String pagina = null;
+		//associa evangelizando e estado de tela para etapa seguinte
 		if(evangelizando.getId() == null) {
-			servletContext.setAttribute("evangelizando", evangelizando);
-			servletContext.setAttribute("state", "_novo");
+			matriculaBean.setEvangelizando(evangelizando);
+			matriculaBean.setState("_novo");
+			//servletContext.setAttribute("evangelizando", evangelizando);
+			//servletContext.setAttribute("state", "_novo");
 			pagina = "/pages/Matricula";
 		} else {
 			pagina = "/pages/Evangelizando";

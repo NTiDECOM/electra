@@ -34,6 +34,19 @@
 					<p:outputLabel value="#{matriculaBean.confirmacaoMatricula.numeroMatricula}" style="color:red;font-weight:bold"/>
 					<p:outputLabel value="Nome do Evangelizando: "/>
 					<p:outputLabel value="#{matriculaBean.confirmacaoMatricula.evangelizando.nome}"/>
+					<p:outputLabel value="Data de Nascimento" for="data-fundacao" />
+					<p:outputLabel id="data-fundacao" size="10"
+								   value="#{matriculaBean.evangelizando.dataNascimento}"
+								   pattern="dd/MM/yyyy" mask="99/99/9999" disabled="true"/>
+
+					<p:outputLabel value="Data da Matrícula: " for="data-matricula" rendered="#{not empty matriculaBean.confirmacaoMatricula.dataCadastro}"/>
+					<p:outputLabel id="data-matricula" size="10"
+								   value="#{matriculaBean.confirmacaoMatricula.dataCadastro}" rendered="#{not empty matriculaBean.confirmacaoMatricula.dataCadastro}"
+								   pattern="dd/MM/yyyy" mask="99/99/9999" disabled="true"/>
+
+					<p:outputLabel value="Situaçao da Matrícula: " for="status" rendered="#{not empty matriculaBean.confirmacaoMatricula.situacao}"/>
+					<p:outputLabel id="status" value="#{matriculaBean.confirmacaoMatricula.situacao}"/>
+
 					<p:outputLabel value="Instituição: "/>
 					<p:outputLabel value="#{matriculaBean.confirmacaoMatricula.sala.instituicao.nome}"/>
 					<p:outputLabel value="Sala: "/>
