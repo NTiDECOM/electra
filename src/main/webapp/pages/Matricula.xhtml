@@ -20,8 +20,8 @@
 				
 				<p:toolbar id="toolbar">
 					<f:facet name="left">
-						<p:commandButton value="Adicionar" icon="ui-icon-document" disabled="true"
-							action="#{matriculaBean.prepararNovoCadastro}" update=":frm">
+						<p:commandButton value="Adicionar" icon="ui-icon-document"
+							action="EvangelizandosParaMatricular.xhtml"  update=":frm">
 							<p:resetInput target="painel-formulario" />
 						</p:commandButton>
 						
@@ -60,9 +60,9 @@
 		        
 				</p:toolbar>
 		
-				<p:dataTable value="#{matriculaBean.matriculas}" var="matricula"
+				<p:dataTable value="#{matriculaBean.matriculas}" var="matricula" widgetVar="matricula"
 						emptyMessage="Nenhum(a) matricula(a) cadastrado(a)." rows="10" 
-						paginator="true" paginatorPosition="bottom"
+						paginator="true" paginatorPosition="bottom" filteredValue="#{matriculaBean.matriculasFiltradas}"
 						style="margin-top: 10px" id="matriculas-table"
 						selection="#{matriculaBean.matricula}"
 						selectionMode="single" rowKey="#{matricula.id}">
@@ -70,22 +70,35 @@
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
-					<p:column headerText="Nº Matrícula" sortBy="#{matricula.numeroMatricula}">
+					<p:column headerText="Nº Matrícula" sortBy="#{matricula.numeroMatricula}" style="text-align: center;"
+						filterBy="#{matricula.numeroMatricula}" filterMatchMode="contains">
 						<h:outputText value="#{matricula.numeroMatricula}" />
 					</p:column>
-					<p:column headerText="Nome do Evangelizando" sortBy="#{matricula.nome}">
+                    <p:column headerText="Situação" sortBy="#{matricula.situacao}" style="text-align: center;"
+							  filterBy="#{matricula.situacao}" filterMatchMode="contains">
+						<!--f:facet name="filter">
+							<p:selectCheckboxMenu label="Situações" onchange="PF('matricula').filter()" panelStyle="width:125px" scrollHeight="150">
+								<f:selectItem itemLabel="Ativo" itemValue="ATIVO" />
+								<f:selectItem itemLabel="Cancelada" itemValue="CANCELADA" />
+								<f:selectItem itemLabel="Evadido" itemValue="EVADIDO" />
+							</p:selectCheckboxMenu>
+						</f:facet-->
+                        <h:outputText value="#{matricula.situacao}" />
+                    </p:column>
+					<p:column headerText="Nome do Evangelizando" sortBy="#{matricula.evangelizando.nome}"
+							  filterBy="#{matricula.evangelizando.nome}" filterMatchMode="contains">
 						<h:outputText value="#{matricula.evangelizando.nome}" />
 					</p:column>
-					<p:column headerText="Data Nascimento" sortBy="#{matricula.dataNascimento}">
+					<p:column headerText="Data Nascimento" sortBy="#{matricula.evangelizando.dataNascimento}" style="text-align: center;"
+							  filterBy="#{matricula.evangelizando.dataNascimento}" filterMatchMode="contains">
 						<h:outputText value="#{matricula.evangelizando.dataNascimento}" />
 					</p:column>
-					<p:column headerText="Número da Matrícula" sortBy="#{matricula.numeroMatricula}">
-						<h:outputText value="#{matricula.numeroMatricula}" />
-					</p:column>
-					<p:column headerText="Instituição" sortBy="#{matricula.sala.instituicao.nome}">
+					<p:column headerText="Instituição" sortBy="#{matricula.sala.instituicao.nome}"
+							  filterBy="#{matricula.sala.instituicao.nome}" filterMatchMode="contains">
 						<h:outputText value="#{matricula.sala.instituicao.nome}" />
 					</p:column>
-					<p:column headerText="Sala" sortBy="#{matricula.sala.descricao}">
+					<p:column headerText="Sala" sortBy="#{matricula.sala.descricao}"
+							  filterBy="#{matricula.sala.descricao}" filterMatchMode="contains">
 						<h:outputText value="#{matricula.sala.descricao}" />
 					</p:column>
 
@@ -128,7 +141,7 @@
                                 pattern="dd/MM/yyyy" mask="99/99/9999" disabled="true"/>
 
                     <p:outputLabel value="Situaçao da Matrícula: " for="status" rendered="#{not empty matriculaBean.matricula.situacao}"/>
-                    <p:selectOneMenu id="status" value="#{matriculaBean.matricula.situacao}" disabled="#{!matriculaBean.isEditando()}">
+					<p:selectOneMenu id="status" value="#{matriculaBean.matricula.situacao}" disabled="#{!matriculaBean.isEditando()}">
                         <f:selectItem itemLabel="ATIVA" itemValue="ATIVA"/>
                         <f:selectItem itemLabel="CANCELADA" itemValue="CANCELADA"/>
                         <f:selectItem itemLabel="EVADIDO" itemValue="EVADIDO"/>

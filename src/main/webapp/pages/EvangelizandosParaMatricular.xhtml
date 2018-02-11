@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/templates/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="corpo">
+		<f:metadata>
+			<!--f:viewAction action="#{evangelizandoBean.listar}" /-->
+		</f:metadata>
+		
+		<h:form id="frm">
+		
+			<t:saveState value="#{matriculaBean.state}"/>
+			<t:saveState value="#{matriculaBean.evangelizandosSemMatricula}"/>
+			<!--t:saveState value="#{evangelizandoBean.evangelizandos}" /-->
+			
+			<p:messages id="msgs" />
+			
+			<!-- TELA DE LISTAGEM -->
+			<t:div id="blocoDePesquisa">
+			
+				<h1>Realizar Matrícula</h1>
+
+				<p:toolbar id="toolbar">
+				<f:facet name="left">
+				<p:commandButton value="Matricular (selecionado)" icon="ui-icon-document"
+								 action="#{matriculaBean.prepararNovoCadastro}" update=":frm">
+				</p:commandButton>
+
+				</f:facet>
+				</p:toolbar>
+				
+				<p:dataTable value="#{matriculaBean.evangelizandosSemMatricula}" var="evangelizando"
+						emptyMessage="Nenhum(a) evangelizando(a) sem matrícula." rows="10"
+						paginator="true" paginatorPosition="bottom"
+						style="margin-top: 10px" id="evangelizandos-table"
+						selection="#{matriculaBean.evangelizando}"
+						selectionMode="single" rowKey="#{evangelizando.id}">
+
+                    <f:facet name="header">
+						<p:outputLabel style="color: red; font-weight:bold;">Evangelizandos com matrícula pendente (!)</p:outputLabel>
+                    </f:facet>
+
+					<p:ajax event="rowSelect" update=":frm:toolbar" />
+					<p:ajax event="rowUnselect" update=":frm:toolbar" />
+
+					<p:column headerText="Data Cadastro" width="130" sortBy="#{evangelizando.dataCadastro}" style="text-align: center;"
+							  filterBy="#{evangelizando.dataCadastro}" filterMatchMode="contains">
+						<h:outputText value="#{evangelizando.dataCadastro}" />
+					</p:column>
+
+					<p:column headerText="Id" sortBy="#{evangelizando.id}" style="width: 55px;text-align: center;"
+							  filterBy="#{evangelizando.id}" filterMatchMode="contains" filterStyle="width: 50px">
+						<h:outputText value="#{evangelizando.id}" />
+					</p:column>
+					<p:column headerText="Nome do Evangelizando" sortBy="#{evangelizando.nome}"
+							  filterBy="#{evangelizando.nome}" filterMatchMode="contains" filterStyle="width: 150px">
+						<h:outputText value="#{evangelizando.nome}" />
+					</p:column>
+					<p:column headerText="Data Nascimento" width="130" style="text-align: center" sortBy="#{evangelizando.dataNascimento}"
+						filterBy="#{evangelizando.dataNascimento}" filterMatchMode="contains">
+						<h:outputText value="#{evangelizando.dataNascimento}" />
+					</p:column>
+
+				</p:dataTable>
+
+				<p:spacer height="10"/>
+				<p:toolbar id="toolbar-cadastro">
+					<f:facet name="left">
+						<p:commandButton value="Voltar" icon="icon-reply" id="cancelar-button"
+										 action="#{matriculaBean.cancelar}" update=":frm" process="@this"/>
+					</f:facet>
+				</p:toolbar>
+
+			</t:div>
+			
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

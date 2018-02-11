@@ -44,4 +44,8 @@ public class EvangelizandoService implements Serializable, ServiceInterface<Evan
 	public List<Evangelizando> buscarPorDataNasc(String dataNasc){
 		return evangelizandoRepositorio.buscarPorDataNasc(dataNasc);
 	}
+
+    public List<Evangelizando> listarEvangelizandosSemMatricula() {
+		return evangelizandoRepositorio.listarEvangelizandosSemMatricula();
+    }
 }

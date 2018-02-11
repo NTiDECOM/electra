@@ -3,6 +3,7 @@ package br.org.fepb.electra.servicos;
 import java.io.Serializable;
 import java.util.List;
 
+import br.org.fepb.electra.modelo.Evangelizando;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,4 +36,5 @@ public class MatriculaService implements Serializable, ServiceInterface<Matricul
     public List<Matricula> buscarPorDataNasc(String textoPesquisa) {
 		return matriculaRepositorio.buscarPorDataNasc(textoPesquisa);
     }
+
 }

@@ -51,6 +51,8 @@ public class MatriculaBean extends GenericBean {
 	private EvangelizandoService evangelizandoService;
 	
 	private List<Matricula> matriculas;
+
+	private List<Matricula> matriculasFiltradas;
 	
 	private Matricula matricula;
 	
@@ -74,6 +76,8 @@ public class MatriculaBean extends GenericBean {
 	private String observacoes;
 
 	private String textoPesquisa;
+
+	private List<Evangelizando> evangelizandosSemMatricula;
 	
 	@Autowired
 	private ServletContext servletContext;
@@ -93,14 +97,16 @@ public class MatriculaBean extends GenericBean {
 	
 	public String cancelar() {
 		limparVariaveis();
-		return "/pages/Evangelizando";
+		listar();
+		setState(ESTADO_DE_LISTAGEM);
+		return "/pages/Matricula?faces-redirect=true";
 	}
 
 	public String buscarPorDataNasc(){
 		setMatriculas(null);
 		this.matriculas = matriculaServico.buscarPorDataNasc(textoPesquisa);
 		setState(ESTADO_DE_LISTAGEM);
-		return "/pages/Matricula";
+		return "/pages/Matricula?faces-redirect=true";
 	}
 
 	public void listar() {
@@ -116,6 +122,8 @@ public class MatriculaBean extends GenericBean {
 	private void limparVariaveis() {
 		this.matricula = new Matricula();
 		this.matriculas = matriculaServico.listarTodos();
+		this.evangelizandosSemMatricula = evangelizandoService.listarEvangelizandosSemMatricula();
+		this.matriculasFiltradas = new ArrayList<>();
 		this.idInstituicao = null;
 		this.salaSelecionada = null;
 		this.evangelizadoAnteriormente = false;
@@ -125,11 +133,12 @@ public class MatriculaBean extends GenericBean {
 		this.textoPesquisa = "";
 	}
 	
-	public void prepararNovoCadastro() {
+	public String prepararNovoCadastro() {
 		this.idInstituicao = null;
 		this.salaSelecionada = null;
 		this.matricula = new Matricula();
 		setState(ESTADO_DE_NOVO);
+		return "/pages/Matricula";
 	}
 	
 	public void prepararEdicao() {
@@ -308,4 +317,20 @@ public class MatriculaBean extends GenericBean {
 	public void setTextoPesquisa(String textoPesquisa) {
 		this.textoPesquisa = textoPesquisa;
 	}
+
+	public List<Evangelizando> getEvangelizandosSemMatricula() {
+		return evangelizandosSemMatricula;
+	}
+
+	public void setEvangelizandosSemMatricula(List<Evangelizando> evangelizandosSemMatricula) {
+		this.evangelizandosSemMatricula = evangelizandosSemMatricula;
+	}
+
+    public List<Matricula> getMatriculasFiltradas() {
+        return matriculasFiltradas;
+    }
+
+    public void setMatriculasFiltradas(List<Matricula> matriculasFiltradas) {
+        this.matriculasFiltradas = matriculasFiltradas;
+    }
 }

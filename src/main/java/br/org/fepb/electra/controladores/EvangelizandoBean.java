@@ -95,6 +95,7 @@ public class EvangelizandoBean extends GenericBean {
 
 	public String cancelar() {
 		limparVariaveis();
+		listar();
 		setState(ESTADO_DE_LISTAGEM);
 		return "/pages/Evangelizando";
 	}
