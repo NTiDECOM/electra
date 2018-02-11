@@ -89,6 +89,9 @@
 					<p:column headerText="Telefone" width="120" style="text-align:center;">
 						<h:outputText value="#{row.telefone}" />
 					</p:column>
+					<p:column headerText="Quant. E. Físicos Evang." style="text-align:center;">
+						<h:outputText value="#{row.quantidadeEspacosFisicosEvang}" />
+					</p:column>
 				</p:dataTable>
 				
 			</t:div>
@@ -123,6 +126,10 @@
 					<p:inputMask id="telefone" size="14" maxlength="14"
 						value="#{instituicaoEspiritaBean.instituicao.telefone}"
 						mask="(99)99999-9999" />
+
+					<p:outputLabel value="Quant. espaços físicos p/ evangelizar:" />
+					<p:spinner value="#{instituicaoEspiritaBean.instituicao.quantidadeEspacosFisicosEvang}"
+					minValue="0" maxValue="99"/>
 					
 				</h:panelGrid>
 				

@@ -43,6 +43,10 @@ public class InstituicaoEspirita extends GenericModel {
 	@Column(nullable = false, length = 14)
 	private String telefone;
 
+	@NotNull
+	@Column(name = "quant_espac_fisic_evang")
+	private int quantidadeEspacosFisicosEvang;
+
 	public InstituicaoEspirita(){
 		//vazio
 	}
@@ -96,6 +100,14 @@ public class InstituicaoEspirita extends GenericModel {
 
 	public void setTelefone(String telefone) {
 		this.telefone = StringUtil.retiraMascaraTelefone(telefone);
+	}
+
+	public int getQuantidadeEspacosFisicosEvang() {
+		return quantidadeEspacosFisicosEvang;
+	}
+
+	public void setQuantidadeEspacosFisicosEvang(int quantidadeEspacosFisicosEvang) {
+		this.quantidadeEspacosFisicosEvang = quantidadeEspacosFisicosEvang;
 	}
 
 	@Override

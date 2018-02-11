@@ -129,6 +129,13 @@
     				<f:selectItem itemValue="Sexta" itemLabel="SEXTA"/>
     				<f:selectItem itemValue="Sabado" itemLabel="SÁBADO"/>
     				</p:selectOneRadio>
+
+					<p:outputLabel for="periodicidade" value="Periodicidade:"/>
+					<p:selectOneRadio id="periodicidade" value="#{salaBean.sala.periodicidade}" layout="grid" columns="3">
+						<f:selectItem itemValue="Diariamente" itemLabel="DIARIAMENTE"/>
+						<f:selectItem itemValue="Semanal" itemLabel="SEMANAL"/>
+						<f:selectItem itemValue="Mensal" itemLabel="MENSAL"/>
+					</p:selectOneRadio>
     	
 					<p:outputLabel for="time-inicio" value="Hora de Início:" />
         			<p:calendar id="time-inicio" value="#{salaBean.sala.horaInicio}" pattern="HH:mm" timeOnly="true" locale="pt_BR" />

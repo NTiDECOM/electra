@@ -49,6 +49,9 @@ public class Sala extends GenericModel {
 	@Temporal(TemporalType.TIME)
 	@Column(name="horario_termino")
 	private Date horaTermino;
+
+	@NotNull
+	private String periodicidade;
 	
 	public Sala(Long id){
 		setId(id);
@@ -144,6 +147,18 @@ public class Sala extends GenericModel {
 	
 	public String getHorasFormatadas() {
 		return DateUtil.formatarHora(this.getHoraInicio()) + " a " + DateUtil.formatarHora(this.getHoraTermino());
+	}
+
+	public void setDescricaoCompleta(String descricaoCompleta) {
+		this.descricaoCompleta = descricaoCompleta;
+	}
+
+	public String getPeriodicidade() {
+		return periodicidade;
+	}
+
+	public void setPeriodicidade(String periodicidade) {
+		this.periodicidade = periodicidade;
 	}
 
 	@Override

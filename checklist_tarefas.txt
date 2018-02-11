@@ -43,7 +43,7 @@ Instituição:
 + Incluir endereço (tmp)
 + Ajustar máscara do telefone (tmp).
 + Incluir FK externo (entidade instituição do serviço cesp),  recuperar cnpj, endreço, etc
-+ incluir campo 'Quantidade de espaços físicos para evangelização?' Quantidade: 0-99
++ incluir campo 'Quantidade de espaços físicos para evangelização?' Quantidade: 0-99 [OK]
 
 Sala:
 + Modificar nome para Turma [FALTA]
