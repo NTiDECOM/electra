@@ -95,6 +95,12 @@ public class Evangelizando extends Pessoa {
 		this.dadosSaude = dadosSaude;
 	}
 
+	public String getContatoCompleto(){
+		return (this.getContato1() !=null && !this.getContato1().isEmpty() &&
+				this.getTipoContato1() != null && !this.getTipoContato1().isEmpty()) ?
+				this.getContato1() + " ("+ this.getTipoContato1() + ")" : "";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

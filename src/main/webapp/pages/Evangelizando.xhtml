@@ -76,19 +76,25 @@
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
-					<p:column headerText="Id" sortBy="#{evangelizando.id}" style="width: 10%;">
+					<p:column headerText="Id" sortBy="#{evangelizando.id}" style="width: 55px;text-align: center;"
+							  filterBy="#{evangelizando.id}" filterMatchMode="contains" filterStyle="width: 50px">
 						<h:outputText value="#{evangelizando.id}" />
 					</p:column>
-					<p:column headerText="Nome do Evangelizando" sortBy="#{evangelizando.nome}">
+					<p:column headerText="Nome do Evangelizando" sortBy="#{evangelizando.nome}"
+							  filterBy="#{evangelizando.nome}" filterMatchMode="contains" filterStyle="width: 150px">
 						<h:outputText value="#{evangelizando.nome}" />
 					</p:column>
-					<p:column headerText="Nome como é chamado" sortBy="#{evangelizando.comoSerChamado}">
+					<p:column headerText="Nome como é chamado" sortBy="#{evangelizando.comoSerChamado}"
+							  filterBy="#{evangelizando.comoSerChamado}"
+							  filterMatchMode="contains" filterStyle="width: 150px">
 						<h:outputText value="#{evangelizando.comoSerChamado}" />
 					</p:column>
-					<p:column headerText="Data Nascimento" width="250">
+					<p:column headerText="Data Nascimento" width="130" style="text-align: center" sortBy="#{evangelizando.dataNascimento}"
+						filterBy="#{evangelizando.dataNascimento}" filterMatchMode="contains">
 						<h:outputText value="#{evangelizando.dataNascimento}" />
 					</p:column>
-					<p:column headerText="telefone" width="120">
+					<p:column headerText="Contato" width="100" sortBy="#{evangelizando.contato1}"
+						filterBy="#{evangelizando.contato1}" filterMatchMode="contains">
 						<h:outputText value="#{evangelizando.contato1}" />
 					</p:column>
 			

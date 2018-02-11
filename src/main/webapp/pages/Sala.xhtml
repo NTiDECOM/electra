@@ -22,7 +22,7 @@
 			<!-- TELA DE LISTAGEM -->
 			<t:div id="blocoDePesquisa" rendered="#{salaBean.listando}">
 			
-				<h1>Salas de Aula</h1>
+				<h1>Salas/Turmas</h1>
 				
 				<p:toolbar id="toolbar">
 					<f:facet name="left">
@@ -73,7 +73,7 @@
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 				
-					<p:column headerText="Nome da Sala" sortBy="#{row.descricao}">
+					<p:column headerText="Nome da Sala/Turma" sortBy="#{row.descricao}">
 						<h:outputText value="#{row.descricao}" />
 					</p:column>
 						
@@ -97,7 +97,7 @@
 			<!-- TELA DE FORMULARIO DE CADASTRO -->
 			<t:div id="blocoDeEdicao" rendered="#{not salaBean.listando}">
 				
-				<h1>Cadastro de Salas</h1>
+				<h1>Cadastro de Salas/Turmas</h1>
 				
 				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
 				
