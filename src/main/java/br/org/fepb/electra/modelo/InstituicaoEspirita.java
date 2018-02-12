@@ -23,6 +23,9 @@ public class InstituicaoEspirita extends GenericModel {
 	public static final String CASA_ESPIRITA = "Casa Espírita";
 	public static final String FEDERATIVA = "Federativa";
 
+	@Column(name = "codigo_externo")
+	private String codigoExterno;
+
 	@NotEmpty
 	@Column(nullable = false, length = 60)
 	private String nome;

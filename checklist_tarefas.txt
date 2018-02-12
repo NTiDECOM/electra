@@ -42,13 +42,13 @@ Matrícula:
 Instituição: 
 + Incluir endereço (tmp)
 + Ajustar máscara do telefone (tmp).
-+ Incluir FK externo (entidade instituição do serviço cesp),  recuperar cnpj, endreço, etc
++ Incluir FK externo (entidade instituição do serviço cesp),  recuperar cnpj, endreço, etc [OK]
 + incluir campo 'Quantidade de espaços físicos para evangelização?' Quantidade: 0-99 [OK]
 
 Sala:
 + Modificar nome para Turma [FALTA]
 + Vincular Evangelizador a Turma (OPCIONAL)
-+ incluir campos periodicidade das aulas (Diariamente, Semanal, Mensal).[FALTA]
++ incluir campos periodicidade das aulas (Diariamente, Semanal, Mensal).[OK]
 
 Evangelizador: 
 + Ajuste na edicação [OK]

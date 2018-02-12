@@ -24,8 +24,8 @@
 			<property name="javax.persistence.schema-generation.database.action" value="none" />
   			<property name="javax.persistence.schema-generation.create-source" value="metadata" />
             <!--META-INF/sql/dados-iniciais-masterdata.sql carrega todos os scripts de banco (MAIS DEMORADO)-->
-			<!--property name="javax.persistence.sql-load-script-source" value="META-INF/sql/dados-iniciais-masterdata.sql"/-->
-			<property name="javax.persistence.sql-load-script-source" value="META-INF/sql/dados-iniciais-essencial.sql"/>
+			<property name="javax.persistence.sql-load-script-source" value="META-INF/sql/dados-iniciais-masterdata.sql"/>
+			<!--property name="javax.persistence.sql-load-script-source" value="META-INF/sql/dados-iniciais-essencial.sql"/-->
 
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />

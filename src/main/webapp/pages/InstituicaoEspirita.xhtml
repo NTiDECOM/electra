@@ -104,31 +104,32 @@
 				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
 				
 				<h:panelGrid columns="2" id="painel-formulario">
-					<p:outputLabel value="Nome:" for="nome" />
+					<p:outputLabel value="Nome: *" for="nome" />
 					<p:inputText id="nome" size="60" maxlength="60" onblur="value=value.toUpperCase()"
 						value="#{instituicaoEspiritaBean.instituicao.nome}" />
 					
-					<p:outputLabel value="Presidente:" for="presidente" />
+					<p:outputLabel value="Presidente: *" for="presidente" />
 					<p:inputText id="presidente" size="60" maxlength="60" 
 					value="#{instituicaoEspiritaBean.instituicao.presidente}" onblur="value=value.toUpperCase()"/>
 					
-					<p:outputLabel value="Evangeliza?" for="evangeliza" />
-					<p:selectBooleanButton id="evangeliza" value="#{instituicaoEspiritaBean.instituicao.evangeliza}" onLabel="Sim" offLabel="Não" 
-						onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
+					<p:outputLabel value="Evangeliza? " for="evangeliza" />
+					<p:selectBooleanButton id="evangeliza" value="#{instituicaoEspiritaBean.instituicao.evangeliza}" onLabel="Sim" offLabel="Não"
+						onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" required="true" requiredMessage="'evangeliza?' deve ser informado"/>
 					
-					<p:outputLabel value="Tipo:" for="tipo" />
-					<p:selectOneRadio id="tipo" value="#{instituicaoEspiritaBean.campoTipo}">
+					<p:outputLabel value="Tipo da Instituição: " for="tipo" />
+					<p:selectOneRadio id="tipo" value="#{instituicaoEspiritaBean.campoTipo}"
+					required="true" requiredMessage="'tipo da instituição' deve ser informado">
 			            <f:selectItem itemLabel="Casa Espírita" itemValue="C" />
 			            <f:selectItem itemLabel="Federativa" itemValue="F" />
 			        </p:selectOneRadio>
 					
-					<p:outputLabel value="Telefone:" for="telefone" />
+					<p:outputLabel value="Telefone: " for="telefone" />
 					<p:inputMask id="telefone" size="14" maxlength="14"
 						value="#{instituicaoEspiritaBean.instituicao.telefone}"
-						mask="(99)99999-9999" />
+						mask="(99)99999-9999" required="true" requiredMessage="'telefone' deve ser informado"/>
 
-					<p:outputLabel value="Quant. espaços físicos p/ evangelizar:" />
-					<p:spinner value="#{instituicaoEspiritaBean.instituicao.quantidadeEspacosFisicosEvang}"
+					<p:outputLabel value="Quant. espaços físicos p/ evangelizar: *" for="quantEspacos"/>
+					<p:spinner id="quantEspacos" size="3" value="#{instituicaoEspiritaBean.instituicao.quantidadeEspacosFisicosEvang}"
 					minValue="0" maxValue="99"/>
 					
 				</h:panelGrid>
