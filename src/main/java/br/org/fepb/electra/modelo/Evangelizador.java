@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -26,6 +27,7 @@ public class Evangelizador extends Pessoa {
 	@Column(name = "escolaridade", length = 60)
 	private String escolaridade;
 
+	@NotNull
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
 	@JoinColumn(name="fk_instituicoes_espiritas")
 	private List<InstituicaoEspirita> instituicoesEspiritas;
@@ -52,6 +54,19 @@ public class Evangelizador extends Pessoa {
 
 	public void setInstituicoesEspiritas(List<InstituicaoEspirita> instituicoesEspiritas) {
 		this.instituicoesEspiritas = instituicoesEspiritas;
+	}
+
+	public String getNomesInstituicoes(){
+		StringBuilder str = new StringBuilder();
+		int contador = 0;
+		for(InstituicaoEspirita i : getInstituicoesEspiritas()){
+			str.append(i.getNome());
+			contador++;
+			if(contador < getInstituicoesEspiritas().size()){
+				str.append(" / ");
+			}
+		}
+		return str.toString();
 	}
 	
 	@Override

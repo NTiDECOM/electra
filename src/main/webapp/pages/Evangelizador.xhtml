@@ -37,7 +37,6 @@
 					<f:facet name="left">
 						<p:commandButton value="Adicionar" icon="ui-icon-document"
 							action="#{evangelizadorBean.prepararNovoCadastro}" update=":frm">
-							<p:resetInput target="painel-formulario" />
 						</p:commandButton>
 						
 						<span class="ui-separator">
@@ -82,19 +81,24 @@
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
-					<p:column headerText="Nome" sortBy="#{evangelizador.nome}">
+					<p:column headerText="Nome" sortBy="#{evangelizador.nome}" filterBy="#{evangelizador.nome}" filterMatchMode="contains">
 						<h:outputText value="#{evangelizador.nome}" />
 					</p:column>
-					<p:column headerText="Data Nascimento" width="250">
+					<p:column headerText="Instituiçao(çoes)" sortBy="#{evangelizador.nomesInstituicoes}" style="text-align: center;"
+							  filterBy="#{evangelizador.nomesInstituicoes}" filterMatchMode="contains">
+						<h:outputText value="#{evangelizador.nomesInstituicoes}" />
+					</p:column>
+					<p:column headerText="Data Nascimento" width="150" style="text-align: center;"
+							  filterBy="#{evangelizador.dataNascimento}" filterMatchMode="contains">
 						<h:outputText value="#{evangelizador.dataNascimento}" />
 					</p:column>
-					<p:column headerText="Ocupação" width="120">
+					<p:column headerText="Ocupação" width="200" filterBy="#{evangelizador.ocupacao}" filterMatchMode="contains">
 						<h:outputText value="#{evangelizador.ocupacao}" />
 					</p:column>
-					<p:column headerText="Escolaridade" width="120">
+					<p:column headerText="Escolaridade" width="200" filterBy="#{evangelizador.escolaridade}" filterMatchMode="contains">
 						<h:outputText value="#{evangelizador.escolaridade}" />
 					</p:column>
-					<p:column headerText="telefone" width="120">
+					<p:column headerText="telefone" width="120" filterBy="#{evangelizador.contato1}" filterMatchMode="contains">
 						<h:outputText value="#{evangelizador.contato1}" />
 					</p:column>
 				</p:dataTable>
@@ -103,10 +107,15 @@
 			
 			<!-- TELA DE FORMULARIO DE CADASTRO -->
 			<t:div id="blocoDeEdicao" rendered="#{not evangelizadorBean.listando}">
+
+                <p:tabView onblur="value=value.toUpperCase()">
+                <p:tab title="Dados gerais">
+
+                <br clear="all"/>
+
+                <h1>Cadastro de Evangelizadores</h1>
 				
-				<h1>Cadastro de Evangelizadores</h1>
-				
-				<p:defaultCommand target="salvar-button" scope="painel-formulario" />
+				<!--p:defaultCommand target="salvar-button" scope="painel-formulario" /-->
 				
 				<h:panelGrid columns="2" id="painel-formulario">
 					<p:outputLabel value="Nome completo: " for="nome-completo" />
@@ -150,12 +159,12 @@
 						mask="999.999.999-99" />
 					
 					<p:outputLabel value="Tipo contato:" for="tipo_contato" />
-					<p:selectOneButton value="#{evangelizadorBean.evangelizador.tipoContato1}" id="tipo_contato"
+					<p:selectOneRadio value="#{evangelizadorBean.evangelizador.tipoContato1}" id="tipo_contato"
 									   required="true" requiredMessage="'tipo contato' deve ser informado">
 						<f:selectItem itemLabel="Whatsapp" itemValue="WHATSAPP"/>
 						<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
 						<f:selectItem itemLabel="Residencial" itemValue="RESIDENCIAL"/>
-					</p:selectOneButton>
+					</p:selectOneRadio>
 
 					<p:outputLabel value="Contato:" for="telefone" />
 					<p:inputMask id="telefone" size="14" maxlength="14"
@@ -174,14 +183,14 @@
 					</p:selectOneButton>	
 									
 					<p:outputLabel value="Raça: " for="raca"/>
-					<p:selectOneButton value="#{evangelizadorBean.evangelizador.raca}" id="raca">
+					<p:selectOneRadio value="#{evangelizadorBean.evangelizador.raca}" id="raca">
 						<f:selectItem itemLabel="Branco" itemValue="BRANCO"/>
 						<f:selectItem itemLabel="Negro" itemValue="NEGRO"/>
 						<f:selectItem itemLabel="Pardo" itemValue="PARDO"/>
 						<f:selectItem itemLabel="Amarela" itemValue="AAMARELA"/>
 						<f:selectItem itemLabel="Indígina" itemValue="INDÍGENA"/>
 						<f:selectItem itemLabel="Outra" itemValue="OUTRA"/>
-					</p:selectOneButton>	
+					</p:selectOneRadio>
 					
 					<p:outputLabel value="Tipo sanguíneo: " for="tipo_sanguineo"/>
 					<p:selectOneButton value="#{evangelizadorBean.evangelizador.tipoSanguineo}" id="tipo_sanguineo"
@@ -281,19 +290,48 @@
 					</p:dialog>
 					
 				</h:panelGroup>
-				
-				<p:spacer height="10"/>
+
+                </p:tab>
+
+                <p:tab title="Endereço">
+
+                    <br clear="all"/>
+
+                    <h:panelGrid columns="2" id="dados-endereco">
+                        <p:outputLabel value="CEP:"/>
+                        <p:inputMask value="#{evangelizadorBean.endereco.cep}"
+                                     onblur="value=value.toUpperCase()" mask="99999-999"/>
+
+                        <p:outputLabel value="Rua/Logradouro:"/>
+                        <p:inputText value="#{evangelizadorBean.endereco.logradouro}" onblur="value=value.toUpperCase()"/>
+
+                        <p:outputLabel value="Número:"/>
+                        <p:inputText value="#{evangelizadorBean.endereco.numero}" onblur="value=value.toUpperCase()"/>
+
+                        <p:outputLabel value="Bairro:"/>
+                        <p:autoComplete id="bairro" placeholder="Digite as iniciais..." dropdown="true" value="#{evangelizandoBean.bairroSelecionado}" completeMethod="#{evangelizandoBean.completeBairros}" />
+
+                        <p:outputLabel value="Complemento:"/>
+                        <p:inputText value="#{evangelizadorBean.endereco.complemento}" onblur="value=value.toUpperCase()"/>
+
+                    </h:panelGrid>
+                </p:tab>
+
+					<p:spacer height="10"/>
+
+                </p:tabView>
+
 				<p:toolbar id="toolbar-cadastro">
 					<f:facet name="left">
-						<p:commandButton icon="ui-icon-cancel" value="Limpar Instituições" 
-							action="#{evangelizadorBean.cancelInstituicaoDrop}" update=":frm:instituicaoSubForm" process="@this"/>
+						<p:commandButton icon="ui-icon-cancel" value="Limpar Instituições"
+										 action="#{evangelizadorBean.cancelInstituicaoDrop}" update=":frm:blocoDeEdicao" process="@this"/>
 						<p:commandButton value="Cancelar" icon="ui-icon-cancel" id="cancelar-button"
-							action="#{evangelizadorBean.cancelar}" update=":frm" process="@this"/>
+										 action="#{evangelizadorBean.cancelar}" update=":frm" process="@this"/>
 						<p:commandButton value="Salvar" icon="ui-icon-disk" id="salvar-button"
-							action="#{evangelizadorBean.salvar}" update=":frm"/>
+										 action="#{evangelizadorBean.salvar}" update=":frm"/>
 					</f:facet>
 				</p:toolbar>
-				
+
 			</t:div>
 		
 		</h:form>

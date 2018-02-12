@@ -59,7 +59,7 @@ public abstract class Pessoa extends GenericModel {
 	@Column(name = "tipo_contato2")
 	private String tipoContato2;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="fk_endereco")
 	private Endereco endereco;
 	

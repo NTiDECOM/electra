@@ -64,30 +64,30 @@
 				</p:toolbar>
 		
 				<p:dataTable value="#{salaBean.salas}" var="row"
-						emptyMessage="Nenhum registro encontrado." rows="10" 
+						emptyMessage="Nenhuma sala/turma encontrada" rows="10"
 						paginator="true" paginatorPosition="bottom"
-						style="margin-top: 10px" id="salas-table"
+						style="margin-top: 10px;text-align: center;" id="salas-table"
 						selection="#{salaBean.sala}"
 						selectionMode="single" rowKey="#{row.id}">
 					
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 				
-					<p:column headerText="Nome da Sala/Turma" sortBy="#{row.descricao}">
+					<p:column headerText="Nome da Sala/Turma" sortBy="#{row.descricao}" filterBy="#{row.descricao}" filterMatchMode="contains">
 						<h:outputText value="#{row.descricao}" />
 					</p:column>
 						
-					<p:column headerText="Instituição" sortBy="#{row.instituicao.nome}">
+					<p:column headerText="Instituição" sortBy="#{row.instituicao.nome}" filterBy="#{row.instituicao.nome}" filterMatchMode="contains">
 						<h:outputText value="#{row.instituicao.nome}" />
 					</p:column>
 				
-					<p:column headerText="Faixa Etária" width="250">
+					<p:column headerText="Faixa Etária" width="250" filterBy="#{row.faixasEtarias}" filterMatchMode="contains">
 						<h:outputText value="#{row.faixasEtarias}" />
 					</p:column>
-					<p:column headerText="Dia da Aula" width="100">
+					<p:column headerText="Dia da Aula" width="120" filterBy="#{row.diaAula}" filterMatchMode="contains">
 						<h:outputText value="#{row.diaAula}" />
 					</p:column>
-					<p:column headerText="Horário" width="120" style="text-align:center;">
+					<p:column headerText="Horário" width="120" style="text-align:center;" filterBy="#{row.horasFormatadas}" filterMatchMode="contains">
 						<h:outputText value="#{row.horasFormatadas}" />
 					</p:column>
 				</p:dataTable>
@@ -120,15 +120,16 @@
 			        </h:selectOneMenu>
 			        
 			        <p:outputLabel for="gridDiasAulas" value="Dia da Aula: *"/>
-    				<p:selectOneRadio id="gridDiasAulas" value="#{salaBean.sala.diaAula}" layout="grid" columns="3">
-    				<f:selectItem itemValue="Domingo" itemLabel="DOMINGO"/>
-    				<f:selectItem itemValue="Segunda" itemLabel="SEGUNDA"/>
-    				<f:selectItem itemValue="Terca" itemLabel="TERÇA"/>
-    				<f:selectItem itemValue="Quarta" itemLabel="QUARTA"/>
-    				<f:selectItem itemValue="Quinta" itemLabel="QUINTA"/>
-    				<f:selectItem itemValue="Sexta" itemLabel="SEXTA"/>
-    				<f:selectItem itemValue="Sabado" itemLabel="SÁBADO"/>
-    				</p:selectOneRadio>
+    				<h:selectOneMenu id="gridDiasAulas" value="#{salaBean.sala.diaAula}" layout="grid" columns="3">
+						<f:selectItem itemLabel="-- selecione um item --" itemValue=""/>
+						<f:selectItem itemLabel="Domingo" itemValue="DOMINGO"/>
+    				<f:selectItem itemLabel="Segunda" itemValue="SEGUNDA"/>
+    				<f:selectItem itemLabel="Terca" itemValue="TERÇA"/>
+    				<f:selectItem itemLabel="Quarta" itemValue="QUARTA"/>
+    				<f:selectItem itemLabel="Quinta" itemValue="QUINTA"/>
+    				<f:selectItem itemLabel="Sexta" itemValue="SEXTA"/>
+    				<f:selectItem itemLabel="Sabado" itemValue="SÁBADO"/>
+    				</h:selectOneMenu>
 
 					<p:outputLabel for="periodicidade" value="Periodicidade: *"/>
 					<p:selectOneRadio id="periodicidade" value="#{salaBean.sala.periodicidade}" layout="grid" columns="3">

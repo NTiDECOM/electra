@@ -113,6 +113,10 @@ public class InstituicaoEspirita extends GenericModel {
 		this.quantidadeEspacosFisicosEvang = quantidadeEspacosFisicosEvang;
 	}
 
+	public String getEvangelizaStr(){
+		return evangeliza ? "Sim" : "Nao";
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

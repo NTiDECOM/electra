@@ -123,8 +123,8 @@
 				
 				<h:panelGrid columns="2" id="painel-formulario">
 
-					<p:outputLabel value="Número da Matrícula: " rendered="#{not empty matriculaBean.matricula.dataCadastro}"/>
-					<p:outputLabel value="#{matriculaBean.matricula.numeroMatricula}" style="color:red;font-weight:bold" rendered="#{not empty matriculaBean.matricula.dataCadastro}"/>
+					<p:outputLabel value="Número da Matrícula: " rendered="#{not empty matriculaBean.matricula.numeroMatricula}"/>
+					<p:outputLabel value="#{matriculaBean.matricula.numeroMatricula}" style="color:red;font-weight:bold" rendered="#{not empty matriculaBean.matricula.numeroMatricula}"/>
 
 					<p:outputLabel value="Nome do Evangelizando: " for="nome-fantasia" />
 					<p:outputLabel id="nome-fantasia" size="60" maxlength="60"
@@ -161,8 +161,10 @@
 			        </p:selectOneMenu>
 			        
 			        <p:outputLabel value="Evangelizado anteriormente?" for="evangelizadoAnteriormente" />
-			        <p:selectBooleanButton id="evangelizadoAnteriormente" value="#{matriculaBean.evangelizadoAnteriormente}"
-			        onLabel="Sim" offLabel="Não"/>
+					<p:selectOneRadio id="evangelizadoAnteriormente" value="#{matriculaBean.evangelizadoAnteriormente}">
+						<f:selectItem itemLabel="Sim" itemValue="true"/>
+						<f:selectItem itemLabel="Não" itemValue="false"/>
+					</p:selectOneRadio>
 			        
 			        <p:outputLabel value="Local da última evangelização:" for="localUltEvang"/>
 			        <p:inputText value="#{matriculaBean.localUltimaEvangelizacao}" id="localUltEvang"/>

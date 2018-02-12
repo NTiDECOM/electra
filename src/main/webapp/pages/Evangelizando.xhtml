@@ -148,12 +148,12 @@
 						mask="999.999.999-99" />
 					
 					<p:outputLabel value="Tipo contato: " for="tipo_contato" />
-					<p:selectOneButton value="#{evangelizandoBean.evangelizando.tipoContato1}" id="tipo_contato"
+					<p:selectOneRadio value="#{evangelizandoBean.evangelizando.tipoContato1}" id="tipo_contato"
 									   required="true" requiredMessage="'tipo contato' deve ser informado">
 						<f:selectItem itemLabel="Whatsapp" itemValue="WHATSAPP"/>
 						<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
 						<f:selectItem itemLabel="Residencial" itemValue="RESIDENCIAL"/>
-					</p:selectOneButton>	
+					</p:selectOneRadio>
 					
 					<p:outputLabel value="Contato:" for="contato1" />
 					<p:inputMask id="contato1" size="14" maxlength="14"
@@ -173,14 +173,14 @@
 					</p:selectOneButton>	
 									
 					<p:outputLabel value="Raça: " for="raca"/>
-					<p:selectOneButton value="#{evangelizandoBean.evangelizando.raca}" id="raca">
+					<p:selectOneRadio value="#{evangelizandoBean.evangelizando.raca}" id="raca">
 						<f:selectItem itemLabel="Branco" itemValue="BRANCO"/>
 						<f:selectItem itemLabel="Negro" itemValue="NEGRO"/>
 						<f:selectItem itemLabel="Pardo" itemValue="PARDO"/>
 						<f:selectItem itemLabel="Amarela" itemValue="AMARELA"/>
 						<f:selectItem itemLabel="Indígina" itemValue="INDÍGENA"/>
 						<f:selectItem itemLabel="Outra" itemValue="OUTRA"/>
-					</p:selectOneButton>	
+					</p:selectOneRadio>
 					
 					<p:outputLabel value="Tipo sanguíneo:" for="tipo_sanguineo"/>
 					<p:selectOneButton value="#{evangelizandoBean.evangelizando.tipoSanguineo}" id="tipo_sanguineo">

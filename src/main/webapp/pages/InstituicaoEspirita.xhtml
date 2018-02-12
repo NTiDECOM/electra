@@ -67,29 +67,29 @@
 				<p:dataTable value="#{instituicaoEspiritaBean.instituicoes}" var="row"
 						emptyMessage="Nenhuma instituição cadastrada." rows="10" 
 						paginator="true" paginatorPosition="bottom"
-						style="margin-top: 10px" id="instituicoes-table"
+						style="margin-top: 10px;text-align: center;" id="instituicoes-table"
 						selection="#{instituicaoEspiritaBean.instituicao}"
 						selectionMode="single" rowKey="#{row.id}">
 					
 					<p:ajax event="rowSelect" update=":frm:toolbar" />
 					<p:ajax event="rowUnselect" update=":frm:toolbar" />
 					
-					<p:column headerText="Nome" sortBy="#{row.nome}">
+					<p:column headerText="Nome" sortBy="#{row.nome}" filterBy="#{row.nome}" filterMatchMode="contains">
 						<h:outputText value="#{row.nome}" />
 					</p:column>
-					<p:column headerText="Presidente" width="250">
+					<p:column headerText="Presidente" width="250" filterBy="#{row.presidente}" filterMatchMode="contains">
 						<h:outputText value="#{row.presidente}" />
 					</p:column>
-					<p:column headerText="Evangeliza" width="120" style="text-align:center;">
+					<p:column headerText="Evangeliza" width="120" style="text-align:center;" filterBy="#{row.evangelizaStr}" filterMatchMode="contains">
 						<h:outputText value="#{row.evangeliza ? 'Sim' : 'Não'}" />
 					</p:column>
-					<p:column headerText="Tipo de Instituição" width="120" style="text-align:center;">
+					<p:column headerText="Tipo de Instituição" width="120" style="text-align:center;" filterBy="#{row.tipo}" filterMatchMode="contains">
 						<h:outputText value="#{row.tipo}" />
 					</p:column>
-					<p:column headerText="Telefone" width="120" style="text-align:center;">
+					<p:column headerText="Telefone" width="120" style="text-align:center;" filterBy="#{row.telefone}" filterMatchMode="contains">
 						<h:outputText value="#{row.telefone}" />
 					</p:column>
-					<p:column headerText="Quant. E. Físicos Evang." style="text-align:center;">
+					<p:column headerText="Quant. E. Físicos Evang." style="text-align:center;" filterBy="#{row.quantidadeEspacosFisicosEvang}" filterMatchMode="contains">
 						<h:outputText value="#{row.quantidadeEspacosFisicosEvang}" />
 					</p:column>
 				</p:dataTable>

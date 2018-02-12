@@ -9,6 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;
 import javax.validation.constraints.NotNull;
 
+import br.org.fepb.electra.modelo.Endereco;
 import org.primefaces.event.DragDropEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +47,9 @@ public class EvangelizadorBean extends GenericBean {
 	private String email1;
 	
 	private String email2;
+
+	@Autowired
+	private Endereco endereco;
 	
 	private List<InstituicaoEspirita> droppedInstituicoes;
 	
@@ -74,6 +78,7 @@ public class EvangelizadorBean extends GenericBean {
 		setState(ESTADO_DE_LISTAGEM);
 		this.evangelizador = null;
 		this.instituicoes = null;
+		this.endereco = new Endereco();
 		this.droppedInstituicoes = null;
 		this.selectedInstituicao = null;
 		this.evangelizadores = (List<Evangelizador>) evangelizadorService.listarTodos();
@@ -99,6 +104,9 @@ public class EvangelizadorBean extends GenericBean {
 		if(!droppedInstituicoes.isEmpty()){
 			evangelizador.setInstituicoesEspiritas(droppedInstituicoes);
 		}
+		if(endereco != null){
+			evangelizador.setEndereco(endereco);
+		}
 		evangelizadorService.salvar(evangelizador);
 		messages.info("Evangelizador salvo com sucesso!");
 		listar();
@@ -111,6 +119,9 @@ public class EvangelizadorBean extends GenericBean {
 	public void prepararEdicao() {
 		droppedInstituicoes = evangelizador.getInstituicoesEspiritas();
 		instituicoes = instituicaoEspiritaService.listarTodos();
+		endereco = evangelizador.getEndereco() != null ? evangelizador.getEndereco() : null;
+		email1 = evangelizador.getEmail();
+		email2 = evangelizador.getEmail();
 		if(droppedInstituicoes!=null && instituicoes !=null){
 			List<InstituicaoEspirita> instTemp = new ArrayList<>();
 			for(InstituicaoEspirita ie : instituicoes){
@@ -207,5 +218,12 @@ public class EvangelizadorBean extends GenericBean {
 	public void setEmail2(String email2) {
 		this.email2 = email2;
 	}
-	
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 }

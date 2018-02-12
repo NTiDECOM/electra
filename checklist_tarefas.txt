@@ -6,11 +6,11 @@ Evangelizando:
 + Validar em dois campos o e-mail válido. [OK]
 + Contar idade e mostrar ao lado (ano e meses) [VERSÃO POSTERIOR]
 + Incluir opção 'Não sabe' nas opções de tipos sanguíneos. [OK]
-+ Modificar abas, incluir botão 'próximo', salvar no banco de dados. [FALTA]
++ Modificar abas, incluir botão 'próximo', salvar no banco de dados. [VERSAO POSTERIOR]
 + Incluir endereço em Pessoa (evangelizando, evangelizador, etc) [EVANGELIZANDO OK... FALTA EVANGELIZADOR]
 + Em acadêmico montar combo com tabela no campo nível escolar [OK]
 Sobre Saúde:  
-	- Checkbox 'SIM' para todas as perguntas, habilitar edição das descrições. [REVER]
+	- Checkbox 'SIM' para todas as perguntas, habilitar edição das descrições. [OK]
 	- Modificar label p/ 'Faz uso contínuo de alguma medicação?' [OK]
 	- Remover campo 'Possui doença..' [OK]
 	
@@ -29,7 +29,7 @@ Em família:
 + Analisar posteriormente informações internas (sigilo), como vulnerabilidade. [VERSAO POSTERIOR]
 + Criar listagem de evangelizandos e matriculas por data de nascimento [OK]
 + Novo campo naturalidade [OK]
-+ Criar mensagem de validação informativa: Unicidade: Primeiro nome, d. nascimento e naturalidade.
++ Criar mensagem de validação informativa: Unicidade: Primeiro nome, d. nascimento e naturalidade. [FALTA]
 	 
 Matrícula:
 + Novo formato de matrícula: YYYYMMDD999(1,2,3...) sequencial a apartir da mesma data [OK]
@@ -40,8 +40,8 @@ Matrícula:
 
 
 Instituição: 
-+ Incluir endereço (tmp)
-+ Ajustar máscara do telefone (tmp).
++ Incluir endereço (tmp) [REVER]
++ Ajustar máscara do telefone (tmp).[OK]
 + Incluir FK externo (entidade instituição do serviço cesp),  recuperar cnpj, endreço, etc [OK]
 + incluir campo 'Quantidade de espaços físicos para evangelização?' Quantidade: 0-99 [OK]
 
