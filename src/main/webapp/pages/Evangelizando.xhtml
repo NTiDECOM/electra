@@ -153,12 +153,13 @@
 						<f:selectItem itemLabel="Whatsapp" itemValue="WHATSAPP"/>
 						<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
 						<f:selectItem itemLabel="Residencial" itemValue="RESIDENCIAL"/>
+						<p:ajax event="change" update="contato1"/>
 					</p:selectOneRadio>
 					
 					<p:outputLabel value="Contato:" for="contato1" />
 					<p:inputMask id="contato1" size="14" maxlength="14"
 						value="#{evangelizandoBean.evangelizando.contato1}"
-						mask="(99)99999-9999" required="true" requiredMessage="'contato' deve ser informado"/>
+						mask="#{evangelizandoBean.maskContato1}" required="true" requiredMessage="'contato' deve ser informado"/>
 						
 					<p:outputLabel value="Data de Nascimento:" for="data-fundacao" />
 					<p:calendar id="data-fundacao" size="10"
@@ -326,7 +327,9 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:inputText id="modelInputNome" value="#{parente.nome}"
-													style="width:96%" placeholder="Informe o nome..." />
+															 style="width:96%" placeholder="Informe o nome..." >
+													<p:ajax event="blur" update="parentesTable" />
+												</p:inputText>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -345,6 +348,7 @@
 													onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px">
 														<f:selectItem itemLabel="SIM" itemValue="true"/>
 														<f:selectItem itemLabel="NÃO" itemValue="false"/>
+														<p:ajax event="change" update="parentesTable" />
 												</h:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
@@ -362,6 +366,7 @@
 												<h:selectOneMenu id="modelInputConvive" value="#{parente.conviveMesmoLar}" style="width:60px">
 														<f:selectItem itemLabel="SIM" itemValue="true"/>
 														<f:selectItem itemLabel="NÃO" itemValue="false"/>
+														<p:ajax event="change" update="parentesTable" />
 												</h:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
@@ -384,6 +389,7 @@
 													<f:selectItem itemLabel="Prima(o)" itemValue="PRIMA(O)"/>
 													<f:selectItem itemLabel="Vizinha(o)" itemValue="VIZINHA(O)"/>
 													<f:selectItem itemLabel="Outros" itemValue="OUTROS"/>
+													<p:ajax event="change" update="parentesTable" />
 												</h:selectOneMenu>
 											</f:facet>
 										</p:cellEditor>
@@ -403,6 +409,7 @@
 													<f:selectItem itemLabel="Whatsapp" itemValue="WHATSAPP"/>
 													<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
 													<f:selectItem itemLabel="Residencial" itemValue="RESIDENCIAL"/>
+													<p:ajax event="change" update="parentesTable" />
 												</h:selectOneMenu>	
 											</f:facet>
 										</p:cellEditor>
@@ -418,7 +425,9 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:inputText id="modelInputContato" value="#{parente.contato1}"
-													style="width:96%" placeholder="Informe o contato..."/>
+															 style="width:96%" placeholder="Informe o contato...">
+													<p:ajax event="blur" update="parentesTable" />
+												</p:inputText>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>
@@ -434,7 +443,9 @@
 											</f:facet>
 											<f:facet name="input">
 												<p:inputText id="modelInputEmail" value="#{parente.email}"
-													style="width:96%" placeholder="Informe o e-mail..."/>
+															 style="width:96%" placeholder="Informe o e-mail...">
+													<p:ajax event="blur" update="parentesTable" />
+												</p:inputText>
 											</f:facet>
 										</p:cellEditor>
 									</p:column>

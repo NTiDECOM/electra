@@ -7,8 +7,7 @@
  
     <!-- Basic Configurations -->
     <context:annotation-config/>
- 
-    
+
     <context:component-scan base-package="br.org.fepb.electra.modelo"/>
     <context:component-scan base-package="br.org.fepb.electra.controladores"/>
     <context:component-scan base-package="br.org.fepb.electra.servicos"/>
@@ -20,7 +19,7 @@
     <import resource="spring-jpa.xml"/>
  
     <!-- SpringSecurity -->
-    <!--  import resource="spring-security.xml"/-->
+    <import resource="spring-security.xml"/>
 
 
 </beans>
