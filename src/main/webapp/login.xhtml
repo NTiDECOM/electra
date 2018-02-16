@@ -12,8 +12,8 @@
 <body>
     <h:form id="login" prependId="false" action="/j_spring_security_check">
 
-        <div style="padding-top: 200px">
-        <p:panel header="Tela de login:" style="width: 22%; text-align: center; margin: 0 auto;">
+        <div style="left:50%;top:50%;margin-left:-100px;margin-top:-50px;position:absolute;">
+        <p:panel header="Tela de login:" style="">
         <h:panelGrid columns="1" id="painel">
             <p:outputLabel value="Login falhou!" style="font-weight: bold; color: red;"
                            rendered="${!empty param['error']}" id="error"/>

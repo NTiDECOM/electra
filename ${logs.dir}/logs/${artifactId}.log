@@ -1,2 +1,3 @@
-1518404795653 ERROR SqlExceptionHelper [http-bio-8080-exec-3] Cannot delete or update a parent row: a foreign key constraint fails (`electra`.`tb_matricula`, CONSTRAINT `FKhkv4nu4r7fvj5nlncyuclsxbb` FOREIGN KEY (`fk_evangelizando`) REFERENCES `tb_evangelizando` (`id`))
-1518404795773 ERROR ExceptionMapperStandardImpl [http-bio-8080-exec-3] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+1518746260387 ERROR SqlExceptionHelper [localhost-startStop-1] Unknown column 'instituica0_.tipo_telefone' in 'field list'
+1518747350559 ERROR SqlExceptionHelper [localhost-startStop-1] Unknown column 'instituica0_.tipo_telefone' in 'field list'
+1518748174122 ERROR SqlExceptionHelper [localhost-startStop-1] Unknown column 'sala0_.faixa_etaria_meses_final' in 'field list'

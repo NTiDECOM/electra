@@ -161,15 +161,16 @@
 					<p:outputLabel value="Tipo contato:" for="tipo_contato" />
 					<p:selectOneRadio value="#{evangelizadorBean.evangelizador.tipoContato1}" id="tipo_contato"
 									   required="true" requiredMessage="'tipo contato' deve ser informado">
-						<f:selectItem itemLabel="Whatsapp" itemValue="WHATSAPP"/>
+						<f:selectItem itemLabel="Whatsapp/Telefone" itemValue="WHATSAPP"/>
 						<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
 						<f:selectItem itemLabel="Residencial" itemValue="RESIDENCIAL"/>
+						<p:ajax event="change" update="contato1"/>
 					</p:selectOneRadio>
 
-					<p:outputLabel value="Contato:" for="telefone" />
-					<p:inputMask id="telefone" size="14" maxlength="14"
+					<p:outputLabel value="Contato:" for="contato1" />
+					<p:inputMask id="contato1" size="14" maxlength="14"
 								 value="#{evangelizadorBean.evangelizador.contato1}"
-								 mask="(99)99999-9999" required="true" requiredMessage="'contato' deve ser informado"/>
+								 mask="#{evangelizadorBean.maskContato1}" required="true" requiredMessage="'contato' deve ser informado"/>
 
 					<p:outputLabel value="Data de Nascimento: " for="data-fundacao" />
 					<p:calendar id="data-fundacao" size="10"

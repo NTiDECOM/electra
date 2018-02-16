@@ -66,7 +66,7 @@ public abstract class Pessoa extends GenericModel {
 	@Column(name="tipo_sanguineo")
 	private String tipoSanguineo;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="fk_naturalidade")
 	private Cidade naturalidade;
 	

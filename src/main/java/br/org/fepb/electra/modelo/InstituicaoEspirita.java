@@ -41,7 +41,11 @@ public class InstituicaoEspirita extends GenericModel {
 	@NotEmpty
 	@Column(nullable = false, length = 1)
 	private String tipo;
-	
+
+	@NotEmpty
+	@Column(name="tipo_telefone")
+	private String tipoTelefone;
+
 	@NotEmpty
 	@Column(nullable = false, length = 14)
 	private String telefone;
@@ -111,6 +115,14 @@ public class InstituicaoEspirita extends GenericModel {
 
 	public void setQuantidadeEspacosFisicosEvang(int quantidadeEspacosFisicosEvang) {
 		this.quantidadeEspacosFisicosEvang = quantidadeEspacosFisicosEvang;
+	}
+
+	public String getTipoTelefone() {
+		return tipoTelefone;
+	}
+
+	public void setTipoTelefone(String tipoTelefone) {
+		this.tipoTelefone = tipoTelefone;
 	}
 
 	public String getEvangelizaStr(){

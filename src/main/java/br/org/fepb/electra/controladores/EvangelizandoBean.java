@@ -1,10 +1,7 @@
 package br.org.fepb.electra.controladores;
 
 import br.org.fepb.electra.modelo.*;
-import br.org.fepb.electra.servicos.BairroService;
-import br.org.fepb.electra.servicos.CidadeService;
-import br.org.fepb.electra.servicos.EvangelizandoService;
-import br.org.fepb.electra.servicos.ParenteService;
+import br.org.fepb.electra.servicos.*;
 import br.org.fepb.electra.util.FacesMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,6 +55,8 @@ public class EvangelizandoBean extends GenericBean {
 	
 	private List<Bairro> bairros;
 
+	private List<UnidadeFederativa> unidadesFederativas;
+
 	@Autowired
 	private BairroService bairroService;
 
@@ -66,11 +65,12 @@ public class EvangelizandoBean extends GenericBean {
 
 	@Autowired
 	private ParenteService parenteService;
+
+	@Autowired
+    private UnidadeFederativaService unidadeFederativaService;
 	
-	//@NotNull TODO: Analisar obrigatoriedade
-	//@Autowired
 	private String bairroSelecionado;
-	
+
 	private List<Parente> parentes;
 	
 	@Autowired
@@ -130,6 +130,7 @@ public class EvangelizandoBean extends GenericBean {
 		//default: Joao Pessoa/PB
 		this.bairros = bairroService.listarPorCidade(Long.parseLong(cidadeAtual));
 		//this.bairros = bairroService.listarTodos();
+        this.unidadesFederativas = unidadeFederativaService.listarTodos();
 	}
 
 	public String buscarPorDataNasc(){
@@ -176,12 +177,12 @@ public class EvangelizandoBean extends GenericBean {
 			evangelizando.setEmail(email1);
 		}
 		//valida bairro
-		if(endereco !=null && bairroSelecionado !=null){
+		if(endereco !=null && bairroSelecionado !=null && !bairroSelecionado.isEmpty()){
 			endereco.setBairro(bairroService.buscarPorDescricao(bairroSelecionado));
 			evangelizando.setEndereco(endereco);
 		}
 		//validade naturalidade
-		if(naturalidadeSelecionada !=null){
+		if(naturalidadeSelecionada !=null && !naturalidadeSelecionada.isEmpty()){
 			evangelizando.setNaturalidade(cidadeService.buscarPorDescricao(naturalidadeSelecionada));
 		}
 		evangelizando.setDadosSaude(dadosSaude);
@@ -411,6 +412,14 @@ public class EvangelizandoBean extends GenericBean {
 	public void setNaturalidadeSelecionada(String naturalidadeSelecionada) {
 		this.naturalidadeSelecionada = naturalidadeSelecionada;
 	}
+
+    public List<UnidadeFederativa> getUnidadesFederativas() {
+        return unidadesFederativas;
+    }
+
+    public void setUnidadeFederativas(List<UnidadeFederativa> unidadeFederativas) {
+        this.unidadesFederativas = unidadesFederativas;
+    }
 
     public String getTextoPesquisa() {
         return textoPesquisa;

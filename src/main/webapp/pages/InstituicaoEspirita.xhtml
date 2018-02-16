@@ -122,11 +122,20 @@
 			            <f:selectItem itemLabel="Casa Espírita" itemValue="C" />
 			            <f:selectItem itemLabel="Federativa" itemValue="F" />
 			        </p:selectOneRadio>
-					
+
+					<p:outputLabel value="Tipo contato:" for="tipo_contato" />
+					<p:selectOneRadio value="#{instituicaoEspiritaBean.instituicao.tipoTelefone}" id="tipo_contato"
+									  required="true" requiredMessage="'tipo telefone' deve ser informado">
+						<f:selectItem itemLabel="Whatsapp/Telefone" itemValue="WHATSAPP"/>
+						<f:selectItem itemLabel="Celular" itemValue="CELULAR"/>
+						<f:selectItem itemLabel="Residencial" itemValue="RESIDENCIAL"/>
+						<p:ajax event="change" update="telefone"/>
+					</p:selectOneRadio>
+
 					<p:outputLabel value="Telefone: " for="telefone" />
 					<p:inputMask id="telefone" size="14" maxlength="14"
 						value="#{instituicaoEspiritaBean.instituicao.telefone}"
-						mask="(99)99999-9999" required="true" requiredMessage="'telefone' deve ser informado"/>
+						mask="#{instituicaoEspiritaBean.maskTelefone}" required="true" requiredMessage="'telefone' deve ser informado"/>
 
 					<p:outputLabel value="Quant. espaços físicos p/ evangelizar: *" for="quantEspacos"/>
 					<p:spinner id="quantEspacos" size="3" value="#{instituicaoEspiritaBean.instituicao.quantidadeEspacosFisicosEvang}"

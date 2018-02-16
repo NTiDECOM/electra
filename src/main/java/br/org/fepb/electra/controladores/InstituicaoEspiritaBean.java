@@ -86,8 +86,16 @@ public class InstituicaoEspiritaBean extends GenericBean {
 	public void cancelar() {
 		listar();
 	}
-	
-	
+
+	public String getMaskTelefone() {
+		if(this.instituicao.getTipoTelefone()!=null &&
+				this.instituicao.getTipoTelefone().equalsIgnoreCase("RESIDENCIAL")){
+			return "(99)9999-9999";
+		} else {
+			return "(99)99999-9999";
+		}
+	}
+
 	// **** GETs e SETs ****//
 	public List<InstituicaoEspirita> getInstituicoes() {
 		if(instituicoes == null || instituicoes.size() == 0){

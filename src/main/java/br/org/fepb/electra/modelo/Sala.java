@@ -25,13 +25,22 @@ public class Sala extends GenericModel {
 	private String descricaoCompleta;
 	
 	@NotNull
-	@Column(name="faixa_etaria_inicial")
-	private Integer faixaEtariaInicial;
-	
+	@Column(name="faixa_etaria_anos_inicial")
+	private Integer faixaEtariaAnosInicial;
+
 	@NotNull
-	@Column(name="faixa_etaria_final")
-	private Integer faixaEtariaFinal;
-	
+	@Column(name="faixa_etaria_meses_inicial")
+	private Integer faixaEtariaMesesInicial;
+
+	@NotNull
+	@Column(name="faixa_etaria_anos_final")
+	private Integer faixaEtariaAnosFinal;
+
+	@NotNull
+	@Column(name="faixa_etaria_meses_final")
+	private Integer faixaEtariaMesesFinal;
+
+
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="fk_instituicao")
 	private InstituicaoEspirita instituicao;
@@ -81,22 +90,6 @@ public class Sala extends GenericModel {
 		this.descricao = descricao;
 	}
 
-	public Integer getFaixaEtariaInicial() {
-		return faixaEtariaInicial;
-	}
-
-	public void setFaixaEtariaInicial(Integer faixaEtariaInicial) {
-		this.faixaEtariaInicial = faixaEtariaInicial;
-	}
-
-	public Integer getFaixaEtariaFinal() {
-		return faixaEtariaFinal;
-	}
-
-	public void setFaixaEtariaFinal(Integer faixaEtariaFinal) {
-		this.faixaEtariaFinal = faixaEtariaFinal;
-	}
-
 	public InstituicaoEspirita getInstituicao() {
 		return instituicao;
 	}
@@ -131,8 +124,9 @@ public class Sala extends GenericModel {
 
 	public String getDescricaoCompleta() {
 		String descricaoCompleta = null;
-		if(descricao!=null && faixaEtariaInicial!=null && faixaEtariaFinal !=null && horaInicio !=null && horaTermino !=null) {
-			descricaoCompleta = descricao + " (" + faixaEtariaInicial + "-" + faixaEtariaFinal + " anos) " +
+		if(descricao!=null && faixaEtariaAnosInicial!=null && faixaEtariaAnosFinal !=null && horaInicio !=null && horaTermino !=null) {
+			descricaoCompleta = descricao + " (" + faixaEtariaAnosInicial + " anos e "+ faixaEtariaMesesInicial +" meses até " +
+					"" + faixaEtariaAnosFinal + " anos e "+ faixaEtariaMesesFinal +" meses) " +
 					diaAula +" - "+ DateUtil.formatarHora(horaInicio) + "-" + DateUtil.formatarHora(horaTermino);
 		} else {
 			descricaoCompleta = descricao;
@@ -142,7 +136,8 @@ public class Sala extends GenericModel {
 
 	// metodos formatadores para tela
 	public String getFaixasEtarias() {
-		return this.getFaixaEtariaInicial() +" a "+ this.getFaixaEtariaFinal() + " anos";
+		return this.getFaixaEtariaAnosInicial() +" anos e "+this.getFaixaEtariaMesesInicial()+" meses a "+
+				this.getFaixaEtariaAnosFinal() + " anos e "+this.getFaixaEtariaMesesFinal()+" meses";
 	}
 	
 	public String getHorasFormatadas() {
@@ -159,6 +154,38 @@ public class Sala extends GenericModel {
 
 	public void setPeriodicidade(String periodicidade) {
 		this.periodicidade = periodicidade;
+	}
+
+	public Integer getFaixaEtariaAnosInicial() {
+		return faixaEtariaAnosInicial;
+	}
+
+	public void setFaixaEtariaAnosInicial(Integer faixaEtariaAnosInicial) {
+		this.faixaEtariaAnosInicial = faixaEtariaAnosInicial;
+	}
+
+	public Integer getFaixaEtariaMesesInicial() {
+		return faixaEtariaMesesInicial;
+	}
+
+	public void setFaixaEtariaMesesInicial(Integer faixaEtariaMesesInicial) {
+		this.faixaEtariaMesesInicial = faixaEtariaMesesInicial;
+	}
+
+	public Integer getFaixaEtariaAnosFinal() {
+		return faixaEtariaAnosFinal;
+	}
+
+	public void setFaixaEtariaAnosFinal(Integer faixaEtariaAnosFinal) {
+		this.faixaEtariaAnosFinal = faixaEtariaAnosFinal;
+	}
+
+	public Integer getFaixaEtariaMesesFinal() {
+		return faixaEtariaMesesFinal;
+	}
+
+	public void setFaixaEtariaMesesFinal(Integer faixaEtariaMesesFinal) {
+		this.faixaEtariaMesesFinal = faixaEtariaMesesFinal;
 	}
 
 	@Override

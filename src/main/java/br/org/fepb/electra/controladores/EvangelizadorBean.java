@@ -166,7 +166,16 @@ public class EvangelizadorBean extends GenericBean {
     	instituicoes = instituicaoEspiritaService.listarTodos();
       
     }
-	
+
+	public String getMaskContato1() {
+		if(this.evangelizador.getTipoContato1()!=null &&
+				this.evangelizador.getTipoContato1().equalsIgnoreCase("RESIDENCIAL")){
+			return "(99)9999-9999";
+		} else {
+			return "(99)99999-9999";
+		}
+	}
+
 	public List<Evangelizador> getEvangelizadores() {
 		if(evangelizadores == null || evangelizadores.size() == 0){
 			return (List<Evangelizador>) evangelizadorService.listarTodos();

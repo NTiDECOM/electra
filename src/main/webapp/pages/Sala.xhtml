@@ -106,11 +106,19 @@
 					<p:inputText id="descricao" size="60" maxlength="60" 
 						value="#{salaBean.sala.descricao}" onblur="value=value.toUpperCase()"/>
 					
-					<p:outputLabel value="Faixa Etária: *" for="faixa-inicial"/>
-					<p:panelGrid columns="3" id="faixaEtaria">
-						<p:inputText id="faixa-inicial" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaInicial}" label="Faixa Etária Inicial"/>
-						<p:outputLabel value=" a " />
-						<p:inputText id="faixa-final" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaFinal}" label="Faixa Etária Final"/>
+					<p:outputLabel value="Faixa Etária: *" for="faixa-inicial-anos"/>
+					<p:panelGrid columns="5" id="faixaEtaria">
+						Inicial:
+						<p:inputText id="faixa-inicial-anos" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaAnosInicial}"/>
+						<p:outputLabel value=" anos e " />
+						<p:inputText id="faixa-inicial-meses" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaMesesInicial}"/>
+						<p:outputLabel value=" meses " />
+
+						Final:
+						<p:inputText id="faixa-final-anos" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaAnosFinal}"/>
+						<p:outputLabel value=" anos e " />
+						<p:inputText id="faixa-final-meses" size="2" maxlength="2" value="#{salaBean.sala.faixaEtariaMesesFinal}"/>
+						<p:outputLabel value=" meses " />
 					</p:panelGrid>
 
 					<p:outputLabel value="Instituição: *" for="instituicao" />
