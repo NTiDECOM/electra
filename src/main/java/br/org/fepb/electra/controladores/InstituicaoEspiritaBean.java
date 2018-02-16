@@ -67,8 +67,11 @@ public class InstituicaoEspiritaBean extends GenericBean {
 		instituicao.setTipo(campoTipo);
 		instituicaoService.salvar(instituicao);
 		messages.info("Instituição salva com sucesso!");
-		listar();
 		atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm:instituicoes-table"));
+		//limpar dados
+		limparVariaveis();
+		//listar
+		listar();
 	}
 	
 	public void excluir() {

@@ -79,11 +79,14 @@ public class SalaBean extends GenericBean {
 		sala.setInstituicao(instituicaoSelecionada);
 		salaService.salvar(sala);
 		messages.info("Registro gravado com sucesso!");
-		listar();
-		atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm:salas-table"));
 		} catch (Exception e) {
 			messages.error("Ocorreu uma falha no processamento");
 		}
+		//limpar dados
+		limparVariaveis();
+		//listar
+		listar();
+		atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm:salas-table"));
 	}
 	
 	public void excluir() {

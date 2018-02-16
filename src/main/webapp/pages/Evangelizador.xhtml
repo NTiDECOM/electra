@@ -178,7 +178,7 @@
 						pattern="dd/MM/yyyy" mask="99/99/9999" required="true" requiredMessage="'data nascimento' deve ser informado"/>
 
 					<p:outputLabel value="Sexo: " for="sexo"/>
-					<p:selectOneButton value="#{evangelizadorBean.evangelizador.sexo}" id="sexo">
+					<p:selectOneButton value="#{evangelizadorBean.evangelizador.sexo}" id="sexo" required="true" requiredMessage="'sexo' deve ser informado">
 						<f:selectItem itemLabel="Masculino" itemValue="M"/>
 						<f:selectItem itemLabel="Feminino" itemValue="F"/>
 					</p:selectOneButton>	

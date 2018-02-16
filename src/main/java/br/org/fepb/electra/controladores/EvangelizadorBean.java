@@ -76,12 +76,14 @@ public class EvangelizadorBean extends GenericBean {
 	
 	private void limparVariaveis() {
 		setState(ESTADO_DE_LISTAGEM);
-		this.evangelizador = null;
+		this.evangelizador = new Evangelizador();
 		this.instituicoes = null;
 		this.endereco = new Endereco();
 		this.droppedInstituicoes = null;
 		this.selectedInstituicao = null;
 		this.evangelizadores = (List<Evangelizador>) evangelizadorService.listarTodos();
+		this.email1 = "";
+		this.email2 = "";
 	}
 	
 	public void prepararNovoCadastro() {
@@ -109,10 +111,13 @@ public class EvangelizadorBean extends GenericBean {
 		}
 		evangelizadorService.salvar(evangelizador);
 		messages.info("Evangelizador salvo com sucesso!");
-		listar();
-		atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm:evangelizadores-table"));
         servletContext.setAttribute("state", "_novo");
         atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm"));
+		//limpar dados
+		limparVariaveis();
+		//listar
+		listar();
+		atualizarCamposDaTela(Arrays.asList("frm:msgs", "frm:evangelizadores-table"));
 
 	}
 	

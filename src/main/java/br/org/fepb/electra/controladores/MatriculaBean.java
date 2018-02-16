@@ -173,13 +173,15 @@ public class MatriculaBean extends GenericBean {
 			messages.info("Matrícula realizada com sucesso!");
 		}
 		servletContext.setAttribute("confirmacaoMatricula", matricula);
+		//limpar dados
+		limparVariaveis();
+		//listar
 		listar();
-		RequestContext.getCurrentInstance().update(Arrays.asList("frm:msgs", "frm:matriculas-table"));
-		this.limparVariaveis();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "/pages/Matricula";
 		}
+		RequestContext.getCurrentInstance().update(Arrays.asList("frm:msgs", "frm:matriculas-table"));
 		return "/pages/ConfirmacaoMatricula";
 	}
 	
