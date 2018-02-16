@@ -315,6 +315,9 @@
 					<!-- contextFile>config/tomcat.xml</contextFile-->
 					<path>/electra</path>
 					<port>80</port>
+					<systemProperties>
+						<JAVA_OPTS>-Xms512m -Xmx1024m -XX:MaxPermSize=256m</JAVA_OPTS>
+  					</systemProperties>
 				</configuration>
 				<dependencies>
 				<dependency>
