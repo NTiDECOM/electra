@@ -48,6 +48,13 @@
 
 	<div id="menu">
 		<h:form>
+
+		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+			<h:graphicImage library="images" name="progresso.gif" height="100px" width="80px"/>
+		</p:dialog>
+
 		<p:toolbar id="toolbar_menu">
 			<f:facet name="left">
 				<p:commandButton value="Evangelizandos" icon="ui-icon-document" action="#{evangelizandoBean.iniciar}" />

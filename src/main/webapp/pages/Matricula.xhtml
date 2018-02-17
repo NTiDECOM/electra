@@ -154,13 +154,17 @@
 			            <p:ajax event="change" update="salas" />
 			        </p:selectOneMenu>
 
-					<p:outputLabel value="Sala de Evangelização:" for="salas" />
+					<p:outputLabel value="Sala/Turma de Evangelização:" for="salas" />
 			        <p:selectOneMenu id="salas" value="#{matriculaBean.salaSelecionada}">
 			            <f:selectItem itemLabel="--- Selecione um item ---" itemValue="" />
-			            <f:selectItems value="#{matriculaBean.salasPorInstituicao}" var="s" itemLabel="#{s.descricaoCompleta}" itemValue="#{s}" />
+			            <f:selectItems value="#{matriculaBean.salasPorInstituicao}" var="s" itemLabel="#{s.descricaoComFaixa}" itemValue="#{s}" />
+						<p:ajax event="change" update="horarios"/>
 			        </p:selectOneMenu>
-			        
-			        <p:outputLabel value="Evangelizado anteriormente?" for="evangelizadoAnteriormente" />
+
+					<p:outputLabel value="Horários: " for="horarios" />
+					<p:outputLabel id="horarios" value="#{matriculaBean.salaSelecionada.descricaoHorarios}" disabled="true"/>
+
+					<p:outputLabel value="Evangelizado anteriormente?" for="evangelizadoAnteriormente" />
 					<p:selectOneRadio id="evangelizadoAnteriormente" value="#{matriculaBean.evangelizadoAnteriormente}">
 						<f:selectItem itemLabel="Sim" itemValue="true"/>
 						<f:selectItem itemLabel="Não" itemValue="false"/>

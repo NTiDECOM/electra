@@ -134,6 +134,22 @@ public class Sala extends GenericModel {
 		return descricaoCompleta;
 	}
 
+	public String getDescricaoComFaixa() {
+		String descricaoCompleta = null;
+		if(descricao!=null && faixaEtariaAnosInicial!=null && faixaEtariaAnosFinal !=null && horaInicio !=null && horaTermino !=null) {
+			descricaoCompleta = descricao + " (" + faixaEtariaAnosInicial + " anos e "+ faixaEtariaMesesInicial +" meses até " +
+					"" + faixaEtariaAnosFinal + " anos e "+ faixaEtariaMesesFinal +" meses) ";
+		} else {
+			descricaoCompleta = descricao;
+		}
+		return descricaoCompleta;
+	}
+
+	public String getDescricaoHorarios(){
+		return 	diaAula +" - "+ DateUtil.formatarHora(horaInicio) + " às " + DateUtil.formatarHora(horaTermino) +
+				" - "+periodicidade;
+	}
+
 	// metodos formatadores para tela
 	public String getFaixasEtarias() {
 		return this.getFaixaEtariaAnosInicial() +" anos e "+this.getFaixaEtariaMesesInicial()+" meses a "+

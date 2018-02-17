@@ -26,4 +26,8 @@ public interface EvangelizandoRepositorio extends CrudRepository<Evangelizando, 
             " union select * from electra.tb_evangelizando where id in (select fk_evangelizando from tb_matricula where situacao = 'CANCELADA' or situacao = 'EVADIDO')",
             nativeQuery = true)
     List<Evangelizando> listarEvangelizandosSemMatricula();
+
+    @Override
+    @Query("from Evangelizando order by id desc")
+    List<Evangelizando> findAll();
 }

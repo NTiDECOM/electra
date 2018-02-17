@@ -14,5 +14,8 @@ public interface SalaRepositorio extends CrudRepository<Sala, Long> {
 
 	@Query(value = "select * from tb_sala where fk_instituicao = :idInstituicao", nativeQuery = true)
 	public List<Sala> findAllByInstituicao(@Param("idInstituicao") Long idInstituicao);
-	
+
+	@Override
+	@Query(value = "from Sala order by id desc")
+	List<Sala> findAll();
 }
