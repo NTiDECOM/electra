@@ -140,9 +140,10 @@ public class EvangelizandoBean extends GenericBean {
 		return "/pages/Evangelizando";
 	}
 
-	public void prepararNovoCadastro() {
+	public String prepararNovoCadastro() {
 		this.evangelizando = new Evangelizando();
 		setState(ESTADO_DE_NOVO);
+		return "/pages/Evangelizando?faces-redirect=true";
 	}
 
 	public void prepararEdicao() {

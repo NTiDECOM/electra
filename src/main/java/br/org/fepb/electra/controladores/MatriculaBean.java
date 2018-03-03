@@ -172,7 +172,8 @@ public class MatriculaBean extends GenericBean {
 		} else {
 			messages.info("Matrícula realizada com sucesso!");
 		}
-		servletContext.setAttribute("confirmacaoMatricula", matricula);
+		//servletContext.setAttribute("confirmacaoMatricula", matricula);
+		confirmacaoMatricula = matricula;
 		//limpar dados
 		limparVariaveis();
 		//listar
